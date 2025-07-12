@@ -14,6 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
+import SectionTitle from "@/components/Shared/SectionTitle";
 
 export default function PricingPage() {
   const [isAnnual, setIsAnnual] = useState(true);
@@ -94,23 +95,12 @@ export default function PricingPage() {
       {/* Main Pricing Section */}
       <Container maxWidth="lg" sx={{ py: 8 }}>
         <Box textAlign="center" mb={6}>
-          <Typography
-            variant="h3"
-            component="h2"
-            fontWeight="bold"
-            sx={{ mb: 2 }}
-          >
-            Simple, Transparent Pricing
-          </Typography>
-
-          <Typography
-            variant="h6"
-            color="text.secondary"
-            sx={{ mb: 4, maxWidth: "700px", mx: "auto" }}
-          >
-            Choose the plan that works best for you and your family{"'"}s
-            healthcare needs
-          </Typography>
+          <SectionTitle
+            title="Simple, Transparent Pricing"
+            subtitle="Choose the plan that works best for you and your family's healthcare needs"
+            size="large"
+            containerSx={{ mb: 4 }}
+          />
 
           <Box
             sx={{
@@ -175,60 +165,40 @@ export default function PricingPage() {
       {/* Specialty Pricing Section */}
       <Box sx={{ bgcolor: "background.paper", py: 8 }}>
         <Container maxWidth="lg">
-          <Typography
-            variant="h4"
-            component="h2"
-            textAlign="center"
-            fontWeight="bold"
-            sx={{ mb: 6 }}
-          >
-            Specialty Service Pricing
-          </Typography>
+          <SectionTitle
+            title="Specialty Service Pricing"
+            containerSx={{ mb: 6 }}
+          />
           <SpecialtyPricing />
         </Container>
       </Box>
 
       {/* Comparison Table */}
       <Container maxWidth="lg" sx={{ py: 8 }}>
-        <Typography
-          variant="h4"
-          component="h2"
-          textAlign="center"
-          fontWeight="bold"
-          sx={{ mb: 6 }}
-        >
-          Compare Our Plans
-        </Typography>
+        <SectionTitle
+          title="Compare Our Plans"
+          containerSx={{ mb: 6 }}
+        />
         <ComparisonTable isAnnual={isAnnual} />
       </Container>
 
       {/* Testimonials */}
       <Box sx={{ bgcolor: "background.paper", py: 8 }}>
         <Container maxWidth="lg">
-          <Typography
-            variant="h4"
-            component="h2"
-            textAlign="center"
-            fontWeight="bold"
-            sx={{ mb: 6 }}
-          >
-            What Our Patients Say
-          </Typography>
+          <SectionTitle
+            title="What Our Patients Say"
+            containerSx={{ mb: 6 }}
+          />
           <TestimonialCarousel />
         </Container>
       </Box>
 
       {/* FAQ Section */}
       <Container maxWidth="lg" sx={{ py: 8 }}>
-        <Typography
-          variant="h4"
-          component="h2"
-          textAlign="center"
-          fontWeight="bold"
-          sx={{ mb: 6 }}
-        >
-          Frequently Asked Questions
-        </Typography>
+        <SectionTitle
+          title="Frequently Asked Questions"
+          containerSx={{ mb: 6 }}
+        />
         <PricingFAQ />
       </Container>
 
@@ -272,18 +242,14 @@ export default function PricingPage() {
 
         <Container maxWidth="md" sx={{ position: "relative", zIndex: 1 }}>
           <Box textAlign="center">
-            <Typography
-              variant="h3"
-              component="h2"
-              fontWeight="bold"
-              gutterBottom
-            >
-              Ready to prioritize your health?
-            </Typography>
-            <Typography variant="h6" sx={{ mb: 4, opacity: 0.9 }}>
-              Join thousands of satisfied patients who trust us with their
-              healthcare needs
-            </Typography>
+            <SectionTitle
+              title="Ready to prioritize your health?"
+              subtitle="Join thousands of satisfied patients who trust us with their healthcare needs"
+              color="white"
+              size="large"
+              withDivider={false}
+              containerSx={{ mb: 4 }}
+            />
             <Box
               component="button"
               sx={{

@@ -19,6 +19,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { useState } from "react";
+import SectionTitle from "@/components/Shared/SectionTitle";
 
 const steps = [
   "Select Doctor",
@@ -114,19 +115,12 @@ export default function ConsultationPage() {
             boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
           }}
         >
-          <Typography
-            variant="h4"
-            component="h1"
+          <SectionTitle
+            title="Book Your Consultation"
             align="center"
-            gutterBottom
-            sx={{
-              fontWeight: 700,
-              color: "primary.main",
-              mb: 4,
-            }}
-          >
-            Book Your Consultation
-          </Typography>
+            size="large"
+            containerSx={{ mb: 4 }}
+          />
 
           <Stepper
             activeStep={activeStep}
