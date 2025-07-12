@@ -79,6 +79,14 @@ const Navbar = () => {
             <Button component={Link} href="/faq" variant="text" color="primary">
               FAQ
             </Button>
+            <Button
+              component={Link}
+              href="/contact-us"
+              variant="text"
+              color="primary"
+            >
+              Contact Us
+            </Button>
 
             {userInfo?.email && (
               <Button
