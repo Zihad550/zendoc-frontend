@@ -31,7 +31,6 @@ const Footer = () => {
           <Button variant="text">Health Plans</Button>
           <Button variant="text">Medicine</Button>
           <Button variant="text">Diagnostics</Button>
-          <Button variant="text">NGOs</Button>
         </Stack>
 
         <Stack direction="row" gap={2} justifyContent="center" py={2}>

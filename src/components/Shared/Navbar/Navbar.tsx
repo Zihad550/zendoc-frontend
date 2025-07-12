@@ -60,7 +60,14 @@ const Navbar = () => {
             >
               Doctors
             </Button>
-            <Typography>Diagnostics</Typography>
+            <Button
+              component={Link}
+              href="/pricing"
+              variant="text"
+              color="primary"
+            >
+              Pricing
+            </Button>
 
             {userInfo?.email && (
               <Button

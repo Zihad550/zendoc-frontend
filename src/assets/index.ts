@@ -34,7 +34,19 @@ import search from "./svgs/search.svg";
 import solution from "./svgs/solution.svg";
 import urology from "./svgs/Urology.svg";
 
+// avatars
+import avatar1 from "./avatar/avatar-1.png";
+import avatar2 from "./avatar/avatar-2.png";
+import avatar3 from "./avatar/avatar-3.png";
+import avatar4 from "./avatar/avatar-4.png";
+
 const assets = {
+  avatars: {
+    avatar1,
+    avatar2,
+    avatar3,
+    avatar4,
+  },
   images: {
     // images will go here
 

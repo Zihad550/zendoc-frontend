@@ -99,7 +99,7 @@ export default function ConsultationPage() {
   };
 
   return (
-    <Box sx={{ py: 6, bgcolor: "background.default" }}>
+    <Box sx={{ pb: 6, bgcolor: "background.default" }}>
       <ConsultationHero />
 
       <Container maxWidth="lg" sx={{ mt: 6 }}>
