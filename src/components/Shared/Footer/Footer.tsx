@@ -2,34 +2,76 @@ import facebookIcon from "@/assets/landing_page/facebook.png";
 import instagramIcon from "@/assets/landing_page/instagram.png";
 import linkedIcon from "@/assets/landing_page/linkedin.png";
 import twitterIcon from "@/assets/landing_page/twitter.png";
-import { Box, Container, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 
 const Footer = () => {
   return (
-    <Box bgcolor="rgb(17, 26, 34)" py={5}>
+    <Box
+      sx={{
+        bgcolor: "background.paper",
+        py: 5,
+        mt: 10,
+        boxShadow: 2,
+      }}
+    >
       <Container>
-        <Stack direction="row" gap={4} justifyContent="center">
-          <Typography color="#fff" component={Link} href="/consultation">
+        <Stack direction="row" gap={4} justifyContent="center" mb={3}>
+          <Button component={Link} href="/consultation" variant="text">
             Consultation
-          </Typography>
-          <Typography color="#fff">Health Plans</Typography>
-          <Typography color="#fff">Medicine</Typography>
-          <Typography color="#fff">Diagnostics</Typography>
-          <Typography color="#fff">NGOs</Typography>
+          </Button>
+          <Button variant="text">Health Plans</Button>
+          <Button variant="text">Medicine</Button>
+          <Button variant="text">Diagnostics</Button>
+          <Button variant="text">NGOs</Button>
         </Stack>
 
-        <Stack direction="row" gap={2} justifyContent="center" py={3}>
-          <Image src={facebookIcon} width={30} height={30} alt="facebook" />
-          <Image src={instagramIcon} width={30} height={30} alt="facebook" />
-          <Image src={twitterIcon} width={30} height={30} alt="facebook" />
-          <Image src={linkedIcon} width={30} height={30} alt="facebook" />
+        <Stack direction="row" gap={2} justifyContent="center" py={2}>
+          <IconButton
+            component="a"
+            href="https://facebook.com"
+            target="_blank"
+            aria-label="facebook"
+          >
+            <Image src={facebookIcon} width={30} height={30} alt="facebook" />
+          </IconButton>
+          <IconButton
+            component="a"
+            href="https://instagram.com"
+            target="_blank"
+            aria-label="instagram"
+          >
+            <Image src={instagramIcon} width={30} height={30} alt="instagram" />
+          </IconButton>
+          <IconButton
+            component="a"
+            href="https://twitter.com"
+            target="_blank"
+            aria-label="twitter"
+          >
+            <Image src={twitterIcon} width={30} height={30} alt="twitter" />
+          </IconButton>
+          <IconButton
+            component="a"
+            href="https://linkedin.com"
+            target="_blank"
+            aria-label="linkedin"
+          >
+            <Image src={linkedIcon} width={30} height={30} alt="linkedin" />
+          </IconButton>
         </Stack>
-        {/* <div className="border-b-[1px] border-dashed"></div> */}
         <Box
           sx={{
-            border: "1px dashed lightgray",
+            border: "1px dashed",
+            borderColor: "grey.300",
           }}
         ></Box>
 
@@ -38,26 +80,33 @@ const Footer = () => {
           gap={2}
           justifyContent="space-between"
           alignItems="center"
-          py={3}
+          pt={3}
         >
-          <Typography component="p" color="white">
+          <Typography component="p" color="text.secondary">
             &copy;2024 ZenDoc. All Rights Reserved.
           </Typography>
           <Typography
             variant="h4"
             component={Link}
             href="/"
-            fontWeight={600}
-            color="white"
+            fontWeight={700}
+            color="primary.main"
+            sx={{ textDecoration: "none" }}
           >
-            <Box component="span" color="primary.main">
-              Zen
-            </Box>
-            Doc
+            ZenDoc
           </Typography>
-          <Typography component="p" color="white">
-            Privacy Policy! Terms & Conditions
-          </Typography>
+          <Stack direction="row" gap={2}>
+            <Button variant="text" component={Link} href="/privacy-policy">
+              Privacy Policy
+            </Button>
+            <Button
+              variant="text"
+              component={Link}
+              href="/terms-and-conditions"
+            >
+              Terms & Conditions
+            </Button>
+          </Stack>
         </Stack>
       </Container>
     </Box>

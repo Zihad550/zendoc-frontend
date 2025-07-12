@@ -17,7 +17,11 @@ const Navbar = () => {
   return (
     <Box
       sx={{
-        bgcolor: "primary.main",
+        bgcolor: "background.paper",
+        boxShadow: 1,
+        position: "sticky",
+        top: 0,
+        zIndex: 1100,
       }}
     >
       <Container>
@@ -27,33 +31,54 @@ const Navbar = () => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Typography variant="h4" component={Link} href="/" fontWeight={600}>
+          <Typography
+            variant="h4"
+            component={Link}
+            href="/"
+            fontWeight={700}
+            color="primary.main"
+            sx={{ textDecoration: "none" }}
+          >
             ZenDoc
           </Typography>
 
-          <Stack direction="row" justifyContent="space-between" gap={4}>
-            <Typography component={Link} href="/consultation" color="#ffffff">
+          <Stack direction="row" alignItems="center" gap={4}>
+            <Button
+              component={Link}
+              href="/consultation"
+              variant="text"
+              color="primary"
+            >
               Consultation
-            </Typography>
-
-            <Typography color="#ffffff">Diagnostics</Typography>
-            <Typography component={Link} href="/doctors" color="#ffffff">
+            </Button>
+            <Button
+              component={Link}
+              href="/doctors"
+              variant="text"
+              color="primary"
+            >
               Doctors
-            </Typography>
+            </Button>
+            <Typography>Diagnostics</Typography>
 
-            {userInfo?.userId ? (
-              <Typography component={Link} href="/dashboard" color="#ffffff">
+            {userInfo?.userId && (
+              <Button
+                component={Link}
+                href="/dashboard"
+                variant="text"
+                color="primary"
+              >
                 Dashboard
-              </Typography>
-            ) : null}
+              </Button>
+            )}
           </Stack>
 
           {userInfo?.userId ? (
-            <Button color="error" onClick={handleLogOut} sx={{ boxShadow: 0 }}>
+            <Button color="error" variant="outlined" onClick={handleLogOut}>
               Logout
             </Button>
           ) : (
-            <Button component={Link} href="/login">
+            <Button component={Link} href="/login" variant="contained">
               Login
             </Button>
           )}

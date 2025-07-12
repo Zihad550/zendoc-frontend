@@ -23,7 +23,9 @@ const InfoBoxStyles = {
 };
 
 const DoctorsProfilePage = async ({ params }: PropTypes) => {
-  const res = await fetch(`http://localhost:5000/api/v1/doctor/${params.id}`);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/doctor/${params.id}`,
+  );
   const { data: doctor } = await res.json();
 
   const specialties = doctor.doctorSpecialties.map(
