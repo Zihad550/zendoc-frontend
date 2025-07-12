@@ -7,7 +7,7 @@ import "./globals.css";
 // const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "PH Health Care",
+  title: "ZenDoc",
   description: "Dashboard",
 };
 
