@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const userInfo = useUserInfo();
+  console.log(userInfo);
   const router = useRouter();
 
   const handleLogOut = () => {
@@ -61,7 +62,7 @@ const Navbar = () => {
             </Button>
             <Typography>Diagnostics</Typography>
 
-            {userInfo?.userId && (
+            {userInfo?.email && (
               <Button
                 component={Link}
                 href="/dashboard"
@@ -73,7 +74,7 @@ const Navbar = () => {
             )}
           </Stack>
 
-          {userInfo?.userId ? (
+          {userInfo?.email ? (
             <Button color="error" variant="outlined" onClick={handleLogOut}>
               Logout
             </Button>

@@ -1,7 +1,7 @@
 import { baseApi } from "@/redux/api/baseApi";
 import { tagTypes } from "@/redux/tag-types";
 import { IMeta } from "@/types/common";
-import { IDoctor } from "@/types/doctor";
+import { Doctor } from "@/types/doctor";
 
 export const doctorApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -16,12 +16,12 @@ export const doctorApi = baseApi.injectEndpoints({
     }),
 
     getAllDoctors: build.query({
-      query: (arg: Record<string, any>) => ({
+      query: (arg: Record<string, any> | undefined) => ({
         url: "/doctor",
         method: "GET",
         params: arg,
       }),
-      transformResponse: (response: IDoctor[], meta: IMeta) => {
+      transformResponse: (response: Doctor[], meta: IMeta) => {
         return {
           doctors: response,
           meta,

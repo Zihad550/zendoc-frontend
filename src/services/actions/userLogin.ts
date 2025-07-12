@@ -21,10 +21,15 @@ export const userLogin = async (data: FieldValues) => {
   const passwordChangeRequired = userInfo.data.needPasswordChange;
 
   if (userInfo.data.accessToken) {
-    setAccessToken(userInfo.data.accessToken, {
-      redirect: "/dashboard",
-      passwordChangeRequired,
-    });
+    if (passwordChangeRequired)
+      setAccessToken(userInfo.data.accessToken, {
+        redirect: "/dashboard",
+        passwordChangeRequired,
+      });
+    else
+      setAccessToken(userInfo.data.accessToken, {
+        redirect: "/",
+      });
   }
 
   return userInfo;
