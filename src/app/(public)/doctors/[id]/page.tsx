@@ -1,4 +1,5 @@
 import DashedLine from "@/components/UI/Doctor/DashedLine";
+import SectionTitle from "@/components/Shared/SectionTitle";
 import { Box, Chip, Container, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import DoctorScheduleSlots from "../components/DoctorScheduleSlots";
@@ -35,20 +36,11 @@ const DoctorsProfilePage = async ({ params }: PropTypes) => {
   return (
     <Container>
       <Box my={5}>
-        <Typography variant="h4" fontWeight={700} textAlign="center">
-          Doctor&apos;s Profile Details
-        </Typography>
-        <Typography
-          textAlign="center"
-          mt={2}
-          sx={{ width: "70%", margin: "10px auto" }}
-          variant="h6"
-        >
-          Compassionate and dedicated doctor committed to delivering
-          high-quality care. Proficient in diagnosis, treatment, and advocating
-          for comprehensive well-being. Prioritizing patient-centered approaches
-          for optimal health outcomes.
-        </Typography>
+        <SectionTitle
+          title="Doctor's Profile Details"
+          subtitle="Compassionate and dedicated doctor committed to delivering high-quality care. Proficient in diagnosis, treatment, and advocating for comprehensive well-being. Prioritizing patient-centered approaches for optimal health outcomes."
+          size="large"
+        />
       </Box>
 
       <Box>

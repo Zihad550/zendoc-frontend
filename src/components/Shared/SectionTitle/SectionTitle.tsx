@@ -1,16 +1,17 @@
-import { Box, Typography, useTheme, SxProps, Theme } from '@mui/material';
-import React from 'react';
+"use client";
+import { Box, SxProps, Theme, Typography, useTheme } from "@mui/material";
+import React from "react";
 
 interface SectionTitleProps {
   title: string;
   subtitle?: string;
-  align?: 'left' | 'center' | 'right';
-  color?: 'primary' | 'secondary' | 'text' | 'white';
-  size?: 'small' | 'medium' | 'large';
+  align?: "left" | "center" | "right";
+  color?: "primary" | "secondary" | "text" | "white";
+  size?: "small" | "medium" | "large";
   withDivider?: boolean;
   withAnimation?: boolean;
   className?: string;
-  titleProps?: React.ComponentProps<typeof Typography>;
+  titleProps?: React.ComponentProps<typeof Typography<"h2">>;
   subtitleProps?: React.ComponentProps<typeof Typography>;
   containerSx?: SxProps<Theme>;
   titleSx?: SxProps<Theme>;
@@ -20,7 +21,7 @@ interface SectionTitleProps {
 
 /**
  * A reusable component for section titles across the website
- * 
+ *
  * @param title - Main title text
  * @param subtitle - Optional subtitle text
  * @param align - Text alignment
@@ -39,9 +40,9 @@ interface SectionTitleProps {
 export default function SectionTitle({
   title,
   subtitle,
-  align = 'center',
-  color = 'primary',
-  size = 'medium',
+  align = "center",
+  color = "primary",
+  size = "medium",
   withDivider = true,
   withAnimation = false,
   className,
@@ -50,46 +51,46 @@ export default function SectionTitle({
   containerSx,
   titleSx,
   subtitleSx,
-  dividerSx
+  dividerSx,
 }: SectionTitleProps) {
   const theme = useTheme();
 
   // Determine title variant based on size
   const getTitleVariant = () => {
     switch (size) {
-      case 'small':
-        return 'h5';
-      case 'large':
-        return 'h3';
-      case 'medium':
+      case "small":
+        return "h5";
+      case "large":
+        return "h3";
+      case "medium":
       default:
-        return 'h4';
+        return "h4";
     }
   };
 
   // Determine subtitle variant based on size
   const getSubtitleVariant = () => {
     switch (size) {
-      case 'small':
-        return 'body2';
-      case 'large':
-        return 'h6';
-      case 'medium':
+      case "small":
+        return "body2";
+      case "large":
+        return "h6";
+      case "medium":
       default:
-        return 'subtitle1';
+        return "subtitle1";
     }
   };
 
   // Determine color based on prop
   const getColor = () => {
     switch (color) {
-      case 'primary':
+      case "primary":
         return theme.palette.primary.main;
-      case 'secondary':
+      case "secondary":
         return theme.palette.secondary.main;
-      case 'white':
-        return '#ffffff';
-      case 'text':
+      case "white":
+        return "#ffffff";
+      case "text":
       default:
         return theme.palette.text.primary;
     }
@@ -97,7 +98,7 @@ export default function SectionTitle({
 
   // Get subtitle color based on main color
   const getSubtitleColor = () => {
-    if (color === 'white') return 'rgba(255, 255, 255, 0.85)';
+    if (color === "white") return "rgba(255, 255, 255, 0.85)";
     return theme.palette.text.secondary;
   };
 
@@ -105,16 +106,16 @@ export default function SectionTitle({
   const animationStyles = withAnimation
     ? {
         opacity: 0,
-        transform: 'translateY(20px)',
-        animation: 'fadeInUp 0.6s ease forwards',
-        '@keyframes fadeInUp': {
-          '0%': {
+        transform: "translateY(20px)",
+        animation: "fadeInUp 0.6s ease forwards",
+        "@keyframes fadeInUp": {
+          "0%": {
             opacity: 0,
-            transform: 'translateY(20px)',
+            transform: "translateY(20px)",
           },
-          '100%': {
+          "100%": {
             opacity: 1,
-            transform: 'translateY(0)',
+            transform: "translateY(0)",
           },
         },
       }
@@ -122,7 +123,7 @@ export default function SectionTitle({
 
   return (
     <Box
-      className={`section-title ${className || ''}`}
+      className={`section-title ${className || ""}`}
       sx={{
         textAlign: align,
         mb: subtitle ? 2 : 4,
@@ -134,11 +135,11 @@ export default function SectionTitle({
         variant={getTitleVariant()}
         component="h2"
         sx={{
-          fontWeight: 'bold',
+          fontWeight: "bold",
           color: getColor(),
           mb: withDivider ? 1 : subtitle ? 1 : 0,
-          position: 'relative',
-          display: 'inline-block',
+          position: "relative",
+          display: "inline-block",
           ...titleSx,
         }}
         {...titleProps}
@@ -149,11 +150,17 @@ export default function SectionTitle({
       {withDivider && (
         <Box
           sx={{
-            width: size === 'small' ? '40px' : size === 'large' ? '80px' : '60px',
-            height: '4px',
+            width:
+              size === "small" ? "40px" : size === "large" ? "80px" : "60px",
+            height: "4px",
             backgroundColor: getColor(),
-            borderRadius: '2px',
-            margin: align === 'center' ? 'auto' : align === 'right' ? '0 0 0 auto' : '0 auto 0 0',
+            borderRadius: "2px",
+            margin:
+              align === "center"
+                ? "auto"
+                : align === "right"
+                  ? "0 0 0 auto"
+                  : "0 auto 0 0",
             mb: subtitle ? 2 : 0,
             ...dividerSx,
           }}
@@ -166,8 +173,8 @@ export default function SectionTitle({
           sx={{
             mt: withDivider ? 2 : 1,
             color: getSubtitleColor(),
-            maxWidth: align === 'center' ? '700px' : 'none',
-            mx: align === 'center' ? 'auto' : 0,
+            maxWidth: align === "center" ? "700px" : "none",
+            mx: align === "center" ? "auto" : 0,
             ...subtitleSx,
           }}
           {...subtitleProps}

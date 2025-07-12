@@ -1,3 +1,4 @@
+import SectionTitle from "@/components/Shared/SectionTitle";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,18 +23,12 @@ const Specialist = async () => {
           textAlign: "center",
         }}
       >
-        <Box
-          sx={{
-            textAlign: "start",
-          }}
-        >
-          <Typography variant="h4" fontWeight={600}>
-            Explore Treatments Across Specialties
-          </Typography>
-          <Typography component="p" fontWeight={300} fontSize={18} mt={1}>
-            Experienced Doctors Across All Specialties
-          </Typography>
-        </Box>
+        <SectionTitle
+          title="Explore Treatments Across Specialties"
+          subtitle="Experienced Doctors Across All Specialties"
+          align="left"
+          containerSx={{ mb: 4 }}
+        />
         <Stack direction="row" gap={4} mt={5}>
           {specialties.slice(0, 6).map((specialty: any) => (
             <Box

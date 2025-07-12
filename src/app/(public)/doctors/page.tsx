@@ -1,4 +1,5 @@
 import DashedLine from "@/components/UI/Doctor/DashedLine";
+import SectionTitle from "@/components/Shared/SectionTitle";
 import DoctorCard from "@/components/UI/Doctor/DoctorCard";
 import ScrollCategory from "@/components/UI/Doctor/ScrollCategory";
 import { Doctor } from "@/types/doctor";
@@ -23,6 +24,11 @@ const Doctors = async ({ searchParams }: PropType) => {
 
   return (
     <Container>
+      <SectionTitle
+        title="Find Specialists"
+        subtitle="Browse our network of qualified healthcare professionals"
+        containerSx={{ mt: 4, mb: 2 }}
+      />
       <DashedLine />
 
       <ScrollCategory specialties={searchParams.specialties} />

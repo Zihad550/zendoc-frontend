@@ -7,7 +7,8 @@ import { useResetPasswordMutation } from "@/redux/features/auth/authApi";
 import { deleteCookies } from "@/services/actions/deleteCookies";
 import { zodResolver } from "@hookform/resolvers/zod";
 import KeyIcon from "@mui/icons-material/Key";
-import { Box, Button, Grid, Stack, Typography } from "@mui/material";
+import { Box, Button, Grid, Stack } from "@mui/material";
+import SectionTitle from "@/components/Shared/SectionTitle";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { FieldValues } from "react-hook-form";
@@ -74,9 +75,12 @@ const ResetPassword = () => {
         >
           <KeyIcon sx={{ color: "primary.main" }} />
         </Box>
-        <Typography variant="h5" fontWeight={600} sx={{ mb: 2 }}>
-          Reset password
-        </Typography>
+        <SectionTitle
+          title="Reset Password"
+          withDivider={false}
+          size="medium"
+          containerSx={{ mb: 2 }}
+        />
       </Stack>
       <PHForm
         onSubmit={onSubmit}

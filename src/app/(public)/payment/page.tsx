@@ -3,7 +3,8 @@
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ErrorIcon from "@mui/icons-material/Error";
-import { Box, Button, Container, Stack, Typography } from "@mui/material";
+import { Box, Button, Container, Stack } from "@mui/material";
+import SectionTitle from "@/components/Shared/SectionTitle";
 import Link from "next/link";
 
 interface PropTypes {
@@ -50,9 +51,12 @@ const PaymentStatusPage = ({ searchParams }: PropTypes) => {
       >
         <Stack justifyContent="center" alignItems="center">
           {icon}
-          <Typography variant="h5" my={2}>
-            {title}
-          </Typography>
+          <SectionTitle
+            title={title}
+            withDivider={false}
+            size="medium"
+            containerSx={{ my: 2 }}
+          />
           {status === "success" && (
             <Button size="small" variant="outlined">
               <Link href="/dashboard/patient/appointments">

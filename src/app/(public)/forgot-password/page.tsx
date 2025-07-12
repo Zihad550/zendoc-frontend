@@ -6,7 +6,8 @@ import { useForgotPasswordMutation } from "@/redux/features/auth/authApi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CheckIcon from "@mui/icons-material/Check";
 import KeyIcon from "@mui/icons-material/Key";
-import { Alert, Box, Button, Grid, Stack, Typography } from "@mui/material";
+import { Alert, Box, Button, Grid, Stack } from "@mui/material";
+import SectionTitle from "@/components/Shared/SectionTitle";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -59,11 +60,14 @@ const ForgotPassword = () => {
               },
             }}
           >
-            <KeyIcon sx={{ color: "primary.main" }} />
+          <KeyIcon sx={{ color: "primary.main" }} />
           </Box>
-          <Typography variant="h5" fontWeight={600} sx={{ mb: 2 }}>
-            Forgot password
-          </Typography>
+          <SectionTitle
+            title="Forgot Password"
+            withDivider={false}
+            size="medium"
+            containerSx={{ mb: 2 }}
+          />
         </Stack>
 
         {isSuccess && (

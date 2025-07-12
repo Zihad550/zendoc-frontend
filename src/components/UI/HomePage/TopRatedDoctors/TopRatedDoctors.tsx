@@ -1,3 +1,4 @@
+import SectionTitle from "@/components/Shared/SectionTitle";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import {
   Box,
@@ -28,15 +29,12 @@ const TopRatedDoctors = async () => {
       }}
     >
       <Box sx={{ textAlign: "center" }}>
-        <Typography variant="h4" component="h1" fontWeight={700}>
-          Our Top Rated Doctors
-        </Typography>
-        <Typography component="p" fontSize={18} fontWeight={400} sx={{ mt: 2 }}>
-          Access to expert physicians and surgeons, advanced technologies
-        </Typography>
-        <Typography component="p" fontSize={18} fontWeight={400}>
-          and top-quality surgery facilities right here.
-        </Typography>
+        <SectionTitle
+          title="Our Top Rated Doctors"
+          subtitle="Access to expert physicians and surgeons, advanced technologies and top-quality surgery facilities right here."
+          size="large"
+          containerSx={{ mb: 4 }}
+        />
       </Box>
 
       <Container sx={{ margin: "30px auto" }}>
