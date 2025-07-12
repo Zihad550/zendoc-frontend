@@ -43,8 +43,6 @@ const DoctorScheduleSlots = ({ id }: { id: string }) => {
 
   const doctorSchedules = data?.doctorSchedules;
 
-  console.log(doctorSchedules);
-
   const currentDate = new Date();
   const today = currentDate.toLocaleDateString("en-US", { weekday: "long" });
 

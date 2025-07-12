@@ -18,15 +18,12 @@ const ScheduleModal = ({ open, setOpen }: TProps) => {
   const [createSchedule] = useCreateScheduleMutation();
 
   const handleFormSubmit = async (values: FieldValues) => {
-    // console.log(values);
     values.startDate = dateFormatter(values.startDate);
     values.endDate = dateFormatter(values.endDate);
     values.startTime = timeFormatter(values.startTime);
     values.endTime = timeFormatter(values.endTime);
-    // console.log(values);
     try {
       const res = await createSchedule(values).unwrap();
-      // console.log(res);
       if (res?.length) {
         toast.success("Schedules created successfully!");
         setOpen(false);

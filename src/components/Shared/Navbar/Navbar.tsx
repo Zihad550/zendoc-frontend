@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const userInfo = useUserInfo();
-  console.log(userInfo);
   const router = useRouter();
 
   const handleLogOut = () => {
@@ -76,6 +75,9 @@ const Navbar = () => {
               color="primary"
             >
               Health Plans
+            </Button>
+            <Button component={Link} href="/faq" variant="text" color="primary">
+              FAQ
             </Button>
 
             {userInfo?.email && (

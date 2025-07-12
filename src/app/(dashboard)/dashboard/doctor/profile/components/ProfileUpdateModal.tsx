@@ -11,13 +11,13 @@ import {
   useGetDoctorQuery,
   useUpdateDoctorMutation,
 } from "@/redux/features/doctor/doctorApi";
+import { useGetAllSpecialtiesQuery } from "@/redux/features/specialties/specialtiesApi";
 import { Gender } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Grid } from "@mui/material";
 import { FieldValues } from "react-hook-form";
 import { z } from "zod";
 import MultipleSelectChip from "./MultipleSelectChip";
-import { useGetAllSpecialtiesQuery } from "@/redux/features/specialties/specialtiesApi";
 
 type TProps = {
   open: boolean;
@@ -66,7 +66,6 @@ const ProfileUpdateModal = ({ open, setOpen, id }: TProps) => {
       isDeleted: false,
     }));
 
-    console.log({ id });
     // return;
 
     const excludedFields: Array<keyof typeof values> = [

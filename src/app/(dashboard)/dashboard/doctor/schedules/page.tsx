@@ -27,8 +27,6 @@ const DoctorSchedulesPage = () => {
   const schedules = data?.doctorSchedules;
   const meta = data?.meta;
 
-  console.log({ schedules });
-
   let pageCount: number;
 
   if (meta?.total) {

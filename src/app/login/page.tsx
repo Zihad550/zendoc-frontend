@@ -17,17 +17,14 @@ const LoginPage = () => {
   const [error, setError] = useState("");
 
   const handleLogin = async (values: FieldValues) => {
-    // console.log(values);
     try {
       const res = await userLogin(values);
-      console.log(res);
       if (res?.data?.accessToken) {
         toast.success(res?.message);
 
         storeUserInfo({ accessToken: res?.data?.accessToken });
       } else {
         setError(res.message);
-        // console.log(res);
       }
     } catch (err: any) {
       console.error(err.message);

@@ -20,20 +20,17 @@ type TParams = {
 };
 
 const DoctorUpdatePage = ({ params }: TParams) => {
-  //   console.log(params?.doctorId);
   const router = useRouter();
 
   const id = params?.doctorId;
 
   const { data, isLoading } = useGetDoctorQuery(id);
   const [updateDoctor] = useUpdateDoctorMutation();
-  //   console.log(data);
 
   const handleFormSubmit = async (values: FieldValues) => {
     values.experience = Number(values.experience);
     values.apointmentFee = Number(values.apointmentFee);
     values.id = id;
-    // console.log({ id: values.id, body: values });
 
     try {
       const res = await updateDoctor({ id: values.id, body: values }).unwrap();

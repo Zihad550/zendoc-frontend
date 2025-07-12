@@ -17,8 +17,6 @@ const SchedulesPage = () => {
 
   const schedules = data?.schedules;
 
-  console.log(schedules);
-
   useEffect(() => {
     const updateData = schedules?.map((schedule: ISchedule, index: number) => {
       return {

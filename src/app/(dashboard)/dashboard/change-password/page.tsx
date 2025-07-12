@@ -30,9 +30,8 @@ const ChangePassword = () => {
       } else {
         throw new Error("Incorrect Old Password");
       }
-    } catch (error) {
+    } catch {
       toast.success("Incorrect Old Password");
-      console.log(error);
     }
   };
 

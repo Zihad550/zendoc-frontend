@@ -20,7 +20,6 @@ export default function DoctorSelectionStep({
   setSelectedDoctor,
 }: DoctorSelectionStepProps) {
   const { data, isLoading } = useGetAllDoctorsQuery(undefined);
-  console.log(data);
   if (isLoading) return <Spinner />;
   return (
     <Box>

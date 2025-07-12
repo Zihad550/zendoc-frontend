@@ -1,12 +1,15 @@
 "use client";
+import {
+  useDeleteSpecialtyMutation,
+  useGetAllSpecialtiesQuery,
+} from "@/redux/features/specialties/specialtiesApi";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { Box, Button, IconButton, Stack, TextField } from "@mui/material";
-import SpecialtyModal from "./components/SpecialtyModal";
-import { useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Image from "next/image";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { useState } from "react";
 import { toast } from "sonner";
-import { useDeleteSpecialtyMutation, useGetAllSpecialtiesQuery } from "@/redux/features/specialties/specialtiesApi";
+import SpecialtyModal from "./components/SpecialtyModal";
 
 const SpecialtiesPage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -24,7 +27,6 @@ const SpecialtiesPage = () => {
     }
   };
 
-  // console.log(data);
   const columns: GridColDef[] = [
     { field: "title", headerName: "Title", width: 400 },
     {

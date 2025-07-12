@@ -2,13 +2,13 @@
 
 import PHForm from "@/components/Forms/PHForm";
 import PHInput from "@/components/Forms/PHInput";
+import SectionTitle from "@/components/Shared/SectionTitle";
 import { authKey } from "@/contants/authkey";
 import { useResetPasswordMutation } from "@/redux/features/auth/authApi";
 import { deleteCookies } from "@/services/actions/deleteCookies";
 import { zodResolver } from "@hookform/resolvers/zod";
 import KeyIcon from "@mui/icons-material/Key";
 import { Box, Button, Grid, Stack } from "@mui/material";
-import SectionTitle from "@/components/Shared/SectionTitle";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { FieldValues } from "react-hook-form";
@@ -22,7 +22,6 @@ const ResetPassword = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const token = searchParams.get("token");
-  console.log({ id, token });
   const router = useRouter();
 
   const [resetPassword] = useResetPasswordMutation();
@@ -33,7 +32,6 @@ const ResetPassword = () => {
   }, [token]);
 
   const onSubmit = async (values: FieldValues) => {
-    console.log(values);
     const updatedData = { ...values, id };
 
     try {

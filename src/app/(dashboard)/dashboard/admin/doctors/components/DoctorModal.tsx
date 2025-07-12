@@ -17,13 +17,11 @@ type TProps = {
 const DoctorModal = ({ open, setOpen }: TProps) => {
   const [createDoctor] = useCreateDoctorMutation();
   const handleFormSubmit = async (values: FieldValues) => {
-    // console.log(values);
     values.doctor.experience = Number(values.doctor.experience);
     values.doctor.apointmentFee = Number(values.doctor.apointmentFee);
     const data = modifyPayload(values);
     try {
       const res = await createDoctor(data).unwrap();
-      console.log(res);
       if (res?.id) {
         toast.success("Doctor created successfully!!!");
         setOpen(false);

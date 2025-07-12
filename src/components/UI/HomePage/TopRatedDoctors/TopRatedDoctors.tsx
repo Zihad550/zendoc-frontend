@@ -18,7 +18,6 @@ const TopRatedDoctors = async () => {
     `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/doctor?page=1&limit=3`,
   );
   const { data: doctors } = await res.json();
-  //   console.log(doctors);
   return (
     <Box
       sx={{
