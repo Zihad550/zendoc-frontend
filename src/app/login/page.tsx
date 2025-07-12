@@ -20,10 +20,11 @@ const LoginPage = () => {
     // console.log(values);
     try {
       const res = await userLogin(values);
-      if (res?.data?.accessTokeLn) {
+      console.log(res);
+      if (res?.data?.accessToken) {
         toast.success(res?.message);
+
         storeUserInfo({ accessToken: res?.data?.accessToken });
-        // router.push("/dashboard");
       } else {
         setError(res.message);
         // console.log(res);
