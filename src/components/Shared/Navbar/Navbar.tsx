@@ -69,6 +69,15 @@ const Navbar = () => {
               Pricing
             </Button>
 
+            <Button
+              component={Link}
+              href="/health-plans"
+              variant="text"
+              color="primary"
+            >
+              Health Plans
+            </Button>
+
             {userInfo?.email && (
               <Button
                 component={Link}
