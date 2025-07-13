@@ -40,8 +40,9 @@ const DoctorScheduleSlots = ({ id }: { id: string }) => {
     .toISOString();
 
   const { data, isLoading } = useGetAllDoctorSchedulesQuery({ ...query });
+  console.log(data);
 
-  const doctorSchedules = data?.doctorSchedules;
+  const doctorSchedules = data?.data || [];
 
   const currentDate = new Date();
   const today = currentDate.toLocaleDateString("en-US", { weekday: "long" });
@@ -71,7 +72,7 @@ const DoctorScheduleSlots = ({ id }: { id: string }) => {
     useGetAllDoctorSchedulesQuery({
       ...query,
     });
-  const schedulesOfTomorrow = nextDoctorSchedules?.doctorSchedules;
+  const schedulesOfTomorrow = nextDoctorSchedules?.data;
 
   const availableSlots = doctorSchedules?.filter(
     (doctor: DoctorSchedule) => !doctor.isBooked,
@@ -194,6 +195,7 @@ const DoctorScheduleSlots = ({ id }: { id: string }) => {
       <Button
         onClick={handleBookAppointment}
         sx={{ display: "block", mx: "auto" }}
+        disabled={!availableSlots.length || !availableNextDaySlots?.length}
       >
         Book Appointment Now
       </Button>

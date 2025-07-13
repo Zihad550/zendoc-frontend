@@ -27,7 +27,7 @@ export default function DoctorSelectionStep({
         Select a Doctor
       </Typography>
       <List>
-        {data?.doctors.map((doctor) => (
+        {data?.data?.map((doctor) => (
           <ListItemButton
             key={doctor.id}
             selected={selectedDoctor?.id === doctor.id}

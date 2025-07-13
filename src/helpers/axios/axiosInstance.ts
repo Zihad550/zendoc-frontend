@@ -1,9 +1,9 @@
 import { authKey } from "@/contants/authkey";
 import setAccessToken from "@/services/actions/setAccessToken";
 import { getNewAccessToken } from "@/services/auth.services";
-import { IGenericErrorResponse, ResponseSuccessType } from "@/types";
+import { IGenericErrorResponse } from "@/types";
 import { getFromLocalStorage, setToLocalStorage } from "@/utils/local-storage";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
 const instance = axios.create();
 instance.defaults.headers.post["Content-Type"] = "application/json";
@@ -29,14 +29,10 @@ instance.interceptors.request.use(
 
 // Add a response interceptor
 instance.interceptors.response.use(
-  function (response) {
-    // Do something with response data
-    const responseObject: ResponseSuccessType & AxiosResponse = {
-      ...response,
-      data: response?.data?.data,
-      meta: response?.data?.meta,
+  function (res) {
+    return {
+      data: res.data,
     };
-    return responseObject;
   },
   async function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger

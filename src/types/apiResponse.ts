@@ -19,7 +19,6 @@ export interface IMeta {
 export interface IResponse<T> {
   data?: T;
   meta?: IMeta;
-  error?: IError;
   success: boolean;
   message: string;
 }

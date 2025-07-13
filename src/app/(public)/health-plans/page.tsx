@@ -98,7 +98,7 @@ export default function HealthPlansPage() {
           }}
         >
           {currentPlans.map((plan) => (
-            <PlanCard key={plan.id} plan={plan} />
+            <PlanCard key={plan.key} plan={plan} />
           ))}
         </Box>
 

@@ -1,6 +1,7 @@
 import { baseApi } from "@/redux/api/baseApi";
 import { tagTypes } from "@/redux/tag-types";
-import { IMeta } from "@/types/common";
+import { IResponseRedux } from "@/types/apiResponse";
+import { DoctorSchedule } from "@/types/doctorSchedules";
 
 export const doctorScheduleApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -12,20 +13,18 @@ export const doctorScheduleApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.doctorSchedule],
     }),
-    getAllDoctorSchedules: build.query({
-      query: (arg: Record<string, any>) => {
+    getAllDoctorSchedules: build.query<
+      IResponseRedux<DoctorSchedule[]>,
+      Record<string, unknown> | undefined
+    >({
+      query: (arg) => {
         return {
           url: "/doctor-schedule",
           method: "GET",
           params: arg,
         };
       },
-      transformResponse: (response: [], meta: IMeta) => {
-        return {
-          doctorSchedules: response,
-          meta,
-        };
-      },
+
       providesTags: [tagTypes.doctorSchedule],
     }),
     getDoctorSchedule: build.query({

@@ -108,7 +108,7 @@ export default function PlanComparison({ plans }: PlanComparisonProps) {
               >
                 {planTypes.map((planType, index) => (
                   <Paper
-                    key={planType}
+                    key={planType + index}
                     elevation={1}
                     sx={{
                       p: 2,
@@ -176,7 +176,7 @@ export default function PlanComparison({ plans }: PlanComparisonProps) {
           <TableRow>
             <HeaderTableCell></HeaderTableCell>
             {planTypes.map((planType, index) => (
-              <HeaderTableCell key={planType} align="center">
+              <HeaderTableCell key={planType + index} align="center">
                 <Box position="relative" py={1}>
                   {index === 1 && (
                     <Chip
@@ -216,7 +216,7 @@ export default function PlanComparison({ plans }: PlanComparisonProps) {
               <FeatureTableCell>{feature}</FeatureTableCell>
               {planTypes.map((planType, index) => (
                 <StyledTableCell
-                  key={`${feature}-${planType}`}
+                  key={`${feature}-${planType}-${index}`}
                   align="center"
                   sx={{
                     backgroundColor:

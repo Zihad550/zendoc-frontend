@@ -1,9 +1,8 @@
-"use client";
 import assets from "@/assets";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import ServiceCTARegisterButton from "./ServiceCTAButton";
 
 const ServiceCTA = () => {
   return (
@@ -92,34 +91,7 @@ const ServiceCTA = () => {
                 flexWrap: { xs: "wrap", sm: "nowrap" },
               }}
             >
-              <Link
-                href="/register"
-                style={{ textDecoration: "none", flexGrow: 1 }}
-              >
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  size="large"
-                  fullWidth
-                  endIcon={<ArrowForwardIcon />}
-                  sx={{
-                    py: 1.8,
-                    px: 4,
-                    backgroundColor: "white",
-                    color: "primary.main",
-                    fontWeight: 600,
-                    fontSize: "1rem",
-                    textTransform: "none",
-                    borderRadius: 2,
-                    "&:hover": {
-                      backgroundColor: "rgba(255,255,255,0.9)",
-                    },
-                    minWidth: { xs: "100%", sm: 200 },
-                  }}
-                >
-                  Create Account
-                </Button>
-              </Link>
+              <ServiceCTARegisterButton />
               <Link
                 href="/doctors"
                 style={{ textDecoration: "none", flexGrow: 1 }}

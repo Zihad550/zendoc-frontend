@@ -29,6 +29,7 @@ export interface DoctorSpecialty {
 }
 
 export interface ISpecialties {
-  specialtiesId: string;
-  isDeleted?: null;
+  id: string;
+  title: string;
+  icon: string;
 }

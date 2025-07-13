@@ -7,7 +7,6 @@ import MonitorHeartIcon from "@mui/icons-material/MonitorHeart";
 import PsychologyIcon from "@mui/icons-material/Psychology";
 import {
   Box,
-  Button,
   Container,
   Grid,
   Paper,
@@ -387,7 +386,7 @@ const ServiceCategories = () => {
                       </Grid>
                     ))}
                   </Grid>
-                  <Button
+                  {/* <Button
                     variant="contained"
                     color="primary"
                     sx={{
@@ -400,7 +399,7 @@ const ServiceCategories = () => {
                     }}
                   >
                     Learn More About {category.name}
-                  </Button>
+                  </Button> */}
                 </Grid>
               </Grid>
             )}

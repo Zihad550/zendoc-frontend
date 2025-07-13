@@ -1,14 +1,15 @@
+"use client";
+import Spinner from "@/components/Shared/Spinner/Spinner";
 import DoctorCard from "@/components/UI/Doctor/DoctorCard";
-import ScrollCategory from "@/components/UI/Doctor/ScrollCategory";
+import { useGetAllDoctorsQuery } from "@/redux/features/doctor/doctorApi";
+import { useDebounced } from "@/redux/hooks";
 import { Doctor } from "@/types/doctor";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import MedicalServicesIcon from "@mui/icons-material/MedicalServices";
 import SearchIcon from "@mui/icons-material/Search";
 import {
   Box,
-  Chip,
   Container,
-  Divider,
   Fade,
   Grid,
   IconButton,
@@ -16,29 +17,32 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
+import { useState } from "react";
+import NoDoctorsFound from "./components/NoDoctorsFound";
 
-interface PropType {
-  searchParams: { specialties: string };
-}
+const Doctors = () => {
+  const query: Record<string, any> = {};
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
-const Doctors = async ({ searchParams }: PropType) => {
-  let res;
+  const debouncedTerm = useDebounced({
+    searchQuery: searchTerm,
+    delay: 600,
+  });
 
-  if (searchParams.specialties) {
-    res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/doctor?specialties=${searchParams.specialties}`,
-    );
-  } else {
-    res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/doctor`);
-  }
+  if (!!debouncedTerm) query["searchTerm"] = searchTerm;
 
-  const { data } = await res.json();
+  const { data, isLoading } = useGetAllDoctorsQuery(query);
+  console.log(data);
 
   // Mock statistics data
+
+  if (isLoading) return <Spinner />;
+  const doctors = data?.data;
+
   const stats = [
     {
       label: "Certified Doctors",
-      value: data?.length || 0,
+      value: doctors?.length || 0,
       icon: MedicalServicesIcon,
     },
     { label: "Specialties", value: "25+", icon: LocalHospitalIcon },
@@ -128,8 +132,9 @@ const Doctors = async ({ searchParams }: PropType) => {
                     </IconButton>
                     <InputBase
                       sx={{ ml: 1, flex: 1, fontSize: "1rem" }}
-                      placeholder="Search by doctor name or specialty"
+                      placeholder="Search by doctor name"
                       inputProps={{ "aria-label": "search doctors" }}
+                      onChange={(e) => setSearchTerm(e.target.value)}
                     />
                   </Paper>
 
@@ -182,8 +187,7 @@ const Doctors = async ({ searchParams }: PropType) => {
               <Box
                 sx={{
                   height: "100%",
-                  backgroundImage:
-                    "url(https://images.unsplash.com/photo-1638202993928-7d113cdf04b9?q=80&w=1887&auto=format&fit=crop)",
+                  backgroundImage: `url(https://res.cloudinary.com/dlem1hpam/image/upload/v1752303475/file-1752303471304-539084905.png)`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   borderTopRightRadius: 12,
@@ -208,26 +212,28 @@ const Doctors = async ({ searchParams }: PropType) => {
         </Paper>
 
         {/* Filter by Specialties */}
-        <Paper
-          elevation={0}
-          sx={{
-            p: 3,
-            borderRadius: 3,
-            mb: 4,
-            background: "white",
-            boxShadow: "0 6px 24px rgba(0,0,0,0.05)",
-          }}
-        >
-          <Box sx={{ mb: 2 }}>
-            <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
-              Filter by Specialty
-            </Typography>
-            <ScrollCategory specialties={searchParams.specialties} />
-          </Box>
-        </Paper>
+        {/* {searchParams.specialties && (
+          <Paper
+            elevation={0}
+            sx={{
+              p: 3,
+              borderRadius: 3,
+              mb: 4,
+              background: "white",
+              boxShadow: "0 6px 24px rgba(0,0,0,0.05)",
+            }}
+          >
+            <Box sx={{ mb: 2 }}>
+              <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
+                Filter by Specialty
+              </Typography>
+              <ScrollCategory specialties={searchParams.specialties} />
+            </Box>
+          </Paper>
+        )} */}
 
         {/* Results Count & Sorting */}
-        <Box
+        {/* <Box
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -236,8 +242,8 @@ const Doctors = async ({ searchParams }: PropType) => {
           }}
         >
           <Typography variant="body1" fontWeight={500}>
-            {data?.length || 0} {data?.length === 1 ? "Doctor" : "Doctors"}{" "}
-            Found
+            {data?.data?.length || 0}{" "}
+            {data?.data?.length === 1 ? "Doctor" : "Doctors"} Found
             {searchParams.specialties && (
               <Chip
                 label={`Specialty: ${searchParams.specialties}`}
@@ -248,13 +254,13 @@ const Doctors = async ({ searchParams }: PropType) => {
               />
             )}
           </Typography>
-        </Box>
+        </Box> */}
 
         {/* Doctor Cards */}
         <Box>
-          {data?.length > 0 ? (
-            <Grid container spacing={3}>
-              {data?.map((doctor: Doctor) => (
+          <Grid container spacing={3}>
+            {doctors?.length ? (
+              doctors.map((doctor: Doctor) => (
                 <Grid size={{ xs: 12 }} key={doctor.id}>
                   <Paper
                     elevation={0}
@@ -271,35 +277,11 @@ const Doctors = async ({ searchParams }: PropType) => {
                     <DoctorCard doctor={doctor} />
                   </Paper>
                 </Grid>
-              ))}
-            </Grid>
-          ) : (
-            <Paper
-              elevation={0}
-              sx={{
-                p: 5,
-                borderRadius: 3,
-                textAlign: "center",
-                boxShadow: "0 6px 24px rgba(0,0,0,0.05)",
-              }}
-            >
-              <Typography variant="h6" color="text.secondary">
-                No doctors found matching the selected specialty
-              </Typography>
-              <Typography variant="body1" sx={{ mt: 1, mb: 2 }}>
-                Try selecting a different specialty or clear your filters
-              </Typography>
-              <Divider sx={{ mb: 2 }} />
-              <Chip
-                label="View All Doctors"
-                color="primary"
-                component="a"
-                href="/doctors"
-                clickable
-                sx={{ mt: 1 }}
-              />
-            </Paper>
-          )}
+              ))
+            ) : (
+              <NoDoctorsFound />
+            )}
+          </Grid>
         </Box>
       </Container>
     </Box>

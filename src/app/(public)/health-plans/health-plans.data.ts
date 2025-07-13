@@ -15,6 +15,7 @@ export const planCategories: IHealthPlanCategory[] = [
 export const healthPlans: Record<IHealthPlanCategory["id"], IHealthPlan[]> = {
   individual: [
     {
+      key: 1,
       id: "basic-individual",
       name: "Basic Care",
       price: 89,
@@ -32,6 +33,7 @@ export const healthPlans: Record<IHealthPlanCategory["id"], IHealthPlan[]> = {
       color: "default",
     },
     {
+      key: 2,
       id: "standard-individual",
       name: "Standard Care",
       price: 149,
@@ -51,6 +53,7 @@ export const healthPlans: Record<IHealthPlanCategory["id"], IHealthPlan[]> = {
       color: "primary",
     },
     {
+      key: 3,
       id: "premium-individual",
       name: "Premium Care",
       price: 199,
@@ -75,6 +78,7 @@ export const healthPlans: Record<IHealthPlanCategory["id"], IHealthPlan[]> = {
   ],
   family: [
     {
+      key: 4,
       id: "basic-family",
       name: "Family Basic",
       price: 199,
@@ -93,6 +97,7 @@ export const healthPlans: Record<IHealthPlanCategory["id"], IHealthPlan[]> = {
       color: "default",
     },
     {
+      key: 5,
       id: "standard-family",
       name: "Family Plus",
       price: 299,
@@ -114,6 +119,7 @@ export const healthPlans: Record<IHealthPlanCategory["id"], IHealthPlan[]> = {
       color: "primary",
     },
     {
+      key: 6,
       id: "premium-family",
       name: "Family Premium",
       price: 399,
@@ -140,6 +146,7 @@ export const healthPlans: Record<IHealthPlanCategory["id"], IHealthPlan[]> = {
   ],
   senior: [
     {
+      key: 7,
       id: "senior-basic",
       name: "Senior Basic",
       price: 129,
@@ -158,6 +165,7 @@ export const healthPlans: Record<IHealthPlanCategory["id"], IHealthPlan[]> = {
       color: "default",
     },
     {
+      key: 8,
       id: "senior-plus",
       name: "Senior Plus",
       price: 179,
@@ -179,6 +187,7 @@ export const healthPlans: Record<IHealthPlanCategory["id"], IHealthPlan[]> = {
       color: "primary",
     },
     {
+      key: 9,
       id: "senior-premium",
       name: "Senior Premium",
       price: 229,
@@ -206,6 +215,7 @@ export const healthPlans: Record<IHealthPlanCategory["id"], IHealthPlan[]> = {
   ],
   corporate: [
     {
+      key: 10,
       id: "corporate-basic",
       name: "Team Basic",
       price: 69,
@@ -224,6 +234,7 @@ export const healthPlans: Record<IHealthPlanCategory["id"], IHealthPlan[]> = {
       color: "default",
     },
     {
+      key: 11,
       id: "corporate-plus",
       name: "Team Plus",
       price: 109,
@@ -245,6 +256,7 @@ export const healthPlans: Record<IHealthPlanCategory["id"], IHealthPlan[]> = {
       color: "primary",
     },
     {
+      key: 12,
       id: "corporate-premium",
       name: "Team Premium",
       price: 149,

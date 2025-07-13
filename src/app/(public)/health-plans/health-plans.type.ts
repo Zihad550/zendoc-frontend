@@ -7,6 +7,7 @@ export type THealthPlanType =
   | "Team";
 
 export interface IHealthPlan {
+  key: number;
   id: string;
   name: `${THealthPlanType} ${"Care" | "Basic" | "Plus" | "Premium"}`;
   price: number;
