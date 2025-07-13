@@ -1,4 +1,5 @@
 "use client";
+import SectionTitle from "@/components/Shared/SectionTitle";
 import ComparisonTable from "@/components/UI/Pricing/ComparisonTable";
 import PricingCard from "@/components/UI/Pricing/PricingCard";
 import PricingFAQ from "@/components/UI/Pricing/PricingFAQ";
@@ -13,8 +14,8 @@ import {
   Switch,
   Typography,
 } from "@mui/material";
+import Link from "next/link";
 import { useState } from "react";
-import SectionTitle from "@/components/Shared/SectionTitle";
 
 export default function PricingPage() {
   const [isAnnual, setIsAnnual] = useState(true);
@@ -34,7 +35,7 @@ export default function PricingPage() {
         "Digital prescriptions",
         "Basic health tracking",
       ],
-      cta: "Get Started",
+      cta: "Contact Us",
       popular: false,
       highlight: false,
       color: "default" as const,
@@ -54,7 +55,7 @@ export default function PricingPage() {
         "Family health records",
         "Medication reminders",
       ],
-      cta: "Get Started",
+      cta: "Contact Us",
       popular: true,
       highlight: true,
       color: "primary" as const,
@@ -76,7 +77,7 @@ export default function PricingPage() {
         "Specialist referrals",
         "Annual health assessment",
       ],
-      cta: "Get Started",
+      cta: "Contact Us",
       popular: false,
       highlight: false,
       color: "secondary" as const,
@@ -175,20 +176,14 @@ export default function PricingPage() {
 
       {/* Comparison Table */}
       <Container maxWidth="lg" sx={{ py: 8 }}>
-        <SectionTitle
-          title="Compare Our Plans"
-          containerSx={{ mb: 6 }}
-        />
+        <SectionTitle title="Compare Our Plans" containerSx={{ mb: 6 }} />
         <ComparisonTable isAnnual={isAnnual} />
       </Container>
 
       {/* Testimonials */}
       <Box sx={{ bgcolor: "background.paper", py: 8 }}>
         <Container maxWidth="lg">
-          <SectionTitle
-            title="What Our Patients Say"
-            containerSx={{ mb: 6 }}
-          />
+          <SectionTitle title="What Our Patients Say" containerSx={{ mb: 6 }} />
           <TestimonialCarousel />
         </Container>
       </Box>
@@ -270,7 +265,12 @@ export default function PricingPage() {
                 },
               }}
             >
-              Get Started Today
+              <Link
+                href="/contact-us"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                Get Started Today
+              </Link>
             </Box>
           </Box>
         </Container>

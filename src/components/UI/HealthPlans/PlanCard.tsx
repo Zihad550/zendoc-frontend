@@ -11,6 +11,7 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
+import Link from "next/link";
 
 interface PlanCardProps {
   plan: IHealthPlan;
@@ -171,8 +172,11 @@ export default function PlanCard({ plan }: PlanCardProps) {
             fontWeight: "bold",
             mt: "auto",
           }}
+          component={Link}
+          href="contact-us"
         >
-          Choose Plan
+          {/* Choose Plan */}
+          Contact us
         </Button>
       </Box>
     </Paper>

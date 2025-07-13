@@ -10,6 +10,7 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
+import Link from "next/link";
 
 interface PricingCardProps {
   title: string;
@@ -181,6 +182,8 @@ export default function PricingCard({
         </List>
 
         <Button
+          component={Link}
+          href="/contact-us"
           variant={highlight ? "contained" : "outlined"}
           color={colorScheme.buttonColor as any}
           fullWidth
