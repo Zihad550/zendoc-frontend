@@ -1,6 +1,8 @@
+import medicalConsultation from "./aboutus/medical-consultation.png";
 import doctor1 from "./images/doctor1.png";
 import doctor2 from "./images/doctor2.png";
 import doctor3 from "./images/doctor3.png";
+import doctor4 from "./images/doctor4.png";
 import familyOnBeach from "./images/familyOnBeach.png";
 import stethoscope from "./images/Stetoscope.png";
 import atm from "./landing_page/atm-card.png";
@@ -59,8 +61,10 @@ const assets = {
     doctor1,
     doctor2,
     doctor3,
+    doctor4,
     stethoscope,
     familyOnBeach,
+    medicalConsultation,
   },
   svgs: {
     logo,
