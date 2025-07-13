@@ -37,3 +37,24 @@ export type IGenericErrorMessage = {
 };
 
 export const Gender = ["MALE", "FEMALE"];
+
+export enum GenderEnum {
+  MALE = "MALE",
+  FEMALE = "FEMALE",
+}
+
+export enum BloodGroup {
+  A_POSITIVE = "A_POSITIVE",
+  B_POSITIVE = "B_POSITIVE",
+  O_POSITIVE = "O_POSITIVE",
+  AB_POSITIVE = "AB_POSITIVE",
+  A_NEGATIVE = "A_NEGATIVE",
+  B_NEGATIVE = "B_NEGATIVE",
+  O_NEGATIVE = "O_NEGATIVE",
+  AB_NEGATIVE = "AB_NEGATIVE",
+}
+
+export enum MaritalStatus {
+  MARRIED = "MARRIED",
+  UNMARRIED = "UNMARRIED",
+}

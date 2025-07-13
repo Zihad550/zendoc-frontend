@@ -1,3 +1,5 @@
+import { IReview } from "../review";
+
 export interface Doctor {
   id: string;
   email: string;
@@ -16,14 +18,14 @@ export interface Doctor {
   createdAt: string;
   updatedAt: string;
   averageRating: number;
-  review: any[]; // You may want to specify the structure of the review object if known
+  review: IReview[];
   doctorSpecialties: DoctorSpecialty[];
 }
 
 export interface DoctorSpecialty {
   specialtiesId: string;
   doctorId: string;
-  specialties: any; // You may want to specify the structure of the specialties object if known
+  specialties: ISpecialties; // You may want to specify the structure of the specialties object if known
 }
 
 export interface ISpecialties {
