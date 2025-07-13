@@ -1,4 +1,6 @@
-export const modifyPayload = (values: any) => {
+import { FieldValues } from "react-hook-form";
+
+export const modifyPayload = (values: FieldValues) => {
   const obj = { ...values };
   const file = obj["file"];
   delete obj["file"];
