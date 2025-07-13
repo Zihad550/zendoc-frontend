@@ -2,14 +2,17 @@
 
 import useUserInfo from "@/hooks/useUserInfo";
 import { logoutUser } from "@/services/actions/logoutUser";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import CallIcon from "@mui/icons-material/Call";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import CloseIcon from "@mui/icons-material/Close";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import HealthAndSafetyIcon from "@mui/icons-material/HealthAndSafety";
 import HistoryIcon from "@mui/icons-material/History";
 import InfoIcon from "@mui/icons-material/Info";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
+import LogoutIcon from "@mui/icons-material/Logout";
 import MedicalServicesIcon from "@mui/icons-material/MedicalServices";
 import MenuIcon from "@mui/icons-material/Menu";
 import PaidIcon from "@mui/icons-material/Paid";
@@ -185,9 +188,10 @@ const Navbar = () => {
         borderBottom: scrolled
           ? 0
           : `1px solid ${alpha(theme.palette.divider, 0.08)}`,
-        backdropFilter: "blur(10px)",
+        backdropFilter: "blur(20px)",
         transition: "all 0.3s ease",
         py: scrolled ? 0.5 : 1,
+        boxShadow: scrolled ? "0 4px 20px 0 rgba(0, 0, 0, 0.05)" : "none",
       }}
     >
       <Container>
@@ -197,20 +201,45 @@ const Navbar = () => {
           alignItems="center"
         >
           {/* Logo */}
-          <Stack direction="row" alignItems="center" spacing={1}>
-            <LocalHospitalIcon
-              color="primary"
+          <Stack direction="row" alignItems="center" spacing={1.5}>
+            <Box
               sx={{
-                fontSize: 36,
-                filter: "drop-shadow(0px 2px 4px rgba(21, 134, 253, 0.3))",
+                position: "relative",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 48,
+                height: 48,
+                borderRadius: "12px",
+                background: "linear-gradient(135deg, #1586FD 0%, #0A5CB8 100%)",
+                boxShadow: "0 8px 16px rgba(21, 134, 253, 0.25)",
+                overflow: "hidden",
+                "&::before": {
+                  content: "''",
+                  position: "absolute",
+                  width: "150%",
+                  height: "150%",
+                  background:
+                    "radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%)",
+                  top: "-25%",
+                  left: "-25%",
+                },
               }}
-            />
+            >
+              <LocalHospitalIcon
+                sx={{
+                  fontSize: 28,
+                  color: "#fff",
+                  filter: "drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.1))",
+                  zIndex: 1,
+                }}
+              />
+            </Box>
             <Typography
               variant="h4"
               component={Link}
               href="/"
               fontWeight={700}
-              color="primary.main"
               sx={{
                 textDecoration: "none",
                 letterSpacing: "-0.5px",
@@ -218,7 +247,11 @@ const Navbar = () => {
                 alignItems: "center",
                 transition: "all 0.3s ease",
                 fontSize: { xs: "1.75rem", md: "2rem" },
-                textShadow: "0px 2px 4px rgba(21, 134, 253, 0.2)",
+                background: "linear-gradient(135deg, #1586FD 0%, #0A5CB8 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                textShadow: "none",
+                px: 0.5,
               }}
             >
               ZenDoc
@@ -230,7 +263,7 @@ const Navbar = () => {
             <Stack
               direction="row"
               alignItems="center"
-              spacing={1}
+              spacing={2}
               sx={{ mx: 2, flex: 1, justifyContent: "center" }}
             >
               {/* Primary Links */}
@@ -244,31 +277,30 @@ const Navbar = () => {
                   sx={{
                     position: "relative",
                     fontSize: "0.95rem",
-                    fontWeight: 500,
+                    fontWeight: 600,
                     px: 1.5,
-                    color: isActive(link.href)
+                    py: 0.75,
+                    borderRadius: "8px",
+                    color: isActive(link.href) ? "#fff" : "text.primary",
+                    bgcolor: isActive(link.href)
                       ? "primary.main"
-                      : "text.primary",
+                      : "transparent",
+                    boxShadow: isActive(link.href)
+                      ? "0 4px 10px rgba(21, 134, 253, 0.25)"
+                      : "none",
                     opacity: isActive(link.href) ? 1 : 0.85,
                     "&:hover": {
-                      bgcolor: "transparent",
+                      bgcolor: isActive(link.href)
+                        ? "primary.main"
+                        : alpha(theme.palette.primary.main, 0.08),
                       opacity: 1,
-                      color: "primary.main",
+                      color: isActive(link.href) ? "#fff" : "primary.main",
+                      transform: "translateY(-2px)",
+                      boxShadow: isActive(link.href)
+                        ? "0 6px 12px rgba(21, 134, 253, 0.3)"
+                        : "0 4px 8px rgba(21, 134, 253, 0.15)",
                     },
-                    "&::after": {
-                      content: '""',
-                      position: "absolute",
-                      width: isActive(link.href) ? "80%" : "0%",
-                      height: "3px",
-                      bottom: "-3px",
-                      left: "10%",
-                      backgroundColor: "primary.main",
-                      borderRadius: "8px",
-                      transition: "width 0.3s ease",
-                    },
-                    "&:hover::after": {
-                      width: "80%",
-                    },
+                    transition: "all 0.2s ease",
                   }}
                 >
                   {link.label}
@@ -285,35 +317,36 @@ const Navbar = () => {
                   sx={{
                     position: "relative",
                     fontSize: "0.95rem",
-                    fontWeight: 500,
+                    fontWeight: 600,
                     px: 1.5,
+                    py: 0.75,
+                    borderRadius: "8px",
                     color: isGroupActive(servicesLinks.map((l) => l.href))
-                      ? "primary.main"
+                      ? "#fff"
                       : "text.primary",
+                    bgcolor: isGroupActive(servicesLinks.map((l) => l.href))
+                      ? "primary.main"
+                      : "transparent",
+                    boxShadow: isGroupActive(servicesLinks.map((l) => l.href))
+                      ? "0 4px 10px rgba(21, 134, 253, 0.25)"
+                      : "none",
                     opacity: isGroupActive(servicesLinks.map((l) => l.href))
                       ? 1
                       : 0.85,
                     "&:hover": {
-                      bgcolor: "transparent",
+                      bgcolor: isGroupActive(servicesLinks.map((l) => l.href))
+                        ? "primary.main"
+                        : alpha(theme.palette.primary.main, 0.08),
                       opacity: 1,
-                      color: "primary.main",
+                      color: isGroupActive(servicesLinks.map((l) => l.href))
+                        ? "#fff"
+                        : "primary.main",
+                      transform: "translateY(-2px)",
+                      boxShadow: isGroupActive(servicesLinks.map((l) => l.href))
+                        ? "0 6px 12px rgba(21, 134, 253, 0.3)"
+                        : "0 4px 8px rgba(21, 134, 253, 0.15)",
                     },
-                    "&::after": {
-                      content: '""',
-                      position: "absolute",
-                      width: isGroupActive(servicesLinks.map((l) => l.href))
-                        ? "80%"
-                        : "0%",
-                      height: "3px",
-                      bottom: "-3px",
-                      left: "10%",
-                      backgroundColor: "primary.main",
-                      borderRadius: "8px",
-                      transition: "width 0.3s ease",
-                    },
-                    "&:hover::after": {
-                      width: "80%",
-                    },
+                    transition: "all 0.2s ease",
                   }}
                 >
                   Services
@@ -335,10 +368,11 @@ const Navbar = () => {
                         elevation={4}
                         sx={{
                           mt: 1,
-                          borderRadius: "8px",
+                          borderRadius: "12px",
                           overflow: "hidden",
-                          width: 220,
-                          boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+                          width: 240,
+                          boxShadow: "0 12px 36px rgba(0,0,0,0.1)",
+                          border: "1px solid rgba(21, 134, 253, 0.1)",
                         }}
                       >
                         <ClickAwayListener
@@ -357,15 +391,21 @@ const Navbar = () => {
                                     : "text.primary",
                                   fontWeight: isActive(item.href) ? 600 : 400,
                                   py: 1.2,
+                                  px: 2,
+                                  borderRadius: "8px",
+                                  mx: 1,
+                                  my: 0.5,
                                   "&:hover": {
                                     bgcolor: alpha(
                                       theme.palette.primary.main,
-                                      0.08,
+                                      0.12,
                                     ),
+                                    transform: "translateX(4px)",
                                   },
                                   bgcolor: isActive(item.href)
-                                    ? alpha(theme.palette.primary.main, 0.08)
+                                    ? alpha(theme.palette.primary.main, 0.12)
                                     : "transparent",
+                                  transition: "all 0.15s ease",
                                 }}
                               >
                                 <ListItemIcon
@@ -399,35 +439,36 @@ const Navbar = () => {
                   sx={{
                     position: "relative",
                     fontSize: "0.95rem",
-                    fontWeight: 500,
+                    fontWeight: 600,
                     px: 1.5,
+                    py: 0.75,
+                    borderRadius: "8px",
                     color: isGroupActive(aboutLinks.map((l) => l.href))
-                      ? "primary.main"
+                      ? "#fff"
                       : "text.primary",
+                    bgcolor: isGroupActive(aboutLinks.map((l) => l.href))
+                      ? "primary.main"
+                      : "transparent",
+                    boxShadow: isGroupActive(aboutLinks.map((l) => l.href))
+                      ? "0 4px 10px rgba(21, 134, 253, 0.25)"
+                      : "none",
                     opacity: isGroupActive(aboutLinks.map((l) => l.href))
                       ? 1
                       : 0.85,
                     "&:hover": {
-                      bgcolor: "transparent",
+                      bgcolor: isGroupActive(aboutLinks.map((l) => l.href))
+                        ? "primary.main"
+                        : alpha(theme.palette.primary.main, 0.08),
                       opacity: 1,
-                      color: "primary.main",
+                      color: isGroupActive(aboutLinks.map((l) => l.href))
+                        ? "#fff"
+                        : "primary.main",
+                      transform: "translateY(-2px)",
+                      boxShadow: isGroupActive(aboutLinks.map((l) => l.href))
+                        ? "0 6px 12px rgba(21, 134, 253, 0.3)"
+                        : "0 4px 8px rgba(21, 134, 253, 0.15)",
                     },
-                    "&::after": {
-                      content: '""',
-                      position: "absolute",
-                      width: isGroupActive(aboutLinks.map((l) => l.href))
-                        ? "80%"
-                        : "0%",
-                      height: "3px",
-                      bottom: "-3px",
-                      left: "10%",
-                      backgroundColor: "primary.main",
-                      borderRadius: "8px",
-                      transition: "width 0.3s ease",
-                    },
-                    "&:hover::after": {
-                      width: "80%",
-                    },
+                    transition: "all 0.2s ease",
                   }}
                 >
                   About
@@ -449,10 +490,11 @@ const Navbar = () => {
                         elevation={4}
                         sx={{
                           mt: 1,
-                          borderRadius: "8px",
+                          borderRadius: "12px",
                           overflow: "hidden",
-                          width: 220,
-                          boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+                          width: 240,
+                          boxShadow: "0 12px 36px rgba(0,0,0,0.1)",
+                          border: "1px solid rgba(21, 134, 253, 0.1)",
                         }}
                       >
                         <ClickAwayListener onClickAway={handleAboutMenuClose}>
@@ -469,15 +511,21 @@ const Navbar = () => {
                                     : "text.primary",
                                   fontWeight: isActive(item.href) ? 600 : 400,
                                   py: 1.2,
+                                  px: 2,
+                                  borderRadius: "8px",
+                                  mx: 1,
+                                  my: 0.5,
                                   "&:hover": {
                                     bgcolor: alpha(
                                       theme.palette.primary.main,
-                                      0.08,
+                                      0.12,
                                     ),
+                                    transform: "translateX(4px)",
                                   },
                                   bgcolor: isActive(item.href)
-                                    ? alpha(theme.palette.primary.main, 0.08)
+                                    ? alpha(theme.palette.primary.main, 0.12)
                                     : "transparent",
+                                  transition: "all 0.15s ease",
                                 }}
                               >
                                 <ListItemIcon
@@ -508,14 +556,25 @@ const Navbar = () => {
             {userInfo?.email ? (
               <Box>
                 <Tooltip title="Account settings">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <IconButton
+                    onClick={handleOpenUserMenu}
+                    sx={{
+                      p: 0.5,
+                      bgcolor: alpha(theme.palette.primary.main, 0.08),
+                      "&:hover": {
+                        bgcolor: alpha(theme.palette.primary.main, 0.15),
+                      },
+                      transition: "all 0.2s ease",
+                    }}
+                  >
                     <Avatar
                       sx={{
-                        bgcolor: "primary.light",
-                        border: "2px solid",
-                        borderColor: "primary.main",
-                        width: 40,
-                        height: 40,
+                        bgcolor: "primary.main",
+                        background:
+                          "linear-gradient(135deg, #1586FD 0%, #0A5CB8 100%)",
+                        width: 38,
+                        height: 38,
+                        boxShadow: "0 4px 8px rgba(21, 134, 253, 0.25)",
                       }}
                     >
                       {userInfo.email.charAt(0).toUpperCase()}
@@ -523,7 +582,16 @@ const Navbar = () => {
                   </IconButton>
                 </Tooltip>
                 <Menu
-                  sx={{ mt: "45px" }}
+                  sx={{
+                    mt: "45px",
+                    "& .MuiPaper-root": {
+                      borderRadius: "12px",
+                      boxShadow: "0 12px 36px rgba(0,0,0,0.1)",
+                      border: "1px solid rgba(21, 134, 253, 0.1)",
+                      overflow: "hidden",
+                      width: 200,
+                    },
+                  }}
                   id="menu-appbar"
                   anchorEl={anchorEl}
                   anchorOrigin={{
@@ -543,7 +611,21 @@ const Navbar = () => {
                       handleCloseUserMenu();
                       router.push("/dashboard");
                     }}
+                    sx={{
+                      py: 1.2,
+                      px: 2,
+                      mx: 1,
+                      my: 0.5,
+                      borderRadius: "8px",
+                      "&:hover": {
+                        bgcolor: alpha(theme.palette.primary.main, 0.12),
+                      },
+                      transition: "all 0.15s ease",
+                    }}
                   >
+                    <ListItemIcon sx={{ minWidth: 36, color: "primary.main" }}>
+                      <DashboardIcon fontSize="small" />
+                    </ListItemIcon>
                     <ListItemText primary="Dashboard" />
                   </MenuItem>
                   <MenuItem
@@ -551,11 +633,41 @@ const Navbar = () => {
                       handleCloseUserMenu();
                       router.push("/profile");
                     }}
+                    sx={{
+                      py: 1.2,
+                      px: 2,
+                      mx: 1,
+                      my: 0.5,
+                      borderRadius: "8px",
+                      "&:hover": {
+                        bgcolor: alpha(theme.palette.primary.main, 0.12),
+                      },
+                      transition: "all 0.15s ease",
+                    }}
                   >
+                    <ListItemIcon sx={{ minWidth: 36, color: "primary.main" }}>
+                      <AccountCircleIcon fontSize="small" />
+                    </ListItemIcon>
                     <ListItemText primary="Profile" />
                   </MenuItem>
-                  <Divider />
-                  <MenuItem onClick={handleLogOut}>
+                  <Divider sx={{ my: 1 }} />
+                  <MenuItem
+                    onClick={handleLogOut}
+                    sx={{
+                      py: 1.2,
+                      px: 2,
+                      mx: 1,
+                      my: 0.5,
+                      borderRadius: "8px",
+                      "&:hover": {
+                        bgcolor: alpha(theme.palette.error.main, 0.08),
+                      },
+                      transition: "all 0.15s ease",
+                    }}
+                  >
+                    <ListItemIcon sx={{ minWidth: 36, color: "error.main" }}>
+                      <LogoutIcon fontSize="small" />
+                    </ListItemIcon>
                     <ListItemText
                       primary="Logout"
                       sx={{ color: "error.main" }}
@@ -569,15 +681,19 @@ const Navbar = () => {
                 href="/login"
                 variant="contained"
                 sx={{
-                  borderRadius: "50px",
-                  py: 1,
-                  px: 3,
+                  borderRadius: "12px",
+                  py: 1.2,
+                  px: 3.5,
                   fontWeight: 600,
+                  background:
+                    "linear-gradient(135deg, #1586FD 0%, #0A5CB8 100%)",
                   boxShadow: "0 4px 14px 0 rgba(21, 134, 253, 0.39)",
                   transition: "all 0.3s ease",
                   "&:hover": {
                     transform: "translateY(-2px)",
-                    boxShadow: "0 6px 20px rgba(21, 134, 253, 0.45)",
+                    boxShadow: "0 8px 24px rgba(21, 134, 253, 0.45)",
+                    background:
+                      "linear-gradient(135deg, #1586FD 10%, #0A5CB8 90%)",
                   },
                 }}
               >
@@ -589,10 +705,17 @@ const Navbar = () => {
             {isMobile && (
               <IconButton
                 edge="start"
-                color="primary"
                 aria-label="menu"
                 onClick={toggleDrawer}
-                sx={{ ml: 1 }}
+                sx={{
+                  ml: 1,
+                  bgcolor: alpha(theme.palette.primary.main, 0.08),
+                  color: "primary.main",
+                  "&:hover": {
+                    bgcolor: alpha(theme.palette.primary.main, 0.15),
+                  },
+                  transition: "all 0.2s ease",
+                }}
               >
                 <MenuIcon />
               </IconButton>
@@ -611,28 +734,51 @@ const Navbar = () => {
             width: "75%",
             maxWidth: "320px",
             boxSizing: "border-box",
-            borderRadius: "0 0 0 16px",
-            boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+            borderRadius: "0 0 0 24px",
+            boxShadow: "0 10px 40px rgba(0,0,0,0.15)",
+            border: "none",
           },
         }}
       >
         <Box
           sx={{
-            p: 2,
+            p: 2.5,
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            bgcolor: "primary.main",
+            background: "linear-gradient(135deg, #1586FD 0%, #0A5CB8 100%)",
             color: "white",
+            borderBottom: "1px solid rgba(255,255,255,0.1)",
           }}
         >
-          <Stack direction="row" alignItems="center" spacing={1}>
-            <MedicalServicesIcon />
+          <Stack direction="row" alignItems="center" spacing={1.5}>
+            <Box
+              sx={{
+                width: 36,
+                height: 36,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: "8px",
+                bgcolor: "rgba(255,255,255,0.2)",
+              }}
+            >
+              <MedicalServicesIcon fontSize="small" />
+            </Box>
             <Typography variant="h6" fontWeight={600}>
               ZenDoc Menu
             </Typography>
           </Stack>
-          <IconButton color="inherit" onClick={toggleDrawer}>
+          <IconButton
+            color="inherit"
+            onClick={toggleDrawer}
+            sx={{
+              bgcolor: "rgba(255,255,255,0.1)",
+              "&:hover": {
+                bgcolor: "rgba(255,255,255,0.2)",
+              },
+            }}
+          >
             <CloseIcon />
           </IconButton>
         </Box>
@@ -677,18 +823,17 @@ const Navbar = () => {
                   py: 1.5,
                   pl: 3,
                   pr: 2,
-                  borderLeft: isActive(link.href)
-                    ? "4px solid"
-                    : "4px solid transparent",
-                  borderColor: isActive(link.href)
-                    ? "primary.main"
-                    : "transparent",
+                  mx: 1.5,
+                  my: 0.5,
+                  borderRadius: "10px",
                   bgcolor: isActive(link.href)
-                    ? alpha(theme.palette.primary.main, 0.08)
+                    ? alpha(theme.palette.primary.main, 0.12)
                     : "transparent",
                   "&:hover": {
-                    bgcolor: alpha(theme.palette.primary.main, 0.05),
+                    bgcolor: alpha(theme.palette.primary.main, 0.08),
+                    transform: "translateX(4px)",
                   },
+                  transition: "all 0.2s ease",
                 }}
               >
                 <ListItemText
@@ -719,18 +864,17 @@ const Navbar = () => {
                     py: 1.5,
                     pl: 3,
                     pr: 2,
-                    borderLeft: isActive("/dashboard")
-                      ? "4px solid"
-                      : "4px solid transparent",
-                    borderColor: isActive("/dashboard")
-                      ? "primary.main"
-                      : "transparent",
+                    mx: 1.5,
+                    my: 0.5,
+                    borderRadius: "10px",
                     bgcolor: isActive("/dashboard")
-                      ? alpha(theme.palette.primary.main, 0.08)
+                      ? alpha(theme.palette.primary.main, 0.12)
                       : "transparent",
                     "&:hover": {
-                      bgcolor: alpha(theme.palette.primary.main, 0.05),
+                      bgcolor: alpha(theme.palette.primary.main, 0.08),
+                      transform: "translateX(4px)",
                     },
+                    transition: "all 0.2s ease",
                   }}
                 >
                   <ListItemText
@@ -752,17 +896,26 @@ const Navbar = () => {
           )}
         </List>
 
-        <Box sx={{ p: 3, mt: "auto" }}>
+        <Box sx={{ p: 3, mt: "auto", borderTop: "1px solid rgba(0,0,0,0.05)" }}>
           {userInfo?.email ? (
             <Button
               fullWidth
               variant="outlined"
               color="error"
+              startIcon={<LogoutIcon />}
               onClick={handleLogOut}
               sx={{
-                borderRadius: "8px",
-                py: 1.2,
+                borderRadius: "12px",
+                py: 1.5,
                 fontWeight: 600,
+                borderWidth: "2px",
+                "&:hover": {
+                  borderWidth: "2px",
+                  bgcolor: alpha(theme.palette.error.main, 0.08),
+                  transform: "translateY(-2px)",
+                  boxShadow: "0 4px 12px rgba(211, 47, 47, 0.2)",
+                },
+                transition: "all 0.2s ease",
               }}
             >
               Logout
@@ -776,9 +929,19 @@ const Navbar = () => {
                 variant="contained"
                 onClick={toggleDrawer}
                 sx={{
-                  borderRadius: "8px",
-                  py: 1.2,
+                  borderRadius: "12px",
+                  py: 1.5,
                   fontWeight: 600,
+                  background:
+                    "linear-gradient(135deg, #1586FD 0%, #0A5CB8 100%)",
+                  boxShadow: "0 4px 14px 0 rgba(21, 134, 253, 0.39)",
+                  "&:hover": {
+                    transform: "translateY(-2px)",
+                    boxShadow: "0 8px 24px rgba(21, 134, 253, 0.45)",
+                    background:
+                      "linear-gradient(135deg, #1586FD 10%, #0A5CB8 90%)",
+                  },
+                  transition: "all 0.2s ease",
                 }}
               >
                 Login
@@ -790,9 +953,20 @@ const Navbar = () => {
                 variant="outlined"
                 onClick={toggleDrawer}
                 sx={{
-                  borderRadius: "8px",
-                  py: 1.2,
+                  borderRadius: "12px",
+                  py: 1.5,
                   fontWeight: 600,
+                  borderColor: "primary.main",
+                  borderWidth: "2px",
+                  color: "primary.main",
+                  "&:hover": {
+                    borderWidth: "2px",
+                    borderColor: "primary.main",
+                    bgcolor: alpha(theme.palette.primary.main, 0.08),
+                    transform: "translateY(-2px)",
+                    boxShadow: "0 4px 12px rgba(21, 134, 253, 0.2)",
+                  },
+                  transition: "all 0.2s ease",
                 }}
               >
                 Register

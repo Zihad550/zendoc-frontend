@@ -25,19 +25,17 @@ import React, { useState } from "react";
 // Icons
 import ArticleIcon from "@mui/icons-material/Article";
 import EmailIcon from "@mui/icons-material/Email";
-import FacebookIcon from "@mui/icons-material/Facebook";
 import HealingIcon from "@mui/icons-material/Healing";
 import HealthAndSafetyIcon from "@mui/icons-material/HealthAndSafety";
 import InfoIcon from "@mui/icons-material/Info";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
+
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MedicalServicesIcon from "@mui/icons-material/MedicalServices";
 import PhoneIcon from "@mui/icons-material/Phone";
 import PolicyIcon from "@mui/icons-material/Policy";
 import SendIcon from "@mui/icons-material/Send";
-import TwitterIcon from "@mui/icons-material/Twitter";
+import SocialMediaLinks from "../Links/SocialMediaLinks";
 
 const Footer = () => {
   const theme = useTheme();
@@ -520,76 +518,7 @@ const Footer = () => {
               </Paper>
 
               {/* Social Media Links */}
-              <Stack direction="row" spacing={1} mt={3}>
-                <IconButton
-                  component="a"
-                  href="https://facebook.com"
-                  target="_blank"
-                  aria-label="facebook"
-                  sx={{
-                    backgroundColor: alpha(theme.palette.primary.main, 0.1),
-                    color: "primary.main",
-                    "&:hover": {
-                      backgroundColor: "primary.main",
-                      color: "white",
-                    },
-                    transition: "all 0.3s ease",
-                  }}
-                >
-                  <FacebookIcon fontSize="small" />
-                </IconButton>
-                <IconButton
-                  component="a"
-                  href="https://twitter.com"
-                  target="_blank"
-                  aria-label="twitter"
-                  sx={{
-                    backgroundColor: alpha(theme.palette.primary.main, 0.1),
-                    color: "primary.main",
-                    "&:hover": {
-                      backgroundColor: "primary.main",
-                      color: "white",
-                    },
-                    transition: "all 0.3s ease",
-                  }}
-                >
-                  <TwitterIcon fontSize="small" />
-                </IconButton>
-                <IconButton
-                  component="a"
-                  href="https://instagram.com"
-                  target="_blank"
-                  aria-label="instagram"
-                  sx={{
-                    backgroundColor: alpha(theme.palette.primary.main, 0.1),
-                    color: "primary.main",
-                    "&:hover": {
-                      backgroundColor: "primary.main",
-                      color: "white",
-                    },
-                    transition: "all 0.3s ease",
-                  }}
-                >
-                  <InstagramIcon fontSize="small" />
-                </IconButton>
-                <IconButton
-                  component="a"
-                  href="https://linkedin.com"
-                  target="_blank"
-                  aria-label="linkedin"
-                  sx={{
-                    backgroundColor: alpha(theme.palette.primary.main, 0.1),
-                    color: "primary.main",
-                    "&:hover": {
-                      backgroundColor: "primary.main",
-                      color: "white",
-                    },
-                    transition: "all 0.3s ease",
-                  }}
-                >
-                  <LinkedInIcon fontSize="small" />
-                </IconButton>
-              </Stack>
+              <SocialMediaLinks mt={3} />
             </Grid>
           </Grid>
 
