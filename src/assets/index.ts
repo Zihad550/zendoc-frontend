@@ -23,6 +23,7 @@ import dentist from "./svgs/Dentist.svg";
 import dna from "./svgs/dna.svg";
 import doctorSearch from "./svgs/doctorSearch.svg";
 import grid from "./svgs/grid.svg";
+import healthPattern from "./svgs/health-pattern.svg";
 import kidney from "./svgs/kidney.svg";
 import location from "./svgs/location.svg";
 import logo from "./svgs/logo.svg";
@@ -34,6 +35,7 @@ import profile from "./svgs/profile.svg";
 import schedule from "./svgs/schedule.svg";
 import search from "./svgs/search.svg";
 import solution from "./svgs/solution.svg";
+import subtlePattern from "./svgs/subtle-pattern.svg";
 import urology from "./svgs/Urology.svg";
 
 // avatars
@@ -67,6 +69,7 @@ const assets = {
     medicalConsultation,
   },
   svgs: {
+    subtlePattern,
     logo,
     search,
     calender,
@@ -90,6 +93,7 @@ const assets = {
     care,
     equipment,
     call,
+    healthPattern,
   },
 };
 
