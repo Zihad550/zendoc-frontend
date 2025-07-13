@@ -1,0 +1,34 @@
+# ZenDoc Healthcare Website Robots.txt
+User-agent: *
+
+# Allow all public pages
+Allow: /
+Allow: /doctors
+Allow: /services
+Allow: /health-plans
+Allow: /pricing
+Allow: /consultation
+Allow: /about-us
+Allow: /contact-us
+Allow: /history
+Allow: /faq
+Allow: /privacy-policy
+Allow: /terms-conditions
+Allow: /login
+Allow: /register
+
+# Disallow all dashboard pages and admin sections
+Disallow: /dashboard/
+Disallow: /admin/
+
+# Disallow user-specific pages
+Disallow: /profile/
+Disallow: /payment/
+Disallow: /video/
+
+# Disallow authentication reset pages
+Disallow: /forgot-password
+Disallow: /reset-password
+
+# Sitemap location
+Sitemap: https://zendoc.example.com/sitemap.xml
