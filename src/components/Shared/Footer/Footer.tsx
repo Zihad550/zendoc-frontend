@@ -560,7 +560,7 @@ const Footer = () => {
                 <Button
                   variant="text"
                   component={Link}
-                  href="/terms-and-conditions"
+                  href="/terms-conditions"
                   color="inherit"
                   sx={{
                     fontSize: "0.75rem",
