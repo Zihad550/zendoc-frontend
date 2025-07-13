@@ -2,7 +2,7 @@ import PHFileUploader from "@/components/Forms/PHFileUploader";
 import PHForm from "@/components/Forms/PHForm";
 import PHInput from "@/components/Forms/PHInput";
 import PHModal from "@/components/Shared/PHModal/PHModal";
-import { useCreateSpecialtyMutation } from "@/redux/api/specialtiesApi";
+import { useCreateSpecialtyMutation } from "@/redux/features/specialties/specialtiesApi";
 import { modifyPayload } from "@/utils/modifyPayload";
 import { Button, Grid } from "@mui/material";
 
