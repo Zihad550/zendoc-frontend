@@ -31,8 +31,9 @@ export default function PlansCallToAction() {
           right: 0,
           width: "300px",
           height: "300px",
-          background:
-            "radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%)",
+          background: (theme) => theme.palette.mode === 'dark'
+            ? "radial-gradient(circle, rgba(10,14,39,0.1) 0%, rgba(10,14,39,0) 70%)"
+            : "radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%)",
           borderRadius: "50%",
           transform: "translate(30%, -30%)",
         }}
@@ -44,8 +45,9 @@ export default function PlansCallToAction() {
           left: 0,
           width: "200px",
           height: "200px",
-          background:
-            "radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%)",
+          background: (theme) => theme.palette.mode === 'dark'
+            ? "radial-gradient(circle, rgba(10,14,39,0.1) 0%, rgba(10,14,39,0) 70%)"
+            : "radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%)",
           borderRadius: "50%",
           transform: "translate(-30%, 30%)",
         }}
@@ -79,17 +81,17 @@ export default function PlansCallToAction() {
                 size="large"
                 endIcon={<ArrowForwardIcon />}
                 sx={{
-                  bgcolor: "white",
+                  bgcolor: (theme) => theme.palette.mode === 'dark' ? "rgba(30,33,57,0.95)" : "white",
                   color: "primary.main",
                   fontWeight: "bold",
                   px: 4,
                   py: 1.5,
                   borderRadius: "50px",
                   "&:hover": {
-                    bgcolor: "white",
+                    bgcolor: (theme) => theme.palette.mode === 'dark' ? "rgba(255,255,255,0.85)" : "white",
                     opacity: 0.9,
                     transform: "translateY(-3px)",
-                    boxShadow: "0 6px 15px rgba(0,0,0,0.1)",
+                    boxShadow: (theme) => theme.palette.mode === 'dark' ? "0 6px 15px rgba(0,0,0,0.3)" : "0 6px 15px rgba(0,0,0,0.1)",
                   },
                 }}
               >
@@ -101,11 +103,12 @@ export default function PlansCallToAction() {
           {!isMobile && (
             <Box
               sx={{
-                bgcolor: "rgba(255,255,255,0.1)",
+                bgcolor: (theme) => theme.palette.mode === 'dark' ? "rgba(30,33,57,0.05)" : "rgba(255,255,255,0.1)",
                 p: 3,
                 borderRadius: 4,
                 backdropFilter: "blur(5px)",
                 maxWidth: "300px",
+                border: (theme) => theme.palette.mode === 'dark' ? "1px solid rgba(30,33,57,0.2)" : "none",
               }}
             >
               <Typography variant="h6" fontWeight="bold" gutterBottom>

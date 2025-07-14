@@ -111,8 +111,12 @@ export default function PlansTestimonials() {
           onClick={handlePrev}
           disabled={activeIndex === 0}
           sx={{
-            color: "primary.main",
+            color: (theme) => theme.palette.mode === "dark" ? "primary.light" : "primary.main",
             opacity: activeIndex === 0 ? 0.5 : 1,
+            backgroundColor: (theme) => theme.palette.mode === "dark" ? "rgba(255, 255, 255, 0.05)" : "transparent",
+            "&:hover": {
+              backgroundColor: (theme) => theme.palette.mode === "dark" ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.04)",
+            },
           }}
         >
           <ArrowBackIosNewIcon />
@@ -139,20 +143,23 @@ export default function PlansTestimonials() {
                 flexDirection: "column",
                 position: "relative",
                 transition: "all 0.3s ease",
+                backgroundColor: (theme) => theme.palette.mode === "dark" ? "rgba(255, 255, 255, 0.03)" : "background.paper",
+                border: (theme) => theme.palette.mode === "dark" ? "1px solid rgba(255, 255, 255, 0.05)" : "none",
                 "&:hover": {
                   transform: "translateY(-5px)",
-                  boxShadow: "0 10px 20px rgba(0,0,0,0.1)",
+                  boxShadow: (theme) => theme.palette.mode === "dark" ? "0 10px 20px rgba(0,0,0,0.8)" : "0 10px 20px rgba(0,0,0,0.1)",
+                  backgroundColor: (theme) => theme.palette.mode === "dark" ? "rgba(255, 255, 255, 0.05)" : "background.paper",
                 },
               }}
             >
               <FormatQuoteIcon
                 sx={{
-                  color: "primary.light",
+                  color: (theme) => theme.palette.mode === "dark" ? "primary.light" : "primary.light",
                   fontSize: 40,
                   position: "absolute",
                   top: 16,
                   right: 16,
-                  opacity: 0.3,
+                  opacity: (theme) => theme.palette.mode === "dark" ? 0.5 : 0.3,
                 }}
               />
 
@@ -181,7 +188,8 @@ export default function PlansTestimonials() {
                     width: 50,
                     height: 50,
                     mr: 2,
-                    bgcolor: "primary.main", // Fallback if image fails to load
+                    bgcolor: (theme) => theme.palette.mode === "dark" ? "primary.dark" : "primary.main",
+                    border: (theme) => theme.palette.mode === "dark" ? "2px solid rgba(255, 255, 255, 0.1)" : "none",
                   }}
                 >
                   {testimonial.name.charAt(0)}
@@ -216,9 +224,13 @@ export default function PlansTestimonials() {
           onClick={handleNext}
           disabled={activeIndex >= testimonials.length - visibleCount}
           sx={{
-            color: "primary.main",
+            color: (theme) => theme.palette.mode === "dark" ? "primary.light" : "primary.main",
             opacity:
               activeIndex >= testimonials.length - visibleCount ? 0.5 : 1,
+            backgroundColor: (theme) => theme.palette.mode === "dark" ? "rgba(255, 255, 255, 0.05)" : "transparent",
+            "&:hover": {
+              backgroundColor: (theme) => theme.palette.mode === "dark" ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.04)",
+            },
           }}
         >
           <ArrowForwardIosIcon />
@@ -242,9 +254,12 @@ export default function PlansTestimonials() {
                 width: 8,
                 height: 8,
                 borderRadius: "50%",
-                bgcolor: activeIndex === index ? "primary.main" : "grey.300",
+                bgcolor: activeIndex === index ? "primary.main" : (theme) => theme.palette.mode === "dark" ? "rgba(255, 255, 255, 0.3)" : "grey.300",
                 cursor: "pointer",
                 transition: "all 0.2s ease",
+                "&:hover": {
+                  bgcolor: activeIndex === index ? "primary.main" : (theme) => theme.palette.mode === "dark" ? "rgba(255, 255, 255, 0.5)" : "grey.400",
+                },
               }}
             />
           ),

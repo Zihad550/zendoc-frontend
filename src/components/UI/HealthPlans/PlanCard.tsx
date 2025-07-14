@@ -38,8 +38,8 @@ export default function PlanCard({ plan }: PlanCardProps) {
       };
     } else {
       return {
-        borderColor: "grey.300",
-        headingBg: "grey.100",
+        borderColor: (theme) => theme.palette.mode === "dark" ? "grey.700" : "grey.300",
+        headingBg: (theme) => theme.palette.mode === "dark" ? "grey.800" : "grey.100",
         headingColor: "text.primary",
         buttonColor: "primary",
         iconColor: "success.main",
@@ -58,13 +58,15 @@ export default function PlanCard({ plan }: PlanCardProps) {
         display: "flex",
         flexDirection: "column",
         transition: "transform 0.3s ease, box-shadow 0.3s ease",
-        border: plan.popular ? `2px solid ${colorScheme.borderColor}` : "none",
+        border: plan.popular ? `2px solid` : "none",
+        borderColor: plan.popular ? colorScheme.borderColor : "transparent",
+        bgcolor: (theme) => theme.palette.mode === "dark" ? "rgba(255, 255, 255, 0.03)" : "background.paper",
         transform: plan.popular ? "scale(1.03)" : "scale(1)",
         "&:hover": {
           transform: plan.popular ? "scale(1.05)" : "scale(1.02)",
-          boxShadow: plan.popular
-            ? "0 10px 30px rgba(0,0,0,0.12)"
-            : "0 8px 28px rgba(0,0,0,0.09)",
+          boxShadow: (theme) => plan.popular
+            ? theme.palette.mode === "dark" ? "0 10px 30px rgba(0,0,0,0.4)" : "0 10px 30px rgba(0,0,0,0.12)"
+            : theme.palette.mode === "dark" ? "0 8px 28px rgba(0,0,0,0.3)" : "0 8px 28px rgba(0,0,0,0.09)",
         },
         position: "relative",
         overflow: "hidden",
@@ -95,6 +97,7 @@ export default function PlanCard({ plan }: PlanCardProps) {
       <Box
         sx={{
           bgcolor: colorScheme.headingBg,
+          borderBottom: (theme) => theme.palette.mode === "dark" ? "1px solid rgba(255, 255, 255, 0.1)" : "none",
           color: colorScheme.headingColor,
           p: 3,
           borderTopLeftRadius: 6,
