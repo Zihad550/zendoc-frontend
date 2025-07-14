@@ -89,7 +89,13 @@ export default function PricingPage() {
   };
 
   return (
-    <Box sx={{ backgroundColor: "background.default" }}>
+    <Box sx={{ 
+      backgroundColor: "background.default",
+      minHeight: "100vh",
+      backgroundImage: (theme) => theme.palette.mode === 'dark' 
+        ? 'radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(120, 119, 198, 0.08) 0%, transparent 50%), radial-gradient(circle at 40% 80%, rgba(120, 119, 198, 0.08) 0%, transparent 50%)'
+        : 'none'
+    }}>
       {/* Hero Section */}
       <PricingHero />
 
@@ -109,11 +115,25 @@ export default function PricingPage() {
               justifyContent: "center",
               alignItems: "center",
               mb: 4,
+              p: 2,
+              borderRadius: 3,
+              bgcolor: (theme) => theme.palette.mode === 'dark' 
+                ? 'rgba(255, 255, 255, 0.03)' 
+                : 'transparent',
+              border: (theme) => theme.palette.mode === 'dark' 
+                ? '1px solid rgba(255, 255, 255, 0.06)' 
+                : 'none',
             }}
           >
             <Typography
               variant="body1"
               color={isAnnual ? "text.secondary" : "text.primary"}
+              sx={{
+                fontWeight: 500,
+                color: (theme) => theme.palette.mode === 'dark' && !isAnnual 
+                  ? '#e3f2fd' 
+                  : undefined
+              }}
             >
               Monthly
             </Typography>
@@ -123,6 +143,13 @@ export default function PricingPage() {
                   checked={isAnnual}
                   onChange={handlePricingToggle}
                   color="primary"
+                  sx={{
+                    '& .MuiSwitch-track': {
+                      backgroundColor: (theme) => theme.palette.mode === 'dark' 
+                        ? 'rgba(255, 255, 255, 0.12)' 
+                        : undefined
+                    }
+                  }}
                 />
               }
               label=""
@@ -132,6 +159,12 @@ export default function PricingPage() {
               <Typography
                 variant="body1"
                 color={isAnnual ? "text.primary" : "text.secondary"}
+                sx={{
+                  fontWeight: 500,
+                  color: (theme) => theme.palette.mode === 'dark' && isAnnual 
+                    ? '#e3f2fd' 
+                    : undefined
+                }}
               >
                 Annual
               </Typography>
@@ -141,11 +174,18 @@ export default function PricingPage() {
                   ml: 1,
                   py: 0.5,
                   px: 1,
-                  bgcolor: "success.light",
-                  color: "success.dark",
+                  bgcolor: (theme) => theme.palette.mode === 'dark' 
+                    ? 'rgba(76, 175, 80, 0.2)' 
+                    : "success.light",
+                  color: (theme) => theme.palette.mode === 'dark' 
+                    ? '#81c784' 
+                    : "success.dark",
                   borderRadius: 1,
                   fontSize: "0.75rem",
                   fontWeight: "bold",
+                  border: (theme) => theme.palette.mode === 'dark' 
+                    ? '1px solid rgba(76, 175, 80, 0.3)' 
+                    : 'none',
                 }}
               >
                 Save up to 38%
@@ -164,8 +204,32 @@ export default function PricingPage() {
       </Container>
 
       {/* Specialty Pricing Section */}
-      <Box sx={{ bgcolor: "background.paper", py: 8 }}>
-        <Container maxWidth="lg">
+      <Box sx={{ 
+        bgcolor: (theme) => theme.palette.mode === 'dark' 
+          ? 'rgba(255, 255, 255, 0.02)' 
+          : "background.paper",
+        py: 8,
+        borderTop: (theme) => theme.palette.mode === 'dark' 
+          ? '1px solid rgba(255, 255, 255, 0.05)' 
+          : 'none',
+        borderBottom: (theme) => theme.palette.mode === 'dark' 
+          ? '1px solid rgba(255, 255, 255, 0.05)' 
+          : 'none',
+        position: 'relative',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: (theme) => theme.palette.mode === 'dark' 
+            ? 'linear-gradient(135deg, rgba(120, 119, 198, 0.03) 0%, transparent 50%, rgba(120, 119, 198, 0.03) 100%)'
+            : 'none',
+          pointerEvents: 'none'
+        }
+      }}>
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
           <SectionTitle
             title="Specialty Service Pricing"
             containerSx={{ mb: 6 }}
@@ -175,21 +239,83 @@ export default function PricingPage() {
       </Box>
 
       {/* Comparison Table */}
-      <Container maxWidth="lg" sx={{ py: 8 }}>
+      <Container maxWidth="lg" sx={{ 
+        py: 8,
+        '& .MuiPaper-root': {
+          bgcolor: (theme) => theme.palette.mode === 'dark' 
+            ? 'rgba(255, 255, 255, 0.02)' 
+            : undefined,
+          border: (theme) => theme.palette.mode === 'dark' 
+            ? '1px solid rgba(255, 255, 255, 0.08)' 
+            : undefined,
+          borderRadius: 2,
+          backdropFilter: (theme) => theme.palette.mode === 'dark' 
+            ? 'blur(10px)' 
+            : 'none',
+        }
+      }}>
         <SectionTitle title="Compare Our Plans" containerSx={{ mb: 6 }} />
         <ComparisonTable isAnnual={isAnnual} />
       </Container>
 
       {/* Testimonials */}
-      <Box sx={{ bgcolor: "background.paper", py: 8 }}>
-        <Container maxWidth="lg">
+      <Box sx={{ 
+        bgcolor: (theme) => theme.palette.mode === 'dark' 
+          ? 'rgba(255, 255, 255, 0.01)' 
+          : "background.paper",
+        py: 8,
+        position: 'relative',
+        overflow: 'hidden',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: (theme) => theme.palette.mode === 'dark' 
+            ? 'radial-gradient(circle at 30% 20%, rgba(120, 119, 198, 0.05) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(33, 150, 243, 0.05) 0%, transparent 50%)'
+            : 'none',
+          pointerEvents: 'none'
+        },
+        borderTop: (theme) => theme.palette.mode === 'dark' 
+          ? '1px solid rgba(255, 255, 255, 0.05)' 
+          : 'none',
+        borderBottom: (theme) => theme.palette.mode === 'dark' 
+          ? '1px solid rgba(255, 255, 255, 0.05)' 
+          : 'none',
+      }}>
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
           <SectionTitle title="What Our Patients Say" containerSx={{ mb: 6 }} />
           <TestimonialCarousel />
         </Container>
       </Box>
 
       {/* FAQ Section */}
-      <Container maxWidth="lg" sx={{ py: 8 }}>
+      <Container maxWidth="lg" sx={{ 
+        py: 8,
+        '& .MuiAccordion-root': {
+          bgcolor: (theme) => theme.palette.mode === 'dark' 
+            ? 'rgba(255, 255, 255, 0.02)' 
+            : undefined,
+          border: (theme) => theme.palette.mode === 'dark' 
+            ? '1px solid rgba(255, 255, 255, 0.08)' 
+            : undefined,
+          borderRadius: '8px !important',
+          mb: 1,
+          '&::before': {
+            display: 'none'
+          },
+          '&.Mui-expanded': {
+            bgcolor: (theme) => theme.palette.mode === 'dark' 
+              ? 'rgba(120, 119, 198, 0.05)' 
+              : undefined,
+            border: (theme) => theme.palette.mode === 'dark' 
+              ? '1px solid rgba(120, 119, 198, 0.2)' 
+              : undefined,
+          }
+        }
+      }}>
         <SectionTitle
           title="Frequently Asked Questions"
           containerSx={{ mb: 6 }}
@@ -200,11 +326,21 @@ export default function PricingPage() {
       {/* Call to Action */}
       <Box
         sx={{
-          bgcolor: "primary.main",
-          color: "primary.contrastText",
+          bgcolor: (theme) => theme.palette.mode === 'dark' 
+            ? 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)' 
+            : "primary.main",
+          background: (theme) => theme.palette.mode === 'dark' 
+            ? 'linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(22, 33, 62, 0.95) 50%, rgba(15, 52, 96, 0.95) 100%)' 
+            : undefined,
+          color: (theme) => theme.palette.mode === 'dark' 
+            ? '#ffffff' 
+            : "primary.contrastText",
           py: 8,
           position: "relative",
           overflow: "hidden",
+          border: (theme) => theme.palette.mode === 'dark' 
+            ? '1px solid rgba(255, 255, 255, 0.1)' 
+            : 'none',
         }}
       >
         {/* Background Patterns */}
@@ -215,8 +351,9 @@ export default function PricingPage() {
             right: 0,
             width: "300px",
             height: "300px",
-            background:
-              "radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%)",
+            background: (theme) => theme.palette.mode === 'dark' 
+              ? "radial-gradient(circle, rgba(120, 119, 198, 0.15) 0%, rgba(120, 119, 198, 0) 70%)"
+              : "radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%)",
             borderRadius: "50%",
             transform: "translate(30%, -30%)",
           }}
@@ -228,10 +365,25 @@ export default function PricingPage() {
             left: 0,
             width: "200px",
             height: "200px",
-            background:
-              "radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%)",
+            background: (theme) => theme.palette.mode === 'dark' 
+              ? "radial-gradient(circle, rgba(33, 150, 243, 0.15) 0%, rgba(33, 150, 243, 0) 70%)"
+              : "radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%)",
             borderRadius: "50%",
             transform: "translate(-30%, 30%)",
+          }}
+        />
+        <Box
+          sx={{
+            position: "absolute",
+            top: '50%',
+            left: '50%',
+            width: "400px",
+            height: "400px",
+            background: (theme) => theme.palette.mode === 'dark' 
+              ? "radial-gradient(circle, rgba(76, 175, 80, 0.08) 0%, rgba(76, 175, 80, 0) 70%)"
+              : 'none',
+            borderRadius: "50%",
+            transform: "translate(-50%, -50%)",
           }}
         />
 
@@ -250,18 +402,34 @@ export default function PricingPage() {
               sx={{
                 py: 1.5,
                 px: 4,
-                bgcolor: "white",
-                color: "primary.main",
-                border: "none",
+                bgcolor: (theme) => theme.palette.mode === 'dark' 
+                  ? 'rgba(255, 255, 255, 0.95)' 
+                  : "white",
+                color: (theme) => theme.palette.mode === 'dark' 
+                  ? '#1a1a2e' 
+                  : "primary.main",
+                border: (theme) => theme.palette.mode === 'dark' 
+                  ? '1px solid rgba(255, 255, 255, 0.2)' 
+                  : "none",
                 borderRadius: "50px",
                 fontSize: "1.1rem",
                 fontWeight: "bold",
                 cursor: "pointer",
-                transition: "all 0.2s ease",
-                boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+                transition: "all 0.3s ease",
+                boxShadow: (theme) => theme.palette.mode === 'dark' 
+                  ? "0 4px 20px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1)" 
+                  : "0 4px 20px rgba(0,0,0,0.1)",
+                backdropFilter: (theme) => theme.palette.mode === 'dark' 
+                  ? 'blur(10px)' 
+                  : 'none',
                 "&:hover": {
                   transform: "translateY(-3px)",
-                  boxShadow: "0 6px 25px rgba(0,0,0,0.15)",
+                  boxShadow: (theme) => theme.palette.mode === 'dark' 
+                    ? "0 8px 30px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.2)" 
+                    : "0 6px 25px rgba(0,0,0,0.15)",
+                  bgcolor: (theme) => theme.palette.mode === 'dark' 
+                    ? 'rgba(255, 255, 255, 1)' 
+                    : undefined,
                 },
               }}
             >
