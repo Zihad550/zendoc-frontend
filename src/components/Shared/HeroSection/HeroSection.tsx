@@ -1,5 +1,5 @@
 "use client";
-import { Box, Container, Typography, useTheme } from "@mui/material";
+import { alpha, Box, Container, Typography } from "@mui/material";
 import { ReactNode } from "react";
 
 export type FeatureItem = {
@@ -49,8 +49,6 @@ const HeroSection = ({
   centerIconSize = 80,
   featureAnimation = true,
 }: HeroSectionProps) => {
-  const theme = useTheme();
-
   // Standard medium padding for all hero sections
   const paddingY = { xs: 8, md: 12 };
 
@@ -104,10 +102,29 @@ const HeroSection = ({
     <Box
       sx={{
         position: "relative",
-        background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, #0A5CB8 100%)`,
+        background: (theme) =>
+          theme.palette.mode === "dark"
+            ? `linear-gradient(135deg, #0A0E27 0%, #1A1D36 25%, ${theme.palette.primary.main} 100%)`
+            : `linear-gradient(135deg, ${theme.palette.primary.main} 0%, #0A5CB8 100%)`,
         color: "white",
         py: paddingY,
         overflow: "hidden",
+        // Add subtle overlay for dark theme
+        "&::before": {
+          content: '""',
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: (theme) =>
+            theme.palette.mode === "dark"
+              ? `radial-gradient(circle at 30% 20%, ${alpha(theme.palette.primary.main, 0.15)} 0%, transparent 60%),
+               radial-gradient(circle at 70% 80%, ${alpha(theme.palette.primary.main, 0.1)} 0%, transparent 60%)`
+              : "none",
+          zIndex: 1,
+          pointerEvents: "none",
+        },
       }}
     >
       {/* Background pattern */}
@@ -119,10 +136,14 @@ const HeroSection = ({
             left: 0,
             right: 0,
             bottom: 0,
-            opacity: backgroundPattern.opacity || 0.07,
+            opacity: (theme) =>
+              theme.palette.mode === "dark"
+                ? (backgroundPattern.opacity || 0.07) * 0.6
+                : backgroundPattern.opacity || 0.07,
             backgroundImage: getBackgroundPattern(),
             backgroundSize:
               backgroundPattern.type === "radial" ? "20px 20px" : "auto",
+            zIndex: 2,
             ...(backgroundPattern.animation && {
               animation: `slide ${backgroundPattern.animationDuration || 30}s linear infinite`,
               "@keyframes slide": {
@@ -150,14 +171,15 @@ const HeroSection = ({
             left: 0,
             right: 0,
             height: waveShape === "angular" ? "100px" : "120px",
-            background: "white",
+            background: (theme) =>
+              theme.palette.mode === "dark" ? "#0A0E27" : "white",
             clipPath: getWaveShape(),
-            zIndex: 1,
+            zIndex: 3,
           }}
         />
       )}
 
-      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 2 }}>
+      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 4 }}>
         <Box
           sx={{
             textAlign: "center",
@@ -182,10 +204,20 @@ const HeroSection = ({
                   justifyContent: "center",
                   width: centerIconSize,
                   height: centerIconSize,
-                  backgroundColor: "rgba(255,255,255,0.15)",
+                  backgroundColor: (theme) =>
+                    theme.palette.mode === "dark"
+                      ? "rgba(255,255,255,0.08)"
+                      : "rgba(255,255,255,0.15)",
                   borderRadius: getIconContainerShape(),
                   backdropFilter: "blur(10px)",
-                  boxShadow: "0 8px 32px rgba(0,0,0,0.1)",
+                  boxShadow: (theme) =>
+                    theme.palette.mode === "dark"
+                      ? "0 8px 32px rgba(0,0,0,0.3)"
+                      : "0 8px 32px rgba(0,0,0,0.1)",
+                  border: (theme) =>
+                    theme.palette.mode === "dark"
+                      ? "1px solid rgba(255,255,255,0.1)"
+                      : "none",
                   "&::before": {
                     content: '""',
                     position: "absolute",
@@ -194,7 +226,10 @@ const HeroSection = ({
                     right: -5,
                     bottom: -5,
                     borderRadius: getIconContainerShape(),
-                    border: "2px solid rgba(255,255,255,0.2)",
+                    border: (theme) =>
+                      theme.palette.mode === "dark"
+                        ? "2px solid rgba(255,255,255,0.15)"
+                        : "2px solid rgba(255,255,255,0.2)",
                     animation: "pulse 2s infinite",
                   },
                   "@keyframes pulse": {
@@ -226,10 +261,15 @@ const HeroSection = ({
               fontWeight: 800,
               fontSize: { xs: "2.5rem", md: "3.5rem" },
               mb: 2,
-              textShadow: "0 2px 10px rgba(0,0,0,0.1)",
+              textShadow: (theme) =>
+                theme.palette.mode === "dark"
+                  ? "0 4px 20px rgba(0,0,0,0.4)"
+                  : "0 2px 10px rgba(0,0,0,0.1)",
               ...(textGradient && {
-                background:
-                  "linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0.85) 100%)",
+                background: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 100%)"
+                    : "linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0.85) 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
               }),
@@ -244,10 +284,14 @@ const HeroSection = ({
             sx={{
               fontWeight: 400,
               mb: 5,
-              opacity: 0.9,
+              opacity: (theme) => (theme.palette.mode === "dark" ? 0.85 : 0.9),
               maxWidth: "800px",
               mx: "auto",
               lineHeight: 1.5,
+              textShadow: (theme) =>
+                theme.palette.mode === "dark"
+                  ? "0 2px 8px rgba(0,0,0,0.3)"
+                  : "none",
             }}
           >
             {subtitle}
@@ -271,31 +315,76 @@ const HeroSection = ({
                     key={feature.id}
                     sx={{
                       p: 3,
-                      backgroundColor: "rgba(255,255,255,0.1)",
+                      backgroundColor: (theme) =>
+                        theme.palette.mode === "dark"
+                          ? "rgba(255,255,255,0.06)"
+                          : "rgba(255,255,255,0.1)",
                       borderRadius: 3,
                       backdropFilter: "blur(5px)",
                       maxWidth: "250px",
                       width: "100%",
                       textAlign: "center",
+                      border: (theme) =>
+                        theme.palette.mode === "dark"
+                          ? "1px solid rgba(255,255,255,0.08)"
+                          : "none",
                       ...(featureAnimation && {
-                        transition: "transform 0.3s ease",
+                        transition: "all 0.3s ease",
                         "&:hover": {
                           transform: "translateY(-5px)",
-                          backgroundColor: "rgba(255,255,255,0.15)",
+                          backgroundColor: (theme) =>
+                            theme.palette.mode === "dark"
+                              ? "rgba(255,255,255,0.1)"
+                              : "rgba(255,255,255,0.15)",
+                          boxShadow: (theme) =>
+                            theme.palette.mode === "dark"
+                              ? "0 12px 40px rgba(0,0,0,0.3)"
+                              : "0 12px 40px rgba(0,0,0,0.12)",
                         },
                       }),
-                      boxShadow: "0 8px 32px rgba(0,0,0,0.08)",
+                      boxShadow: (theme) =>
+                        theme.palette.mode === "dark"
+                          ? "0 8px 32px rgba(0,0,0,0.2)"
+                          : "0 8px 32px rgba(0,0,0,0.08)",
                     }}
                   >
                     <Box
                       sx={{ display: "flex", justifyContent: "center", mb: 2 }}
                     >
-                      <FeatureIcon sx={{ fontSize: 40 }} />
+                      <FeatureIcon
+                        sx={{
+                          fontSize: 40,
+                          filter: (theme) =>
+                            theme.palette.mode === "dark"
+                              ? "drop-shadow(0 2px 4px rgba(0,0,0,0.3))"
+                              : "none",
+                        }}
+                      />
                     </Box>
-                    <Typography variant="h6" fontWeight="bold" mb={1}>
+                    <Typography
+                      variant="h6"
+                      fontWeight="bold"
+                      mb={1}
+                      sx={{
+                        textShadow: (theme) =>
+                          theme.palette.mode === "dark"
+                            ? "0 2px 4px rgba(0,0,0,0.3)"
+                            : "none",
+                      }}
+                    >
                       {feature.title}
                     </Typography>
-                    <Typography variant="body2">
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        opacity: (theme) =>
+                          theme.palette.mode === "dark" ? 0.85 : 1,
+                        textShadow: (theme) =>
+                          theme.palette.mode === "dark"
+                            ? "0 1px 2px rgba(0,0,0,0.2)"
+                            : "none",
+                      }}
+                    >
                       {feature.description}
                     </Typography>
                   </Box>
