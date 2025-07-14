@@ -1,6 +1,7 @@
 "use client";
-
 import { useGetSingleUserQuery } from "@/redux/features/user/userApi";
+import { logoutUser } from "@/services/actions/logoutUser";
+import { isLoggedIn } from "@/services/auth.services";
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { Avatar, Badge, Stack } from "@mui/material";
@@ -10,7 +11,8 @@ import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import * as React from "react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import AccountMenu from "../AccountMenu/AccountMenu";
 import SideBar from "../SideBar/SideBar";
 
@@ -21,8 +23,12 @@ export default function DashboardDrawer({
 }: {
   children: React.ReactNode;
 }) {
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [isClosing, setIsClosing] = React.useState(false);
+  const router = useRouter();
+  if (!isLoggedIn()) {
+    logoutUser(router);
+  }
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -40,6 +46,7 @@ export default function DashboardDrawer({
   };
 
   const { data, isLoading } = useGetSingleUserQuery({});
+  const user = data?.data;
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -79,7 +86,7 @@ export default function DashboardDrawer({
                 component="div"
                 sx={{ color: "rgba(11, 17, 52, 0.6)" }}
               >
-                Hi, {isLoading ? "Loading..." : data?.name},
+                Hi, {isLoading ? "Loading..." : user?.name},
               </Typography>
               <Typography
                 variant="h6"
@@ -96,7 +103,7 @@ export default function DashboardDrawer({
                   <NotificationsNoneIcon color="action" />
                 </IconButton>
               </Badge>
-              <Avatar alt={data?.name} src={data?.profilePhoto} />
+              <Avatar alt={user?.name} src={user?.profilePhoto} />
               <AccountMenu />
             </Stack>
           </Box>
