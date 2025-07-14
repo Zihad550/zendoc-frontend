@@ -49,15 +49,40 @@ const CoreValuesSection = () => {
   const theme = useTheme();
 
   return (
-    <Box sx={{ backgroundColor: theme.palette.grey[100], py: 8 }}>
-      <Container maxWidth="lg">
+    <Box 
+      sx={{ 
+        backgroundColor: theme.palette.mode === 'dark' 
+          ? 'rgba(255, 255, 255, 0.01)' 
+          : theme.palette.grey[100], 
+        py: 8,
+        position: 'relative',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: theme.palette.mode === 'dark' 
+            ? 'radial-gradient(circle at 20% 30%, rgba(76, 175, 80, 0.05) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(156, 39, 176, 0.04) 0%, transparent 50%)'
+            : 'none',
+          pointerEvents: 'none',
+        },
+      }}
+    >
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
         <Box sx={{ textAlign: "center", mb: 6 }}>
           <Typography
             component="span"
             sx={{
-              color: theme.palette.primary.main,
+              color: theme.palette.mode === 'dark' 
+                ? '#81c784' 
+                : theme.palette.primary.main,
               fontWeight: 600,
               fontSize: "1.1rem",
+              textShadow: theme.palette.mode === 'dark' 
+                ? '0 0 10px rgba(129, 199, 132, 0.3)' 
+                : 'none',
             }}
           >
             WHAT DRIVES US
@@ -68,6 +93,21 @@ const CoreValuesSection = () => {
               fontWeight: 700,
               my: 2,
               fontSize: { xs: "2rem", md: "2.5rem" },
+              color: theme.palette.mode === 'dark' 
+                ? '#e3f2fd' 
+                : 'inherit',
+              background: theme.palette.mode === 'dark' 
+                ? 'linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%)' 
+                : 'inherit',
+              backgroundClip: theme.palette.mode === 'dark' 
+                ? 'text' 
+                : 'inherit',
+              WebkitBackgroundClip: theme.palette.mode === 'dark' 
+                ? 'text' 
+                : 'inherit',
+              WebkitTextFillColor: theme.palette.mode === 'dark' 
+                ? 'transparent' 
+                : 'inherit',
             }}
           >
             Our Core Values
@@ -76,9 +116,15 @@ const CoreValuesSection = () => {
             sx={{
               width: 80,
               height: 4,
-              backgroundColor: theme.palette.primary.main,
+              background: theme.palette.mode === 'dark' 
+                ? 'linear-gradient(135deg, #81c784 0%, #4caf50 100%)' 
+                : theme.palette.primary.main,
               mb: 3,
               mx: "auto",
+              borderRadius: 2,
+              boxShadow: theme.palette.mode === 'dark' 
+                ? '0 2px 8px rgba(76, 175, 80, 0.4)' 
+                : 'none',
             }}
           />
         </Box>
@@ -91,11 +137,25 @@ const CoreValuesSection = () => {
                 sx={{
                   p: 4,
                   height: "100%",
-                  borderRadius: 2,
+                  borderRadius: 3,
                   transition: "transform 0.3s, box-shadow 0.3s",
+                  bgcolor: theme.palette.mode === 'dark' 
+                    ? 'rgba(255, 255, 255, 0.04)' 
+                    : 'background.paper',
+                  border: theme.palette.mode === 'dark' 
+                    ? '1px solid rgba(255, 255, 255, 0.1)' 
+                    : 'none',
+                  boxShadow: theme.palette.mode === 'dark' 
+                    ? '0 8px 24px rgba(0, 0, 0, 0.15)' 
+                    : theme.shadows[2],
+                  backdropFilter: theme.palette.mode === 'dark' 
+                    ? 'blur(10px)' 
+                    : 'none',
                   "&:hover": {
                     transform: "translateY(-8px)",
-                    boxShadow: theme.shadows[10],
+                    boxShadow: theme.palette.mode === 'dark' 
+                      ? '0 12px 32px rgba(0, 0, 0, 0.25)' 
+                      : theme.shadows[10],
                   },
                 }}
               >
