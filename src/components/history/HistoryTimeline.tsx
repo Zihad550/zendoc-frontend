@@ -82,18 +82,44 @@ const HistoryTimeline = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
-    <Box sx={{ py: 10, backgroundColor: theme.palette.background.paper }}>
-      <Container maxWidth="lg">
+    <Box 
+      sx={{ 
+        py: 10, 
+        backgroundColor: theme.palette.mode === 'dark' 
+          ? 'rgba(255, 255, 255, 0.01)' 
+          : theme.palette.background.paper,
+        position: 'relative',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: theme.palette.mode === 'dark' 
+            ? 'radial-gradient(circle at 20% 30%, rgba(33, 150, 243, 0.06) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(144, 202, 249, 0.04) 0%, transparent 50%)'
+            : 'none',
+          pointerEvents: 'none',
+          zIndex: 0,
+        },
+      }}
+    >
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
         {/* Section Title */}
         <Box sx={{ textAlign: "center", mb: 6 }}>
           <Typography
             component="span"
             sx={{
-              color: "primary.main",
+              color: theme.palette.mode === 'dark' 
+                ? '#64b5f6' 
+                : "primary.main",
               fontWeight: 600,
               fontSize: "1.1rem",
               textTransform: "uppercase",
               letterSpacing: 1,
+              textShadow: theme.palette.mode === 'dark' 
+                ? '0 0 10px rgba(100, 181, 246, 0.4)' 
+                : 'none',
             }}
           >
             Our Timeline
@@ -104,6 +130,21 @@ const HistoryTimeline = () => {
               fontWeight: 700,
               my: 2,
               fontSize: { xs: "2rem", md: "2.5rem" },
+              color: theme.palette.mode === 'dark' 
+                ? '#e3f2fd' 
+                : 'inherit',
+              background: theme.palette.mode === 'dark' 
+                ? 'linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%)' 
+                : 'inherit',
+              backgroundClip: theme.palette.mode === 'dark' 
+                ? 'text' 
+                : 'inherit',
+              WebkitBackgroundClip: theme.palette.mode === 'dark' 
+                ? 'text' 
+                : 'inherit',
+              WebkitTextFillColor: theme.palette.mode === 'dark' 
+                ? 'transparent' 
+                : 'inherit',
             }}
           >
             The Evolution of ZenDoc
@@ -112,9 +153,15 @@ const HistoryTimeline = () => {
             sx={{
               width: 80,
               height: 4,
-              backgroundColor: "primary.main",
+              background: theme.palette.mode === 'dark' 
+                ? 'linear-gradient(135deg, #64b5f6 0%, #2196f3 100%)' 
+                : "primary.main",
               mx: "auto",
               mb: 3,
+              borderRadius: 2,
+              boxShadow: theme.palette.mode === 'dark' 
+                ? '0 2px 8px rgba(33, 150, 243, 0.4)' 
+                : 'none',
             }}
           />
         </Box>
@@ -132,11 +179,21 @@ const HistoryTimeline = () => {
               height: "6px",
             },
             "&::-webkit-scrollbar-track": {
-              backgroundColor: theme.palette.grey[100],
+              backgroundColor: theme.palette.mode === 'dark' 
+                ? 'rgba(255, 255, 255, 0.1)' 
+                : theme.palette.grey[100],
+              borderRadius: "3px",
             },
             "&::-webkit-scrollbar-thumb": {
-              backgroundColor: theme.palette.primary.light,
+              backgroundColor: theme.palette.mode === 'dark' 
+                ? 'rgba(100, 181, 246, 0.6)' 
+                : theme.palette.primary.light,
               borderRadius: "3px",
+              '&:hover': {
+                backgroundColor: theme.palette.mode === 'dark' 
+                  ? 'rgba(100, 181, 246, 0.8)' 
+                  : theme.palette.primary.main,
+              },
             },
           }}
         >
@@ -152,11 +209,14 @@ const HistoryTimeline = () => {
               sx={{
                 position: "absolute",
                 height: "4px",
-                backgroundColor: theme.palette.grey[300],
+                background: theme.palette.mode === 'dark' 
+                  ? 'linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(100, 181, 246, 0.3) 50%, rgba(255, 255, 255, 0.1) 100%)' 
+                  : theme.palette.grey[300],
                 width: "100%",
                 top: "50%",
                 transform: "translateY(-50%)",
                 zIndex: 0,
+                borderRadius: '2px',
               }}
             />
 
@@ -180,27 +240,38 @@ const HistoryTimeline = () => {
                     width: 24,
                     height: 24,
                     borderRadius: "50%",
-                    backgroundColor:
-                      activeEvent.id === event.id ? "primary.main" : "white",
-                    border: `2px solid ${activeEvent.id === event.id ? theme.palette.primary.main : theme.palette.grey[400]}`,
+                    backgroundColor: activeEvent.id === event.id 
+                      ? (theme.palette.mode === 'dark' ? '#64b5f6' : "primary.main")
+                      : (theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : "white"),
+                    border: `2px solid ${activeEvent.id === event.id 
+                      ? (theme.palette.mode === 'dark' ? '#64b5f6' : theme.palette.primary.main)
+                      : (theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : theme.palette.grey[400])}`,
                     mb: 1,
+                    backdropFilter: theme.palette.mode === 'dark' ? 'blur(10px)' : 'none',
+                    boxShadow: theme.palette.mode === 'dark' && activeEvent.id === event.id 
+                      ? '0 0 12px rgba(100, 181, 246, 0.4)' 
+                      : 'none',
                     "&:hover": {
-                      backgroundColor: "primary.main",
+                      backgroundColor: theme.palette.mode === 'dark' ? '#64b5f6' : "primary.main",
                       opacity: 0.8,
+                      boxShadow: theme.palette.mode === 'dark' 
+                        ? '0 0 16px rgba(100, 181, 246, 0.6)' 
+                        : 'none',
                     },
                   }}
                 />
                 <Typography
                   variant="body2"
                   fontWeight={activeEvent.id === event.id ? 700 : 400}
-                  color={
-                    activeEvent.id === event.id
-                      ? "primary.main"
-                      : "text.secondary"
-                  }
                   sx={{
+                    color: activeEvent.id === event.id
+                      ? (theme.palette.mode === 'dark' ? '#64b5f6' : "primary.main")
+                      : (theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7)' : "text.secondary"),
                     whiteSpace: "nowrap",
                     fontSize: { xs: "0.7rem", sm: "0.8rem", md: "0.875rem" },
+                    textShadow: theme.palette.mode === 'dark' && activeEvent.id === event.id 
+                      ? '0 0 8px rgba(100, 181, 246, 0.3)' 
+                      : 'none',
                   }}
                 >
                   {event.year}
@@ -218,37 +289,83 @@ const HistoryTimeline = () => {
               sx={{
                 p: 4,
                 borderRadius: 3,
-                backgroundColor: theme.palette.grey[50],
+                backgroundColor: theme.palette.mode === 'dark' 
+                  ? 'rgba(255, 255, 255, 0.03)' 
+                  : theme.palette.grey[50],
                 height: "100%",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
-                boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
+                boxShadow: theme.palette.mode === 'dark' 
+                  ? '0 10px 40px rgba(0,0,0,0.2)' 
+                  : '0 4px 20px rgba(0,0,0,0.05)',
+                border: theme.palette.mode === 'dark' 
+                  ? '1px solid rgba(255, 255, 255, 0.1)' 
+                  : 'none',
+                position: 'relative',
+                '&::before': {
+                  content: '""',
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  background: theme.palette.mode === 'dark' 
+                    ? 'linear-gradient(135deg, rgba(33, 150, 243, 0.02) 0%, transparent 100%)' 
+                    : 'none',
+                  borderRadius: 3,
+                  pointerEvents: 'none',
+                  zIndex: 0,
+                },
               }}
             >
               <Typography
                 variant="h4"
-                color="primary.main"
-                sx={{ mb: 2, fontWeight: 700 }}
+                sx={{ 
+                  color: theme.palette.mode === 'dark' ? '#64b5f6' : "primary.main",
+                  mb: 2, 
+                  fontWeight: 700,
+                  textShadow: theme.palette.mode === 'dark' 
+                    ? '0 0 12px rgba(100, 181, 246, 0.4)'
+                    : 'none',
+                  position: 'relative',
+                  zIndex: 1,
+                }}
               >
                 {activeEvent.title}
               </Typography>
               <Typography
                 variant="body1"
-                sx={{ mb: 3, fontSize: "1.1rem", lineHeight: 1.6 }}
+                sx={{ 
+                  mb: 3, 
+                  fontSize: "1.1rem",
+                  lineHeight: 1.6,
+                  color: theme.palette.mode === 'dark'
+                    ? 'rgba(255, 255, 255, 0.85)'
+                    : 'inherit',
+                  position: 'relative',
+                  zIndex: 1,
+                }}
               >
                 {activeEvent.description}
               </Typography>
               <Box
                 sx={{
                   p: 2,
-                  backgroundColor: "primary.main",
+                  background: theme.palette.mode === 'dark' 
+                    ? 'linear-gradient(135deg, #64b5f6 0%, #2196f3 100%)' 
+                    : "primary.main",
                   color: "white",
                   borderRadius: 2,
                   display: "inline-flex",
                   alignItems: "center",
                   mt: "auto",
                   width: "fit-content",
+                  boxShadow: theme.palette.mode === 'dark' 
+                    ? '0 8px 16px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1)'
+                    : 'none',
+                  position: 'relative',
+                  zIndex: 1,
                 }}
               >
                 <Typography variant="subtitle1" fontWeight={600}>
@@ -265,11 +382,19 @@ const HistoryTimeline = () => {
                 width: "100%",
                 borderRadius: 3,
                 overflow: "hidden",
-                boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+                boxShadow: theme.palette.mode === 'dark' 
+                  ? '0 12px 36px rgba(0,0,0,0.3)'
+                  : '0 10px 30px rgba(0,0,0,0.1)',
                 transform: "perspective(1000px) rotateY(-5deg)",
                 transition: "all 0.5s ease",
+                border: theme.palette.mode === 'dark' 
+                  ? '1px solid rgba(255, 255, 255, 0.1)' 
+                  : 'none',
                 "&:hover": {
                   transform: "perspective(1000px) rotateY(0deg)",
+                  boxShadow: theme.palette.mode === 'dark' 
+                    ? '0 16px 48px rgba(0,0,0,0.4)'
+                    : '0 15px 40px rgba(0,0,0,0.15)',
                 },
               }}
             >
@@ -280,6 +405,9 @@ const HistoryTimeline = () => {
                 style={{
                   objectFit: "cover",
                   objectPosition: "center",
+                  filter: theme.palette.mode === 'dark' 
+                    ? 'brightness(0.9) contrast(1.1)'
+                    : 'none',
                 }}
                 priority
               />

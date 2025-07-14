@@ -57,9 +57,24 @@ const HistoryFounders = () => {
     <Box
       sx={{
         py: 10,
-        backgroundColor: theme.palette.grey[50],
+        backgroundColor: theme.palette.mode === 'dark' 
+          ? 'rgba(255, 255, 255, 0.01)' 
+          : theme.palette.grey[50],
         position: "relative",
         overflow: "hidden",
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: theme.palette.mode === 'dark' 
+            ? 'radial-gradient(circle at 15% 20%, rgba(156, 39, 176, 0.05) 0%, transparent 50%), radial-gradient(circle at 85% 80%, rgba(33, 150, 243, 0.04) 0%, transparent 50%)'
+            : 'none',
+          pointerEvents: 'none',
+          zIndex: 0,
+        },
       }}
     >
       {/* Background Decoration */}
@@ -69,11 +84,20 @@ const HistoryFounders = () => {
           width: "500px",
           height: "500px",
           borderRadius: "50%",
-          backgroundColor: theme.palette.primary.light,
-          opacity: 0.05,
+          background: theme.palette.mode === 'dark' 
+            ? 'radial-gradient(circle, rgba(156, 39, 176, 0.1) 0%, transparent 70%)'
+            : theme.palette.primary.light,
+          opacity: theme.palette.mode === 'dark' ? 0.3 : 0.05,
           top: "-200px",
           left: "-200px",
           zIndex: 0,
+          animation: theme.palette.mode === 'dark' 
+            ? 'pulse 6s ease-in-out infinite'
+            : 'none',
+          '@keyframes pulse': {
+            '0%, 100%': { transform: 'scale(1)', opacity: 0.3 },
+            '50%': { transform: 'scale(1.05)', opacity: 0.15 },
+          },
         }}
       />
       <Box
@@ -82,11 +106,16 @@ const HistoryFounders = () => {
           width: "300px",
           height: "300px",
           borderRadius: "50%",
-          backgroundColor: theme.palette.primary.light,
-          opacity: 0.05,
+          background: theme.palette.mode === 'dark' 
+            ? 'radial-gradient(circle, rgba(33, 150, 243, 0.08) 0%, transparent 70%)'
+            : theme.palette.primary.light,
+          opacity: theme.palette.mode === 'dark' ? 0.4 : 0.05,
           bottom: "-100px",
           right: "-100px",
           zIndex: 0,
+          animation: theme.palette.mode === 'dark' 
+            ? 'pulse 8s ease-in-out infinite reverse'
+            : 'none',
         }}
       />
 
@@ -96,11 +125,16 @@ const HistoryFounders = () => {
           <Typography
             component="span"
             sx={{
-              color: "primary.main",
+              color: theme.palette.mode === 'dark' 
+                ? '#ce93d8' 
+                : "primary.main",
               fontWeight: 600,
               fontSize: "1.1rem",
               textTransform: "uppercase",
               letterSpacing: 1,
+              textShadow: theme.palette.mode === 'dark' 
+                ? '0 0 10px rgba(206, 147, 216, 0.4)' 
+                : 'none',
             }}
           >
             The Visionaries
@@ -111,6 +145,21 @@ const HistoryFounders = () => {
               fontWeight: 700,
               my: 2,
               fontSize: { xs: "2rem", md: "2.5rem" },
+              color: theme.palette.mode === 'dark' 
+                ? '#e3f2fd' 
+                : 'inherit',
+              background: theme.palette.mode === 'dark' 
+                ? 'linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%)' 
+                : 'inherit',
+              backgroundClip: theme.palette.mode === 'dark' 
+                ? 'text' 
+                : 'inherit',
+              WebkitBackgroundClip: theme.palette.mode === 'dark' 
+                ? 'text' 
+                : 'inherit',
+              WebkitTextFillColor: theme.palette.mode === 'dark' 
+                ? 'transparent' 
+                : 'inherit',
             }}
           >
             Meet Our Founders
@@ -119,9 +168,15 @@ const HistoryFounders = () => {
             sx={{
               width: 80,
               height: 4,
-              backgroundColor: "primary.main",
+              background: theme.palette.mode === 'dark' 
+                ? 'linear-gradient(135deg, #ce93d8 0%, #9c27b0 100%)' 
+                : "primary.main",
               mx: "auto",
               mb: 3,
+              borderRadius: 2,
+              boxShadow: theme.palette.mode === 'dark' 
+                ? '0 2px 8px rgba(156, 39, 176, 0.4)' 
+                : 'none',
             }}
           />
           <Typography
@@ -130,7 +185,10 @@ const HistoryFounders = () => {
               maxWidth: "700px",
               mx: "auto",
               fontSize: "1.1rem",
-              color: theme.palette.text.secondary,
+              color: theme.palette.mode === 'dark'
+                ? 'rgba(255, 255, 255, 0.8)'
+                : theme.palette.text.secondary,
+              lineHeight: 1.6,
             }}
           >
             The passionate individuals who brought their expertise and vision
@@ -153,10 +211,43 @@ const HistoryFounders = () => {
                   flexDirection: "column",
                   alignItems: "center",
                   textAlign: "center",
-                  boxShadow: "0 5px 20px rgba(0,0,0,0.05)",
+                  bgcolor: theme.palette.mode === 'dark' 
+                    ? 'rgba(255, 255, 255, 0.04)' 
+                    : 'background.paper',
+                  border: theme.palette.mode === 'dark' 
+                    ? '1px solid rgba(255, 255, 255, 0.1)' 
+                    : 'none',
+                  boxShadow: theme.palette.mode === 'dark' 
+                    ? '0 8px 24px rgba(0, 0, 0, 0.15)' 
+                    : '0 5px 20px rgba(0,0,0,0.05)',
+                  backdropFilter: theme.palette.mode === 'dark' 
+                    ? 'blur(10px)' 
+                    : 'none',
+                  position: 'relative',
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: theme.palette.mode === 'dark' 
+                      ? 'linear-gradient(135deg, rgba(156, 39, 176, 0.02) 0%, transparent 50%, rgba(33, 150, 243, 0.01) 100%)' 
+                      : 'none',
+                    borderRadius: 3,
+                    pointerEvents: 'none',
+                    zIndex: 0,
+                  },
                   "&:hover": {
                     transform: "translateY(-10px)",
-                    boxShadow: "0 15px 30px rgba(0,0,0,0.1)",
+                    boxShadow: theme.palette.mode === 'dark' 
+                      ? '0 20px 40px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1)' 
+                      : '0 15px 30px rgba(0,0,0,0.1)',
+                    '&::before': {
+                      background: theme.palette.mode === 'dark' 
+                        ? 'linear-gradient(135deg, rgba(156, 39, 176, 0.05) 0%, transparent 50%, rgba(33, 150, 243, 0.03) 100%)' 
+                        : 'none',
+                    },
                   },
                 }}
               >
@@ -167,27 +258,84 @@ const HistoryFounders = () => {
                     width: 120,
                     height: 120,
                     mb: 3,
-                    border: `4px solid ${theme.palette.primary.main}`,
+                    border: theme.palette.mode === 'dark' 
+                      ? `4px solid #ce93d8`
+                      : `4px solid ${theme.palette.primary.main}`,
+                    boxShadow: theme.palette.mode === 'dark' 
+                      ? '0 0 20px rgba(206, 147, 216, 0.3)' 
+                      : 'none',
+                    position: 'relative',
+                    zIndex: 1,
+                    '&::before': {
+                      content: '""',
+                      position: 'absolute',
+                      top: -8,
+                      left: -8,
+                      right: -8,
+                      bottom: -8,
+                      borderRadius: '50%',
+                      background: theme.palette.mode === 'dark' 
+                        ? 'linear-gradient(135deg, rgba(156, 39, 176, 0.2) 0%, rgba(33, 150, 243, 0.1) 100%)' 
+                        : 'none',
+                      animation: theme.palette.mode === 'dark' 
+                        ? 'rotate 10s linear infinite' 
+                        : 'none',
+                      '@keyframes rotate': {
+                        '0%': { transform: 'rotate(0deg)' },
+                        '100%': { transform: 'rotate(360deg)' },
+                      },
+                      zIndex: -1,
+                    },
                   }}
                 />
-                <Typography variant="h5" sx={{ fontWeight: 700, mb: 1 }}>
+                <Typography 
+                  variant="h5" 
+                  sx={{ 
+                    fontWeight: 700, 
+                    mb: 1,
+                    color: theme.palette.mode === 'dark' 
+                      ? 'rgba(255, 255, 255, 0.95)' 
+                      : 'inherit',
+                    position: 'relative',
+                    zIndex: 1,
+                  }}
+                >
                   {founder.name}
                 </Typography>
                 <Typography
                   variant="subtitle1"
-                  color="primary.main"
-                  sx={{ mb: 3, fontWeight: 600 }}
+                  sx={{ 
+                    color: theme.palette.mode === 'dark' 
+                      ? '#ce93d8' 
+                      : "primary.main",
+                    mb: 3, 
+                    fontWeight: 600,
+                    textShadow: theme.palette.mode === 'dark' 
+                      ? '0 0 8px rgba(206, 147, 216, 0.3)' 
+                      : 'none',
+                    position: 'relative',
+                    zIndex: 1,
+                  }}
                 >
                   {founder.role}
                 </Typography>
                 <Typography
                   variant="body2"
-                  color="text.secondary"
-                  sx={{ mb: 3, lineHeight: 1.6 }}
+                  sx={{ 
+                    color: theme.palette.mode === 'dark'
+                      ? 'rgba(255, 255, 255, 0.75)'
+                      : "text.secondary",
+                    mb: 3, 
+                    lineHeight: 1.6,
+                    position: 'relative',
+                    zIndex: 1,
+                  }}
                 >
                   {founder.bio}
                 </Typography>
-                <SocialMediaLinks mt={3} />
+                <Box sx={{ position: 'relative', zIndex: 1 }}>
+                  <SocialMediaLinks mt={3} />
+                </Box>
               </Paper>
             </Grid>
           ))}
