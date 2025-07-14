@@ -1,5 +1,5 @@
 "use client";
-import { useGetAllDoctorSchedulesQuery } from "@/redux/features/doctorSchedule/doctorScheduleApi";
+import { useGetAllDocSchedulesQuery } from "@/redux/features/doctorSchedule/doctorScheduleApi";
 import { ISchedule } from "@/types/schedule";
 import { dateFormatter } from "@/utils/dateFormatter";
 import AddIcon from "@mui/icons-material/Add";
@@ -22,9 +22,9 @@ const DoctorSchedulesPage = () => {
   query["limit"] = limit;
 
   const [allSchedule, setAllSchedule] = useState<any>([]);
-  const { data, isLoading } = useGetAllDoctorSchedulesQuery({ ...query });
+  const { data, isLoading } = useGetAllDocSchedulesQuery({ ...query });
 
-  const schedules = data?.doctorSchedules;
+  const schedules = data?.data;
   const meta = data?.meta;
 
   let pageCount: number;

@@ -13,7 +13,7 @@ export const doctorScheduleApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.doctorSchedule],
     }),
-    getAllDoctorSchedules: build.query<
+    getAllDocSchedules: build.query<
       IResponseRedux<DoctorSchedule[]>,
       Record<string, unknown> | undefined
     >({
@@ -54,7 +54,7 @@ export const doctorScheduleApi = baseApi.injectEndpoints({
 
 export const {
   useCreateDoctorScheduleMutation,
-  useGetAllDoctorSchedulesQuery,
+  useGetAllDocSchedulesQuery,
   useGetDoctorScheduleQuery,
   useGetMyScheduleQuery,
   useDeleteDoctorScheduleMutation,

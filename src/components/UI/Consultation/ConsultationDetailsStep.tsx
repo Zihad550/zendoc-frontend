@@ -8,6 +8,7 @@ import {
   Select,
   TextField,
   Typography,
+  alpha,
 } from "@mui/material";
 
 interface ConsultationDetailsStepProps {
@@ -65,11 +66,74 @@ export default function ConsultationDetailsStep({
             onChange={handleChange}
             placeholder="Please describe your symptoms in detail"
             helperText="This information helps the doctor prepare for your consultation"
+            sx={{
+              // Enhanced TextField styling for dark theme
+              "& .MuiOutlinedInput-root": {
+                borderRadius: 2,
+                backgroundColor: (theme) => theme.palette.mode === "dark" 
+                  ? alpha(theme.palette.primary.main, 0.05) 
+                  : "transparent",
+                "& fieldset": {
+                  borderColor: (theme) => theme.palette.mode === "dark" 
+                    ? alpha(theme.palette.primary.main, 0.3) 
+                    : "inherit",
+                },
+                "&:hover fieldset": {
+                  borderColor: (theme) => theme.palette.mode === "dark" 
+                    ? alpha(theme.palette.primary.main, 0.5) 
+                    : "inherit",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: (theme) => theme.palette.mode === "dark" 
+                    ? theme.palette.primary.main 
+                    : "inherit",
+                },
+              },
+              "& .MuiInputLabel-root": {
+                color: (theme) => theme.palette.mode === "dark" ? "text.primary" : "inherit",
+              },
+              "& .MuiFormHelperText-root": {
+                color: (theme) => theme.palette.mode === "dark" ? "text.secondary" : "inherit",
+              },
+            }}
           />
         </Grid>
 
         <Grid size={{ xs: 12, md: 6 }}>
-          <FormControl fullWidth required>
+          <FormControl 
+            fullWidth 
+            required
+            sx={{
+              // Enhanced FormControl styling for dark theme
+              "& .MuiOutlinedInput-root": {
+                borderRadius: 2,
+                backgroundColor: (theme) => theme.palette.mode === "dark" 
+                  ? alpha(theme.palette.primary.main, 0.05) 
+                  : "transparent",
+                "& fieldset": {
+                  borderColor: (theme) => theme.palette.mode === "dark" 
+                    ? alpha(theme.palette.primary.main, 0.3) 
+                    : "inherit",
+                },
+                "&:hover fieldset": {
+                  borderColor: (theme) => theme.palette.mode === "dark" 
+                    ? alpha(theme.palette.primary.main, 0.5) 
+                    : "inherit",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: (theme) => theme.palette.mode === "dark" 
+                    ? theme.palette.primary.main 
+                    : "inherit",
+                },
+              },
+              "& .MuiInputLabel-root": {
+                color: (theme) => theme.palette.mode === "dark" ? "text.primary" : "inherit",
+              },
+              "& .MuiFormHelperText-root": {
+                color: (theme) => theme.palette.mode === "dark" ? "text.secondary" : "inherit",
+              },
+            }}
+          >
             <InputLabel id="duration-label">Duration of symptoms</InputLabel>
             <Select
               labelId="duration-label"
@@ -103,6 +167,33 @@ export default function ConsultationDetailsStep({
             value={consultationDetails.previousTreatments}
             onChange={handleChange}
             placeholder="List any treatments you've tried"
+            sx={{
+              // Enhanced TextField styling for dark theme
+              "& .MuiOutlinedInput-root": {
+                borderRadius: 2,
+                backgroundColor: (theme) => theme.palette.mode === "dark" 
+                  ? alpha(theme.palette.primary.main, 0.05) 
+                  : "transparent",
+                "& fieldset": {
+                  borderColor: (theme) => theme.palette.mode === "dark" 
+                    ? alpha(theme.palette.primary.main, 0.3) 
+                    : "inherit",
+                },
+                "&:hover fieldset": {
+                  borderColor: (theme) => theme.palette.mode === "dark" 
+                    ? alpha(theme.palette.primary.main, 0.5) 
+                    : "inherit",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: (theme) => theme.palette.mode === "dark" 
+                    ? theme.palette.primary.main 
+                    : "inherit",
+                },
+              },
+              "& .MuiInputLabel-root": {
+                color: (theme) => theme.palette.mode === "dark" ? "text.primary" : "inherit",
+              },
+            }}
           />
         </Grid>
 
@@ -118,6 +209,36 @@ export default function ConsultationDetailsStep({
             onChange={handleChange}
             placeholder="Any other information you'd like to share with the doctor"
             helperText="Optional: Include allergies, medications, or other relevant medical history"
+            sx={{
+              // Enhanced TextField styling for dark theme
+              "& .MuiOutlinedInput-root": {
+                borderRadius: 2,
+                backgroundColor: (theme) => theme.palette.mode === "dark" 
+                  ? alpha(theme.palette.primary.main, 0.05) 
+                  : "transparent",
+                "& fieldset": {
+                  borderColor: (theme) => theme.palette.mode === "dark" 
+                    ? alpha(theme.palette.primary.main, 0.3) 
+                    : "inherit",
+                },
+                "&:hover fieldset": {
+                  borderColor: (theme) => theme.palette.mode === "dark" 
+                    ? alpha(theme.palette.primary.main, 0.5) 
+                    : "inherit",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: (theme) => theme.palette.mode === "dark" 
+                    ? theme.palette.primary.main 
+                    : "inherit",
+                },
+              },
+              "& .MuiInputLabel-root": {
+                color: (theme) => theme.palette.mode === "dark" ? "text.primary" : "inherit",
+              },
+              "& .MuiFormHelperText-root": {
+                color: (theme) => theme.palette.mode === "dark" ? "text.secondary" : "inherit",
+              },
+            }}
           />
         </Grid>
       </Grid>
