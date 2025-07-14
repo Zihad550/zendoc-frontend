@@ -1,5 +1,5 @@
 import { Doctor } from "@/types/doctor";
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Stack, Typography, alpha } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -13,9 +13,28 @@ const DoctorCard = ({ doctor }: { doctor: Doctor }) => {
         direction="row"
         flex={1}
         gap={3}
-        sx={{ height: 235, bgcolor: "white", p: 3 }}
+        sx={{ 
+          height: 235, 
+          bgcolor: (theme) => theme.palette.mode === "dark" 
+            ? "#1E2139" 
+            : "white", 
+          p: 3 
+        }}
       >
-        <Box sx={{ width: 190, height: 190, bgcolor: "#808080" }}>
+        <Box 
+          sx={{ 
+            width: 190, 
+            height: 190, 
+            bgcolor: (theme) => theme.palette.mode === "dark" 
+              ? "#2A2D4A" 
+              : "#808080",
+            borderRadius: 2,
+            overflow: "hidden",
+            border: (theme) => theme.palette.mode === "dark" 
+              ? "1px solid rgba(255, 255, 255, 0.1)" 
+              : "none",
+          }}
+        >
           <Image
             src={doctor?.profilePhoto ? doctor.profilePhoto : placeholder}
             alt="doctor image"
@@ -23,6 +42,7 @@ const DoctorCard = ({ doctor }: { doctor: Doctor }) => {
             height={190}
             style={{
               height: "190px",
+              objectFit: "cover",
             }}
           />
         </Box>
@@ -50,7 +70,9 @@ const DoctorCard = ({ doctor }: { doctor: Doctor }) => {
           <Box
             sx={{
               borderBottom: "2px dashed",
-              borderColor: "secondary.light",
+              borderColor: (theme) => theme.palette.mode === "dark" 
+                ? alpha(theme.palette.primary.main, 0.3) 
+                : "secondary.light",
               my: 3,
             }}
           />
@@ -86,7 +108,16 @@ const DoctorCard = ({ doctor }: { doctor: Doctor }) => {
           </Stack>
         </Stack>
       </Stack>
-      <Stack sx={{ height: 235, bgcolor: "white", width: "400px", p: 3 }}>
+      <Stack 
+        sx={{ 
+          height: 235, 
+          bgcolor: (theme) => theme.palette.mode === "dark" 
+            ? "#1E2139" 
+            : "white", 
+          width: "400px", 
+          p: 3 
+        }}
+      >
         <Box flex={1}>
           <Typography color="secondary.main">Working in</Typography>
           <Typography sx={{ fontWeight: "600", mt: "3px" }}>
@@ -96,7 +127,9 @@ const DoctorCard = ({ doctor }: { doctor: Doctor }) => {
         <Box
           sx={{
             borderBottom: "2px dashed",
-            borderColor: "secondary.light",
+            borderColor: (theme) => theme.palette.mode === "dark" 
+              ? alpha(theme.palette.primary.main, 0.3) 
+              : "secondary.light",
             my: "22px",
           }}
         />

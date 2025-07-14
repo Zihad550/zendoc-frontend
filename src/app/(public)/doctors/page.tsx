@@ -16,6 +16,7 @@ import {
   InputBase,
   Paper,
   Typography,
+  alpha,
 } from "@mui/material";
 import { useState } from "react";
 import NoDoctorsFound from "./components/NoDoctorsFound";
@@ -32,7 +33,6 @@ const Doctors = () => {
   if (!!debouncedTerm) query["searchTerm"] = searchTerm;
 
   const { data, isLoading } = useGetAllDoctorsQuery(query);
-  console.log(data);
 
   // Mock statistics data
 
@@ -49,7 +49,20 @@ const Doctors = () => {
   ];
 
   return (
-    <Box sx={{ bgcolor: "#F7FAFC", minHeight: "100vh", py: 6 }}>
+    <Box
+      sx={{
+        bgcolor: (theme) =>
+          theme.palette.mode === "dark" ? "#0A0E27" : "#F7FAFC",
+        minHeight: "100vh",
+        py: 6,
+        // Add subtle gradient background for dark theme
+        backgroundImage: (theme) =>
+          theme.palette.mode === "dark"
+            ? `radial-gradient(circle at 20% 20%, ${alpha(theme.palette.primary.main, 0.06)} 0%, transparent 50%),
+             radial-gradient(circle at 80% 80%, ${alpha(theme.palette.primary.main, 0.04)} 0%, transparent 50%)`
+            : "none",
+      }}
+    >
       <Container maxWidth="lg">
         {/* Hero Section with Search */}
         <Paper
@@ -58,7 +71,16 @@ const Doctors = () => {
             borderRadius: 3,
             mb: 5,
             overflow: "hidden",
-            boxShadow: "0 10px 40px rgba(0,0,0,0.06)",
+            backgroundColor: (theme) =>
+              theme.palette.mode === "dark" ? "#161925" : "#ffffff",
+            boxShadow: (theme) =>
+              theme.palette.mode === "dark"
+                ? "0 10px 40px rgba(0,0,0,0.2)"
+                : "0 10px 40px rgba(0,0,0,0.06)",
+            border: (theme) =>
+              theme.palette.mode === "dark"
+                ? "1px solid rgba(255, 255, 255, 0.06)"
+                : "none",
           }}
         >
           <Grid container>
@@ -86,10 +108,16 @@ const Doctors = () => {
                       fontWeight: 700,
                       mb: 2,
                       fontSize: { xs: "2rem", md: "2.5rem" },
-                      background:
-                        "linear-gradient(90deg, #1586FD 0%, #44A4FF 100%)",
+                      background: (theme) =>
+                        theme.palette.mode === "dark"
+                          ? `linear-gradient(90deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.light} 100%)`
+                          : "linear-gradient(90deg, #1586FD 0%, #44A4FF 100%)",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
+                      textShadow: (theme) =>
+                        theme.palette.mode === "dark"
+                          ? `0 4px 12px ${alpha(theme.palette.primary.main, 0.15)}`
+                          : "none",
                     }}
                   >
                     Find Specialists for Your Health Needs
@@ -117,13 +145,28 @@ const Doctors = () => {
                       display: "flex",
                       alignItems: "center",
                       width: { xs: "100%", md: "90%" },
-                      border: "1px solid #E0E7FF",
+                      backgroundColor: (theme) =>
+                        theme.palette.mode === "dark" ? "#1A1D2E" : "#ffffff",
+                      border: (theme) =>
+                        theme.palette.mode === "dark"
+                          ? "1px solid rgba(255, 255, 255, 0.05)"
+                          : "1px solid #E0E7FF",
                       borderRadius: 8,
-                      boxShadow: "0 4px 14px rgba(21, 134, 253, 0.1)",
+                      boxShadow: (theme) =>
+                        theme.palette.mode === "dark"
+                          ? `0 4px 14px ${alpha(theme.palette.primary.main, 0.1)}`
+                          : "0 4px 14px rgba(21, 134, 253, 0.1)",
                       mb: 3,
                       transition: "all 0.3s ease",
                       "&:hover": {
-                        boxShadow: "0 6px 20px rgba(21, 134, 253, 0.15)",
+                        boxShadow: (theme) =>
+                          theme.palette.mode === "dark"
+                            ? `0 6px 20px ${alpha(theme.palette.primary.main, 0.15)}`
+                            : "0 6px 20px rgba(21, 134, 253, 0.15)",
+                        borderColor: (theme) =>
+                          theme.palette.mode === "dark"
+                            ? alpha(theme.palette.primary.main, 0.15)
+                            : "#E0E7FF",
                       },
                     }}
                   >
@@ -131,7 +174,21 @@ const Doctors = () => {
                       <SearchIcon sx={{ color: "primary.main" }} />
                     </IconButton>
                     <InputBase
-                      sx={{ ml: 1, flex: 1, fontSize: "1rem" }}
+                      sx={{
+                        ml: 1,
+                        flex: 1,
+                        fontSize: "1rem",
+                        color: (theme) =>
+                          theme.palette.mode === "dark"
+                            ? theme.palette.text.primary
+                            : "inherit",
+                        "& .MuiInputBase-input::placeholder": {
+                          color: (theme) =>
+                            theme.palette.mode === "dark"
+                              ? alpha(theme.palette.text.primary, 0.5)
+                              : "inherit",
+                        },
+                      }}
                       placeholder="Search by doctor name"
                       inputProps={{ "aria-label": "search doctors" }}
                       onChange={(e) => setSearchTerm(e.target.value)}
@@ -150,10 +207,17 @@ const Doctors = () => {
                               width: 48,
                               height: 48,
                               borderRadius: "12px",
-                              bgcolor: "rgba(21, 134, 253, 0.1)",
+                              bgcolor: (theme) =>
+                                theme.palette.mode === "dark"
+                                  ? alpha(theme.palette.primary.main, 0.08)
+                                  : "rgba(21, 134, 253, 0.1)",
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center",
+                              border: (theme) =>
+                                theme.palette.mode === "dark"
+                                  ? `1px solid ${alpha(theme.palette.primary.main, 0.1)}`
+                                  : "none",
                             }}
                           >
                             <stat.icon
@@ -200,8 +264,10 @@ const Doctors = () => {
                     left: 0,
                     width: "100%",
                     height: "100%",
-                    background:
-                      "linear-gradient(135deg, rgba(21, 134, 253, 0.2) 0%, rgba(21, 134, 253, 0.4) 100%)",
+                    background: (theme) =>
+                      theme.palette.mode === "dark"
+                        ? "linear-gradient(135deg, rgba(21, 134, 253, 0.2) 0%, rgba(21, 134, 253, 0.4) 100%)"
+                        : "linear-gradient(135deg, rgba(21, 134, 253, 0.2) 0%, rgba(21, 134, 253, 0.4) 100%)",
                     borderTopRightRadius: 12,
                     borderBottomRightRadius: 12,
                   },
@@ -267,10 +333,23 @@ const Doctors = () => {
                     sx={{
                       borderRadius: 3,
                       overflow: "hidden",
+                      backgroundColor: (theme) =>
+                        theme.palette.mode === "dark" ? "#1A1D36" : "#ffffff",
+                      border: (theme) =>
+                        theme.palette.mode === "dark"
+                          ? "1px solid rgba(255, 255, 255, 0.1)"
+                          : "none",
                       transition: "all 0.3s ease",
                       "&:hover": {
-                        boxShadow: "0 12px 30px rgba(0,0,0,0.08)",
+                        boxShadow: (theme) =>
+                          theme.palette.mode === "dark"
+                            ? "0 12px 30px rgba(0,0,0,0.4)"
+                            : "0 12px 30px rgba(0,0,0,0.08)",
                         transform: "translateY(-3px)",
+                        borderColor: (theme) =>
+                          theme.palette.mode === "dark"
+                            ? alpha(theme.palette.primary.main, 0.3)
+                            : "transparent",
                       },
                     }}
                   >

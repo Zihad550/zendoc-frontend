@@ -8,7 +8,16 @@ const NoDoctorsFound = () => {
         p: 5,
         borderRadius: 3,
         textAlign: "center",
-        boxShadow: "0 6px 24px rgba(0,0,0,0.05)",
+        backgroundColor: (theme) =>
+          theme.palette.mode === "dark" ? "#1A1D36" : "#ffffff",
+        boxShadow: (theme) =>
+          theme.palette.mode === "dark"
+            ? "0 6px 24px rgba(0,0,0,0.3)"
+            : "0 6px 24px rgba(0,0,0,0.05)",
+        border: (theme) =>
+          theme.palette.mode === "dark"
+            ? "1px solid rgba(255, 255, 255, 0.1)"
+            : "none",
       }}
     >
       <Typography variant="h6" color="text.secondary">
