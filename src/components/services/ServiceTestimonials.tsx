@@ -93,7 +93,9 @@ const ServiceTestimonials = () => {
     <Box
       sx={{
         py: 10,
-        backgroundImage: "linear-gradient(to bottom, #f5f9ff, white)",
+        backgroundImage: theme.palette.mode === 'dark' 
+          ? "linear-gradient(to bottom, #0a0e27, #1a1a2e)"
+          : "linear-gradient(to bottom, #f5f9ff, white)",
         position: "relative",
         overflow: "hidden",
       }}
@@ -105,8 +107,9 @@ const ServiceTestimonials = () => {
           width: 300,
           height: 300,
           borderRadius: "50%",
-          background:
-            "radial-gradient(circle, rgba(25, 118, 210, 0.05) 0%, rgba(25, 118, 210, 0) 70%)",
+          background: theme.palette.mode === 'dark'
+            ? "radial-gradient(circle, rgba(66, 165, 245, 0.08) 0%, rgba(66, 165, 245, 0) 70%)"
+            : "radial-gradient(circle, rgba(25, 118, 210, 0.05) 0%, rgba(25, 118, 210, 0) 70%)",
           top: -150,
           left: -150,
         }}
@@ -117,8 +120,9 @@ const ServiceTestimonials = () => {
           width: 400,
           height: 400,
           borderRadius: "50%",
-          background:
-            "radial-gradient(circle, rgba(25, 118, 210, 0.05) 0%, rgba(25, 118, 210, 0) 70%)",
+          background: theme.palette.mode === 'dark'
+            ? "radial-gradient(circle, rgba(66, 165, 245, 0.08) 0%, rgba(66, 165, 245, 0) 70%)"
+            : "radial-gradient(circle, rgba(25, 118, 210, 0.05) 0%, rgba(25, 118, 210, 0) 70%)",
           bottom: -200,
           right: -200,
         }}
@@ -180,17 +184,22 @@ const ServiceTestimonials = () => {
                   p: 4,
                   height: "100%",
                   borderRadius: 3,
-                  boxShadow: "0 10px 30px rgba(0,0,0,0.05)",
+                  boxShadow: theme.palette.mode === 'dark'
+                    ? "0 10px 30px rgba(0,0,0,0.3)"
+                    : "0 10px 30px rgba(0,0,0,0.05)",
                   display: "flex",
                   flexDirection: "column",
                   position: "relative",
                   transition: "all 0.3s ease",
                   border: "1px solid",
-                  borderColor: "transparent",
+                  borderColor: theme.palette.mode === 'dark' ? "rgba(255,255,255,0.1)" : "transparent",
+                  backgroundColor: theme.palette.mode === 'dark' ? "rgba(255,255,255,0.05)" : "background.paper",
                   "&:hover": {
                     borderColor: "primary.light",
                     transform: "translateY(-5px)",
-                    boxShadow: "0 15px 35px rgba(0,0,0,0.1)",
+                    boxShadow: theme.palette.mode === 'dark'
+                      ? "0 15px 35px rgba(0,0,0,0.4)"
+                      : "0 15px 35px rgba(0,0,0,0.1)",
                   },
                 }}
               >
@@ -212,8 +221,12 @@ const ServiceTestimonials = () => {
                     sx={{
                       width: 60,
                       height: 60,
-                      boxShadow: "0 5px 15px rgba(0,0,0,0.1)",
-                      border: "3px solid white",
+                      boxShadow: theme.palette.mode === 'dark'
+                        ? "0 5px 15px rgba(0,0,0,0.5)"
+                        : "0 5px 15px rgba(0,0,0,0.1)",
+                      border: theme.palette.mode === 'dark'
+                        ? "3px solid rgba(255,255,255,0.1)"
+                        : "3px solid white",
                     }}
                   />
                   <Box sx={{ ml: 2 }}>
@@ -269,8 +282,11 @@ const ServiceTestimonials = () => {
           <IconButton
             onClick={handlePrev}
             sx={{
-              bgcolor: "white",
-              boxShadow: "0 5px 15px rgba(0,0,0,0.08)",
+              bgcolor: theme.palette.mode === 'dark' ? "rgba(255,255,255,0.1)" : "white",
+              color: theme.palette.mode === 'dark' ? "text.primary" : "inherit",
+              boxShadow: theme.palette.mode === 'dark'
+                ? "0 5px 15px rgba(0,0,0,0.3)"
+                : "0 5px 15px rgba(0,0,0,0.08)",
               "&:hover": {
                 bgcolor: "primary.main",
                 color: "white",
@@ -282,8 +298,11 @@ const ServiceTestimonials = () => {
           <IconButton
             onClick={handleNext}
             sx={{
-              bgcolor: "white",
-              boxShadow: "0 5px 15px rgba(0,0,0,0.08)",
+              bgcolor: theme.palette.mode === 'dark' ? "rgba(255,255,255,0.1)" : "white",
+              color: theme.palette.mode === 'dark' ? "text.primary" : "inherit",
+              boxShadow: theme.palette.mode === 'dark'
+                ? "0 5px 15px rgba(0,0,0,0.3)"
+                : "0 5px 15px rgba(0,0,0,0.08)",
               "&:hover": {
                 bgcolor: "primary.main",
                 color: "white",

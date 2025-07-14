@@ -64,7 +64,7 @@ const ServicesFeatures = () => {
   const theme = useTheme();
 
   return (
-    <Box sx={{ py: 10, bgcolor: theme.palette.grey[50] }}>
+<Box sx={{ py: 10, bgcolor: theme.palette.mode === 'dark' ? theme.palette.background.default : theme.palette.grey[50] }}>
       <Container maxWidth="lg">
         {/* Section Title */}
         <Box sx={{ textAlign: "center", mb: 8 }}>
@@ -104,7 +104,7 @@ const ServicesFeatures = () => {
             sx={{
               maxWidth: "700px",
               mx: "auto",
-              color: theme.palette.text.secondary,
+color: theme.palette.mode === 'dark' ? theme.palette.text.primary : theme.palette.text.secondary,
             }}
           >
             Discover what sets our healthcare services apart and why patients
@@ -124,14 +124,14 @@ const ServicesFeatures = () => {
                   borderRadius: 3,
                   transition: "all 0.3s ease",
                   border: "1px solid",
-                  borderColor: theme.palette.grey[200],
+borderColor: theme.palette.mode === 'dark' ? theme.palette.grey[800] : theme.palette.grey[200],
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "flex-start",
                   position: "relative",
                   overflow: "hidden",
                   "&:hover": {
-                    boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
+boxShadow: theme.palette.mode === 'dark' ? "0 10px 30px rgba(0,0,0,0.3)" : "0 10px 30px rgba(0,0,0,0.08)",
                     borderColor: "primary.main",
                     transform: "translateY(-5px)",
                     "& .feature-icon": {
@@ -142,7 +142,7 @@ const ServicesFeatures = () => {
                 }}
               >
                 <Box
-                  className="feature-icon"
+className="feature-icon"
                   sx={{
                     display: "flex",
                     alignItems: "center",
@@ -150,8 +150,8 @@ const ServicesFeatures = () => {
                     width: 70,
                     height: 70,
                     borderRadius: "50%",
-                    backgroundColor: "primary.lighter",
-                    color: "primary.main",
+                    backgroundColor: theme.palette.mode === 'dark' ? theme.palette.primary.dark : theme.palette.primary.lighter,
+                    color: theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.main,
                     mb: 3,
                     transition: "all 0.3s ease",
                   }}

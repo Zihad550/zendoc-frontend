@@ -1,18 +1,49 @@
+"use client";
 import assets from "@/assets";
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import ServiceCTARegisterButton from "./ServiceCTAButton";
 
 const ServiceCTA = () => {
+  const theme = useTheme();
+
   return (
     <Box
       sx={{
         py: { xs: 10, md: 12 },
         position: "relative",
         overflow: "hidden",
-        backgroundImage: "linear-gradient(135deg, #1976d2 0%, #115293 100%)",
+        backgroundImage:
+          theme.palette.mode === "dark"
+            ? "linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 25%, #1e3a8a 50%, #312e81 75%, #1a1a1a 100%)"
+            : "linear-gradient(135deg, #1976d2 0%, #115293 100%)",
         color: "white",
+        "&::before": {
+          content: '""',
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background:
+            theme.palette.mode === "dark"
+              ? "radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(147, 51, 234, 0.1) 0%, transparent 50%)"
+              : "none",
+          pointerEvents: "none",
+          zIndex: 1,
+        },
+        "& > *": {
+          position: "relative",
+          zIndex: 2,
+        },
       }}
     >
       {/* Background pattern */}
@@ -37,7 +68,10 @@ const ServiceCTA = () => {
           left: 0,
           right: 0,
           height: "120px",
-          background: "white",
+          background:
+            theme.palette.mode === "dark"
+              ? theme.palette.background.default
+              : "white",
           clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 0)",
           zIndex: 1,
         }}
