@@ -5,6 +5,7 @@ import Brightness2Icon from "@mui/icons-material/Brightness2";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import {
+  alpha,
   Box,
   ClickAwayListener,
   Fade,
@@ -13,7 +14,6 @@ import {
   Stack,
   Tooltip,
   Typography,
-  alpha,
   useTheme,
 } from "@mui/material";
 import { useColorScheme } from "@mui/material/styles";
