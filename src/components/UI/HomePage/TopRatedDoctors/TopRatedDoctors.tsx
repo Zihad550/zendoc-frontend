@@ -1,8 +1,8 @@
+"use client";
 import assets from "@/assets";
 import SectionTitle from "@/components/Shared/SectionTitle";
 import { theme } from "@/lib/theme/theme";
-import { IResponse } from "@/types/apiResponse";
-import { Doctor } from "@/types/doctor";
+import { useGetAllDoctorsQuery } from "@/redux/features/doctor/doctorApi";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MedicalServicesIcon from "@mui/icons-material/MedicalServices";
@@ -26,24 +26,33 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
-const TopRatedDoctors = async () => {
+const TopRatedDoctors = () => {
   // const theme = useTheme();
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/doctor?page=1&limit=3`,
-  );
-  const { data: doctors } = (await res.json()) as IResponse<Doctor[]>;
-  console.log(doctors);
+  const { data } = useGetAllDoctorsQuery({ limit: 3 });
+  // const res = await fetch(
+  //   `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/doctor?page=1&limit=3`,
+  // );
+  // const { data: doctors } = (await res.json()) as IResponse<Doctor[]>;
   return (
     <Box
       sx={{
         my: 10,
         py: 20,
         position: "relative",
-        backgroundColor: alpha(theme.palette.primary.main, 0.03),
-        backgroundImage: `
-          radial-gradient(circle at 20% 90%, ${alpha(theme.palette.primary.main, 0.07)} 0%, transparent 30%),
-          radial-gradient(circle at 80% 10%, ${alpha(theme.palette.primary.main, 0.07)} 0%, transparent 40%)
-        `,
+        backgroundColor: (theme) =>
+          theme.palette.mode === "dark"
+            ? alpha(theme.palette.primary.main, 0.08)
+            : alpha(theme.palette.primary.main, 0.03),
+        backgroundImage: (theme) =>
+          theme.palette.mode === "dark"
+            ? `
+            radial-gradient(circle at 20% 90%, ${alpha(theme.palette.primary.main, 0.15)} 0%, transparent 30%),
+            radial-gradient(circle at 80% 10%, ${alpha(theme.palette.primary.main, 0.12)} 0%, transparent 40%)
+          `
+            : `
+            radial-gradient(circle at 20% 90%, ${alpha(theme.palette.primary.main, 0.07)} 0%, transparent 30%),
+            radial-gradient(circle at 80% 10%, ${alpha(theme.palette.primary.main, 0.07)} 0%, transparent 40%)
+          `,
         clipPath: "polygon(0 0, 100% 10%, 100% 100%, 0 90%)",
         overflow: "hidden",
         "&::before": {
@@ -55,7 +64,7 @@ const TopRatedDoctors = async () => {
           bottom: 0,
           backgroundImage: assets.svgs.subtlePattern,
           backgroundRepeat: "repeat",
-          opacity: 0.05,
+          opacity: (theme) => (theme.palette.mode === "dark" ? 0.08 : 0.05),
           zIndex: 0,
         },
       }}
@@ -68,7 +77,8 @@ const TopRatedDoctors = async () => {
           containerSx={{ mb: 6 }}
           titleSx={{
             fontWeight: 800,
-            background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, #0A5CB8 100%)`,
+            background: (theme) =>
+              `linear-gradient(135deg, ${theme.palette.primary.main} 0%, #0A5CB8 100%)`,
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             mb: 2,
@@ -83,27 +93,41 @@ const TopRatedDoctors = async () => {
             width: 100,
             height: 5,
             borderRadius: 10,
-            background: `linear-gradient(90deg, ${theme.palette.primary.main} 0%, #0A5CB8 100%)`,
+            background: (theme) =>
+              `linear-gradient(90deg, ${theme.palette.primary.main} 0%, #0A5CB8 100%)`,
             mb: 3,
-            boxShadow: `0 2px 8px ${alpha(theme.palette.primary.main, 0.3)}`,
+            boxShadow: (theme) =>
+              `0 2px 8px ${alpha(theme.palette.primary.main, 0.3)}`,
           }}
         />
       </Box>
 
       <Container sx={{ margin: "30px auto", position: "relative", zIndex: 1 }}>
         <Grid container spacing={3}>
-          {doctors
-            ? doctors.map((doctor) => (
+          {data?.data
+            ? data.data.map((doctor) => (
                 <Grid size={{ xs: 12, md: 4 }} key={doctor.id}>
                   <Card
                     sx={{
                       borderRadius: "16px",
                       overflow: "hidden",
-                      boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
+                      boxShadow: (theme) =>
+                        theme.palette.mode === "dark"
+                          ? "0 8px 32px rgba(0,0,0,0.3)"
+                          : "0 8px 24px rgba(0,0,0,0.08)",
+                      backgroundColor: (theme) =>
+                        theme.palette.mode === "dark" ? "#1E2139" : "#ffffff",
+                      border: (theme) =>
+                        theme.palette.mode === "dark"
+                          ? "1px solid rgba(255, 255, 255, 0.1)"
+                          : "none",
                       transition: "all 0.3s ease",
                       "&:hover": {
                         transform: "translateY(-8px)",
-                        boxShadow: "0 12px 30px rgba(0,0,0,0.12)",
+                        boxShadow: (theme) =>
+                          theme.palette.mode === "dark"
+                            ? "0 16px 40px rgba(0,0,0,0.4)"
+                            : "0 12px 30px rgba(0,0,0,0.12)",
                       },
                       height: "100%",
                       display: "flex",
@@ -126,7 +150,7 @@ const TopRatedDoctors = async () => {
                         size="small"
                         sx={{
                           bgcolor: "white",
-                          color: theme.palette.primary.main,
+                          color: (theme) => theme.palette.primary.main,
                           fontWeight: 600,
                           boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
                         }}
@@ -257,8 +281,9 @@ const TopRatedDoctors = async () => {
                             size="small"
                             sx={{
                               borderRadius: "6px",
-                              bgcolor: alpha(theme.palette.primary.main, 0.1),
-                              color: theme.palette.primary.main,
+                              bgcolor: (theme) =>
+                                alpha(theme.palette.primary.main, 0.1),
+                              color: (theme) => theme.palette.primary.main,
                               fontWeight: 500,
                               fontSize: "0.75rem",
                             }}
@@ -312,11 +337,14 @@ const TopRatedDoctors = async () => {
                           sx={{
                             borderRadius: "8px",
                             py: 1,
-                            background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, #0A5CB8 100%)`,
-                            boxShadow: `0 4px 12px ${alpha(theme.palette.primary.main, 0.3)}`,
+                            background: (theme) =>
+                              `linear-gradient(135deg, ${theme.palette.primary.main} 0%, #0A5CB8 100%)`,
+                            boxShadow: (theme) =>
+                              `0 4px 12px ${alpha(theme.palette.primary.main, 0.3)}`,
                             fontWeight: 600,
                             "&:hover": {
-                              boxShadow: `0 6px 16px ${alpha(theme.palette.primary.main, 0.4)}`,
+                              boxShadow: (theme) =>
+                                `0 6px 16px ${alpha(theme.palette.primary.main, 0.4)}`,
                               transform: "translateY(-2px)",
                             },
                             transition: "all 0.3s ease",
@@ -331,14 +359,12 @@ const TopRatedDoctors = async () => {
                         sx={{
                           borderRadius: "8px",
                           py: 1,
-                          borderColor: theme.palette.primary.main,
+                          borderColor: (theme) => theme.palette.primary.main,
                           fontWeight: 600,
                           "&:hover": {
-                            borderColor: theme.palette.primary.main,
-                            backgroundColor: alpha(
-                              theme.palette.primary.main,
-                              0.05,
-                            ),
+                            borderColor: (theme) => theme.palette.primary.main,
+                            backgroundColor: (theme) =>
+                              alpha(theme.palette.primary.main, 0.05),
                           },
                         }}
                       >
@@ -364,14 +390,15 @@ const TopRatedDoctors = async () => {
               py: 1.2,
               px: 4,
               borderWidth: 2,
-              borderColor: theme.palette.primary.main,
+              borderColor: (theme) => theme.palette.primary.main,
               fontWeight: 600,
               "&:hover": {
                 borderWidth: 2,
-                borderColor: theme.palette.primary.main,
+                borderColor: (theme) => theme.palette.primary.main,
                 backgroundColor: alpha(theme.palette.primary.main, 0.05),
                 transform: "translateY(-2px)",
-                boxShadow: `0 6px 16px ${alpha(theme.palette.primary.main, 0.15)}`,
+                boxShadow: (theme) =>
+                  `0 6px 16px ${alpha(theme.palette.primary.main, 0.15)}`,
               },
               transition: "all 0.3s ease",
             }}

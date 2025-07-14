@@ -7,9 +7,17 @@ const Stats = () => {
     <Container>
       <Box
         sx={{
-          backgroundImage: "linear-gradient(45deg,blue, cyan)",
+          backgroundImage: (theme) => theme.palette.mode === "dark" 
+            ? "linear-gradient(45deg, #1A1D36, #2A2D4A, #1976D2)"
+            : "linear-gradient(45deg, blue, cyan)",
           borderRadius: "20px",
           margin: "50px auto",
+          boxShadow: (theme) => theme.palette.mode === "dark" 
+            ? "0 8px 32px rgba(0, 0, 0, 0.4)"
+            : "0 8px 24px rgba(0, 0, 0, 0.15)",
+          border: (theme) => theme.palette.mode === "dark" 
+            ? "1px solid rgba(255, 255, 255, 0.1)"
+            : "none",
         }}
       >
         <Grid container spacing={2} textAlign="center" p={5}>

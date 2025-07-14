@@ -4,10 +4,12 @@ import appointmentIcon from "@/assets/icons/appointment-icon.png";
 import charityIcon from "@/assets/icons/charity-icon.png";
 import doctorIcon from "@/assets/icons/doctor-icon.png";
 import searchIcon from "@/assets/icons/search-icon.png";
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Box, Container, Grid, Typography, useTheme } from "@mui/material";
 import Image from "next/image";
 
 const HowItWorks = () => {
+  const theme = useTheme();
+
   return (
     <Container>
       <Box my={10}>
@@ -16,7 +18,7 @@ const HowItWorks = () => {
             component="p"
             fontSize={20}
             fontWeight={400}
-            color="#1586FD"
+            color="primary.main"
             sx={{ mb: 1.3 }}
           >
             How it Works
@@ -46,10 +48,18 @@ const HowItWorks = () => {
                 <Grid size={{ xs: 6 }}>
                   <Box
                     sx={{
-                      backgroundColor: "#fff",
-                      border: "1px solid lightgray",
+                      backgroundColor:
+                        theme.palette.mode === "dark" ? "#1E2139" : "#fff",
+                      border:
+                        theme.palette.mode === "dark"
+                          ? "1px solid rgba(255, 255, 255, 0.1)"
+                          : "1px solid lightgray",
                       borderRadius: "10px",
                       padding: "20px",
+                      boxShadow:
+                        theme.palette.mode === "dark"
+                          ? "0 4px 20px rgba(0, 0, 0, 0.3)"
+                          : "0 2px 8px rgba(0, 0, 0, 0.1)",
                     }}
                   >
                     <Image src={searchIcon} alt="search-icon" />
@@ -75,10 +85,18 @@ const HowItWorks = () => {
                 <Grid size={{ xs: 6 }}>
                   <Box
                     sx={{
-                      backgroundColor: "#fff",
-                      border: "1px solid lightgray",
+                      backgroundColor:
+                        theme.palette.mode === "dark" ? "#1E2139" : "#fff",
+                      border:
+                        theme.palette.mode === "dark"
+                          ? "1px solid rgba(255, 255, 255, 0.1)"
+                          : "1px solid lightgray",
                       borderRadius: "10px",
                       padding: "20px",
+                      boxShadow:
+                        theme.palette.mode === "dark"
+                          ? "0 4px 20px rgba(0, 0, 0, 0.3)"
+                          : "0 2px 8px rgba(0, 0, 0, 0.1)",
                     }}
                   >
                     <Image src={doctorIcon} alt="search-icon" />
@@ -104,10 +122,18 @@ const HowItWorks = () => {
                 <Grid size={{ xs: 6 }}>
                   <Box
                     sx={{
-                      backgroundColor: "#fff",
-                      border: "1px solid lightgray",
+                      backgroundColor:
+                        theme.palette.mode === "dark" ? "#1E2139" : "#fff",
+                      border:
+                        theme.palette.mode === "dark"
+                          ? "1px solid rgba(255, 255, 255, 0.1)"
+                          : "1px solid lightgray",
                       borderRadius: "10px",
                       padding: "20px",
+                      boxShadow:
+                        theme.palette.mode === "dark"
+                          ? "0 4px 20px rgba(0, 0, 0, 0.3)"
+                          : "0 2px 8px rgba(0, 0, 0, 0.1)",
                     }}
                   >
                     <Image src={appointmentIcon} alt="search-icon" />
@@ -133,10 +159,18 @@ const HowItWorks = () => {
                 <Grid size={{ xs: 6 }}>
                   <Box
                     sx={{
-                      backgroundColor: "#fff",
-                      border: "1px solid lightgray",
+                      backgroundColor:
+                        theme.palette.mode === "dark" ? "#1E2139" : "#fff",
+                      border:
+                        theme.palette.mode === "dark"
+                          ? "1px solid rgba(255, 255, 255, 0.1)"
+                          : "1px solid lightgray",
                       borderRadius: "10px",
                       padding: "20px",
+                      boxShadow:
+                        theme.palette.mode === "dark"
+                          ? "0 4px 20px rgba(0, 0, 0, 0.3)"
+                          : "0 2px 8px rgba(0, 0, 0, 0.1)",
                     }}
                   >
                     <Image src={charityIcon} alt="search-icon" />

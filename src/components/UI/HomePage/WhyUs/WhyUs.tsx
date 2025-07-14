@@ -1,3 +1,4 @@
+"use client";
 import assets from "@/assets";
 import chooseUsImg from "@/assets/choose-us.png";
 import { Box, Container, Grid, Typography } from "@mui/material";
@@ -53,15 +54,27 @@ const WhyUs = () => {
               sx={{
                 display: "flex",
                 gap: "15px",
-                backgroundColor: "rgba(245, 245, 245,1)",
+                backgroundColor: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "#1E2139"
+                    : "rgba(245, 245, 245,1)",
                 padding: "15px",
                 alignItems: "center",
                 borderRadius: "10px 10px 100px 10px",
+                boxShadow: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "0 4px 20px rgba(0, 0, 0, 0.3)"
+                    : "0 2px 8px rgba(0, 0, 0, 0.1)",
+                border: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "1px solid rgba(255, 255, 255, 0.1)"
+                    : "none",
               }}
             >
               <Box
                 sx={{
-                  backgroundColor: "#fff",
+                  backgroundColor: (theme) =>
+                    theme.palette.mode === "dark" ? "#2A2D4A" : "#fff",
                   padding: "15px",
                   borderRadius: "10px",
                 }}
@@ -86,16 +99,28 @@ const WhyUs = () => {
               sx={{
                 display: "flex",
                 gap: "15px",
-                backgroundColor: "rgba(245, 245, 245,1)",
+                backgroundColor: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "#1E2139"
+                    : "rgba(245, 245, 245,1)",
                 padding: "15px",
                 alignItems: "center",
                 borderRadius: "10px 100px 10px 10px",
                 margin: "20px 0px",
+                boxShadow: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "0 4px 20px rgba(0, 0, 0, 0.3)"
+                    : "0 2px 8px rgba(0, 0, 0, 0.1)",
+                border: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "1px solid rgba(255, 255, 255, 0.1)"
+                    : "none",
               }}
             >
               <Box
                 sx={{
-                  backgroundColor: "#fff",
+                  backgroundColor: (theme) =>
+                    theme.palette.mode === "dark" ? "#2A2D4A" : "#fff",
                   padding: "10px",
                   borderRadius: "10px",
                 }}
@@ -115,15 +140,27 @@ const WhyUs = () => {
               sx={{
                 display: "flex",
                 gap: "15px",
-                backgroundColor: "rgba(245, 245, 245,1)",
+                backgroundColor: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "#1E2139"
+                    : "rgba(245, 245, 245,1)",
                 padding: "15px",
                 alignItems: "center",
                 borderRadius: "10px 10px 100px 10px",
+                boxShadow: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "0 4px 20px rgba(0, 0, 0, 0.3)"
+                    : "0 2px 8px rgba(0, 0, 0, 0.1)",
+                border: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "1px solid rgba(255, 255, 255, 0.1)"
+                    : "none",
               }}
             >
               <Box
                 sx={{
-                  backgroundColor: "#fff",
+                  backgroundColor: (theme) =>
+                    theme.palette.mode === "dark" ? "#2A2D4A" : "#fff",
                   padding: "10px",
                   borderRadius: "10px",
                 }}
@@ -143,16 +180,28 @@ const WhyUs = () => {
               sx={{
                 display: "flex",
                 gap: "15px",
-                backgroundColor: "rgba(245, 245, 245,1)",
+                backgroundColor: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "#1E2139"
+                    : "rgba(245, 245, 245,1)",
                 padding: "15px",
                 alignItems: "center",
                 borderRadius: "10px 100px 10px 10px",
                 marginTop: "20px",
+                boxShadow: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "0 4px 20px rgba(0, 0, 0, 0.3)"
+                    : "0 2px 8px rgba(0, 0, 0, 0.1)",
+                border: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "1px solid rgba(255, 255, 255, 0.1)"
+                    : "none",
               }}
             >
               <Box
                 sx={{
-                  backgroundColor: "#fff",
+                  backgroundColor: (theme) =>
+                    theme.palette.mode === "dark" ? "#2A2D4A" : "#fff",
                   padding: "10px",
                   borderRadius: "10px",
                 }}

@@ -369,7 +369,6 @@ const Navbar = () => {
               </Stack>
             )}
             <ModeToggle />
-            hello
             {/* User Actions */}
             <Stack direction="row" alignItems="center" spacing={2}>
               {userInfo?.email ? (
