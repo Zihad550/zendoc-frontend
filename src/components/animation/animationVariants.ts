@@ -1,19 +1,19 @@
-import { Variants } from "motion/react";
+import { Variants } from 'motion/react';
 
 const sectionVariants: Variants = {
   hidden: {
     opacity: 0,
-    y: 60,
-    scale: 0.95,
+    y: 30,
+    scale: 0.98,
   },
   visible: {
     opacity: 1,
     y: 0,
     scale: 1,
     transition: {
-      duration: 0.8,
-      ease: [0.25, 0.46, 0.45, 0.94],
-      staggerChildren: 0.2,
+      duration: 0.4,
+      ease: 'easeOut',
+      staggerChildren: 0.08,
     },
   },
 };
@@ -21,16 +21,16 @@ const sectionVariants: Variants = {
 const slideFromLeft: Variants = {
   hidden: {
     opacity: 0,
-    x: -100,
-    scale: 0.9,
+    x: -40,
+    scale: 0.96,
   },
   visible: {
     opacity: 1,
     x: 0,
     scale: 1,
     transition: {
-      duration: 0.8,
-      ease: "easeOut",
+      duration: 0.35,
+      ease: 'easeOut',
     },
   },
 };
@@ -38,16 +38,16 @@ const slideFromLeft: Variants = {
 const slideFromRight: Variants = {
   hidden: {
     opacity: 0,
-    x: 100,
-    scale: 0.9,
+    x: 40,
+    scale: 0.96,
   },
   visible: {
     opacity: 1,
     x: 0,
     scale: 1,
     transition: {
-      duration: 0.8,
-      ease: "easeOut",
+      duration: 0.35,
+      ease: 'easeOut',
     },
   },
 };
@@ -55,16 +55,16 @@ const slideFromRight: Variants = {
 const fadeInUp: Variants = {
   hidden: {
     opacity: 0,
-    y: 80,
-    scale: 0.9,
+    y: 30,
+    scale: 0.97,
   },
   visible: {
     opacity: 1,
     y: 0,
     scale: 1,
     transition: {
-      duration: 0.9,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      duration: 0.35,
+      ease: 'easeOut',
     },
   },
 };
@@ -72,16 +72,16 @@ const fadeInUp: Variants = {
 const scaleIn: Variants = {
   hidden: {
     opacity: 0,
-    scale: 0.8,
-    rotate: -5,
+    scale: 0.94,
+    rotate: -2,
   },
   visible: {
     opacity: 1,
     scale: 1,
     rotate: 0,
     transition: {
-      duration: 0.7,
-      ease: "easeOut",
+      duration: 0.35,
+      ease: 'easeOut',
     },
   },
 };
@@ -115,7 +115,7 @@ const slideFromBottom: Variants = {
     scale: 1,
     transition: {
       duration: 0.8,
-      ease: "easeOut",
+      ease: 'easeOut',
     },
   },
 };
@@ -149,8 +149,8 @@ const bounceIn: Variants = {
     y: 0,
     transition: {
       duration: 0.8,
-      ease: "easeOut",
-      type: "spring",
+      ease: 'easeOut',
+      type: 'spring',
       damping: 20,
       stiffness: 100,
     },
@@ -182,7 +182,7 @@ const staggerItem: Variants = {
     scale: 1,
     transition: {
       duration: 0.6,
-      ease: "easeOut",
+      ease: 'easeOut',
     },
   },
 };
@@ -194,7 +194,7 @@ const buttonVariants: Variants = {
     scale: 1,
     transition: {
       duration: 0.4,
-      ease: "easeOut",
+      ease: 'easeOut',
       delay: 0.3,
     },
   },
@@ -226,7 +226,7 @@ const titleVariants: Variants = {
     y: 0,
     transition: {
       duration: 0.6,
-      ease: "easeOut",
+      ease: 'easeOut',
     },
   },
 };
@@ -244,8 +244,8 @@ const elasticIn: Variants = {
     rotate: 0,
     transition: {
       duration: 0.8,
-      ease: "easeOut",
-      type: "spring",
+      ease: 'easeOut',
+      type: 'spring',
       damping: 15,
       stiffness: 100,
     },
@@ -273,13 +273,13 @@ const morphIn: Variants = {
   hidden: {
     opacity: 0,
     scale: 0.5,
-    borderRadius: "50%",
+    borderRadius: '50%',
     rotate: 180,
   },
   visible: {
     opacity: 1,
     scale: 1,
-    borderRadius: "8px",
+    borderRadius: '8px',
     rotate: 0,
     transition: {
       duration: 1,
@@ -319,8 +319,8 @@ const zigzagIn: Variants = {
     scale: 1,
     transition: {
       duration: 1.2,
-      ease: "easeOut",
-      type: "spring",
+      ease: 'easeOut',
+      type: 'spring',
       damping: 20,
       stiffness: 80,
     },
@@ -337,7 +337,7 @@ const pulseFadeIn: Variants = {
     scale: 1,
     transition: {
       duration: 0.6,
-      ease: "easeOut",
+      ease: 'easeOut',
       // repeat: 1,
       // repeatType: "reverse",
       // repeatDelay: 0.2,
@@ -361,7 +361,7 @@ const floatIn: Variants = {
     transition: {
       duration: 0.8,
       ease: [0.25, 0.46, 0.45, 0.94],
-      type: "spring",
+      type: 'spring',
       stiffness: 100,
       damping: 20,
     },
@@ -380,8 +380,8 @@ const glideIn: Variants = {
     rotate: 0,
     transition: {
       duration: 1,
-      ease: "easeOut",
-      type: "spring",
+      ease: 'easeOut',
+      type: 'spring',
       stiffness: 120,
       damping: 25,
     },
@@ -419,8 +419,8 @@ const rippleIn: Variants = {
     rotate: 0,
     transition: {
       duration: 0.7,
-      ease: "easeOut",
-      type: "spring",
+      ease: 'easeOut',
+      type: 'spring',
       stiffness: 150,
       damping: 15,
     },
@@ -439,7 +439,7 @@ const formFieldStagger: Variants = {
     scale: 1,
     transition: {
       duration: 0.5,
-      ease: "easeOut",
+      ease: 'easeOut',
     },
   },
 };

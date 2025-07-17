@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { USER_ROLE } from '@/contants/role';
-import { UserStats } from '@/types/user';
+import { USER_ROLE } from "@/contants/role";
+import { UserStats } from "@/types/user";
 import {
   CheckCircle,
   Group,
@@ -9,7 +9,7 @@ import {
   SupervisorAccount,
   TrendingDown,
   TrendingUp,
-} from '@mui/icons-material';
+} from "@mui/icons-material";
 import {
   Box,
   Card,
@@ -18,10 +18,10 @@ import {
   Skeleton,
   Typography,
   useTheme,
-} from '@mui/material';
+} from "@mui/material";
 
 interface UserStatsCardsProps {
-  stats: UserStats | null;
+  stats: UserStats | undefined;
   isLoading: boolean;
 }
 
@@ -46,7 +46,7 @@ const StatCard = ({
 
   if (isLoading) {
     return (
-      <Card sx={{ height: '100%' }}>
+      <Card sx={{ height: "100%" }}>
         <CardContent>
           <Box
             display="flex"
@@ -76,9 +76,9 @@ const StatCard = ({
   return (
     <Card
       sx={{
-        height: '100%',
-        transition: 'transform 0.2s',
-        '&:hover': { transform: 'translateY(-2px)' },
+        height: "100%",
+        transition: "transform 0.2s",
+        "&:hover": { transform: "translateY(-2px)" },
       }}
     >
       <CardContent>
@@ -105,13 +105,13 @@ const StatCard = ({
           <Box
             sx={{
               backgroundColor: color,
-              borderRadius: '50%',
+              borderRadius: "50%",
               width: 48,
               height: 48,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'white',
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "white",
             }}
           >
             {icon}
@@ -128,13 +128,13 @@ const UserStatsCards = ({ stats, isLoading }: UserStatsCardsProps) => {
   const getRoleDisplayName = (role: string) => {
     switch (role) {
       case USER_ROLE.SUPER_ADMIN:
-        return 'Super Admins';
+        return "Super Admins";
       case USER_ROLE.ADMIN:
-        return 'Admins';
+        return "Admins";
       case USER_ROLE.DOCTOR:
-        return 'Doctors';
+        return "Doctors";
       case USER_ROLE.PATIENT:
-        return 'Patients';
+        return "Patients";
       default:
         return role;
     }

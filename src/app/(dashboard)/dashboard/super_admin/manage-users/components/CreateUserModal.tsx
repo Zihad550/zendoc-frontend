@@ -204,7 +204,7 @@ const CreateUserModal: React.FC<CreateUserModalProps> = ({
     }, 600);
 
     return () => clearTimeout(timeoutId);
-  }, [basicInfoMethods.watch("email")]);
+  }, [basicInfoMethods]);
 
   const handleNext = async () => {
     let isValid = false;

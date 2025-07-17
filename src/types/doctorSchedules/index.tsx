@@ -31,8 +31,8 @@ export interface Doctor {
 
 export interface Schedule {
   id: string;
-  startDate: string;
-  endDate: string;
+  startDateTime: string;
+  endDateTime: string;
   createdAt: string;
   updatedAt: string;
 }

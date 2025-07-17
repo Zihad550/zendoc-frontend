@@ -26,10 +26,10 @@ const SchedulesPage = () => {
       return {
         sl: index + 1,
         id: schedule?.id,
-        startDate: dateFormatter(schedule.startDate),
-        endDate: dateFormatter(schedule.endDate),
-        startTime: dayjs(schedule?.startDate).format("hh:mm a"),
-        endTime: dayjs(schedule?.endDate).format("hh:mm a"),
+        startDate: dateFormatter(schedule.startDateTime),
+        endDate: dateFormatter(schedule.endDateTime),
+        startTime: dayjs(schedule?.startDateTime).format("hh:mm a"),
+        endTime: dayjs(schedule?.endDateTime).format("hh:mm a"),
       };
     });
     setAllSchedule(updateData);

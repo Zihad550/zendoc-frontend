@@ -48,6 +48,7 @@ interface UserFiltersBarProps {
   filters: UserFilters;
   onFiltersChange: (filters: Partial<UserFilters>) => void;
   onClearFilters: () => void;
+  isLoading?: boolean;
 }
 
 const ROLE_OPTIONS = [

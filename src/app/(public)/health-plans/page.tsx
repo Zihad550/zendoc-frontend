@@ -1,17 +1,17 @@
-"use client";
+'use client';
 import {
   AnimatedSection,
   animationVariants,
   StaggeredAnimationWrapper,
-} from "@/components/animation";
-import SectionTitle from "@/components/Shared/SectionTitle";
-import HealthPlansHero from "@/components/UI/HealthPlans/HealthPlansHero";
-import PlanCard from "@/components/UI/HealthPlans/PlanCard";
-import PlanComparison from "@/components/UI/HealthPlans/PlanComparison";
-import PlanFeatures from "@/components/UI/HealthPlans/PlanFeatures";
-import PlansCallToAction from "@/components/UI/HealthPlans/PlansCallToAction";
-import PlansFAQ from "@/components/UI/HealthPlans/PlansFAQ";
-import PlansTestimonials from "@/components/UI/HealthPlans/PlansTestimonials";
+} from '@/components/animation';
+import SectionTitle from '@/components/Shared/SectionTitle';
+import HealthPlansHero from '@/components/UI/HealthPlans/HealthPlansHero';
+import PlanCard from '@/components/UI/HealthPlans/PlanCard';
+import PlanComparison from '@/components/UI/HealthPlans/PlanComparison';
+import PlanFeatures from '@/components/UI/HealthPlans/PlanFeatures';
+import PlansCallToAction from '@/components/UI/HealthPlans/PlansCallToAction';
+import PlansFAQ from '@/components/UI/HealthPlans/PlansFAQ';
+import PlansTestimonials from '@/components/UI/HealthPlans/PlansTestimonials';
 import {
   Box,
   Container,
@@ -19,21 +19,21 @@ import {
   Tabs,
   useMediaQuery,
   useTheme,
-} from "@mui/material";
-import { motion } from "motion/react";
-import { useState } from "react";
-import { healthPlans, planCategories } from "./health-plans.data";
+} from '@mui/material';
+import { motion } from 'motion/react';
+import { useState } from 'react';
+import { healthPlans, planCategories } from './health-plans.data';
 
 // Plan categories
 
 export default function HealthPlansPage() {
-  const [selectedCategory, setSelectedCategory] = useState("individual");
+  const [selectedCategory, setSelectedCategory] = useState('individual');
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleCategoryChange = (
     event: React.SyntheticEvent,
-    newValue: string,
+    newValue: string
   ) => {
     setSelectedCategory(newValue);
   };
@@ -44,17 +44,17 @@ export default function HealthPlansPage() {
   return (
     <main
       style={{
-        minHeight: "100vh",
-        position: "relative",
-        overflow: "hidden",
+        minHeight: '100vh',
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
-      <Box sx={{ backgroundColor: "background.default" }}>
+      <Box sx={{ backgroundColor: 'background.default' }}>
         {/* Hero Section */}
         <HealthPlansHero />
 
         {/* Plans Section */}
-        <AnimatedSection variants={animationVariants.fadeInDown} delay={0.1}>
+        <AnimatedSection variants={animationVariants.fadeInDown} delay={0}>
           <Container maxWidth="lg" sx={{ py: 8 }}>
             <SectionTitle
               title="Health Plans for Every Stage of Life"
@@ -66,27 +66,27 @@ export default function HealthPlansPage() {
             {/* Category Tabs */}
             <Box
               sx={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
                 mb: 6,
               }}
             >
               <Tabs
                 value={selectedCategory}
                 onChange={handleCategoryChange}
-                variant={isMobile ? "scrollable" : "standard"}
-                scrollButtons={isMobile ? "auto" : undefined}
+                variant={isMobile ? 'scrollable' : 'standard'}
+                scrollButtons={isMobile ? 'auto' : undefined}
                 allowScrollButtonsMobile
                 centered={!isMobile}
                 sx={{
-                  "& .MuiTab-root": {
-                    fontSize: { xs: "0.875rem", md: "1rem" },
+                  '& .MuiTab-root': {
+                    fontSize: { xs: '0.875rem', md: '1rem' },
                     fontWeight: 500,
-                    minWidth: { xs: "auto", md: 160 },
+                    minWidth: { xs: 'auto', md: 160 },
                     px: { xs: 2, md: 3 },
                   },
-                  "& .Mui-selected": {
+                  '& .Mui-selected': {
                     fontWeight: 600,
                   },
                 }}
@@ -105,8 +105,8 @@ export default function HealthPlansPage() {
             <StaggeredAnimationWrapper>
               <Box
                 sx={{
-                  display: "flex",
-                  flexDirection: { xs: "column", md: "row" },
+                  display: 'flex',
+                  flexDirection: { xs: 'column', md: 'row' },
                   gap: 3,
                   mb: 8,
                 }}
@@ -129,11 +129,8 @@ export default function HealthPlansPage() {
         </AnimatedSection>
 
         {/* Plan Comparison */}
-        <AnimatedSection
-          variants={animationVariants.slideFromBottom}
-          delay={0.2}
-        >
-          <Box sx={{ bgcolor: "background.paper", py: 8 }}>
+        <AnimatedSection variants={animationVariants.slideFromBottom} delay={0}>
+          <Box sx={{ bgcolor: 'background.paper', py: 8 }}>
             <Container maxWidth="lg">
               <SectionTitle
                 title="Compare Our Health Plans"
@@ -146,7 +143,7 @@ export default function HealthPlansPage() {
         </AnimatedSection>
 
         {/* Testimonials */}
-        <AnimatedSection variants={animationVariants.rotateIn} delay={0.3}>
+        <AnimatedSection variants={animationVariants.rotateIn} delay={0}>
           <Container maxWidth="lg" sx={{ py: 8 }}>
             <SectionTitle
               title="What Our Members Say"
@@ -158,8 +155,8 @@ export default function HealthPlansPage() {
         </AnimatedSection>
 
         {/* FAQ Section */}
-        <AnimatedSection variants={animationVariants.bounceIn} delay={0.4}>
-          <Box sx={{ bgcolor: "background.paper", py: 8 }}>
+        <AnimatedSection variants={animationVariants.bounceIn} delay={0}>
+          <Box sx={{ bgcolor: 'background.paper', py: 8 }}>
             <Container maxWidth="lg">
               <SectionTitle
                 title="Frequently Asked Questions"
@@ -172,7 +169,7 @@ export default function HealthPlansPage() {
         </AnimatedSection>
 
         {/* Call to Action */}
-        <AnimatedSection variants={animationVariants.fadeInUp} delay={0.5}>
+        <AnimatedSection variants={animationVariants.fadeInUp} delay={0}>
           <PlansCallToAction />
         </AnimatedSection>
       </Box>

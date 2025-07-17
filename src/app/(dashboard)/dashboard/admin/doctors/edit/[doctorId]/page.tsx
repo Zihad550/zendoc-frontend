@@ -14,18 +14,22 @@ import { useRouter } from "next/navigation";
 import { use } from "react";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
+import { PageProps } from "../../../../../../../../.next/types/app/(dashboard)/dashboard/admin/doctors/edit/[doctorId]/page";
 
-type TParams = {
-  params: {
-    doctorId: string;
-  };
-};
+// type TParams = {
+//   params: {
+//     doctorId: string;
+//   };
+// };
 
-const DoctorUpdatePage = ({ params }: TParams) => {
+const DoctorUpdatePage = ({ params }: PageProps) => {
   const router = useRouter();
 
-  // const id = params?.doctorId;
-  const { doctorId: id } = use(params);
+  let id: any;
+  if (params) {
+    const { doctorId } = use(params);
+    id = doctorId;
+  }
 
   const { data: doctorData, isLoading } = useGetDoctorQuery(id);
   const [updateDoctor] = useUpdateDoctorMutation();

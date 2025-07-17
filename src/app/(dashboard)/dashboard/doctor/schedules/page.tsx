@@ -3,7 +3,7 @@ import {
   useDeleteDoctorScheduleMutation,
   useGetAllDocSchedulesQuery,
 } from "@/redux/features/doctorSchedule/doctorScheduleApi";
-import { ISchedule } from "@/types/schedule";
+import { DoctorSchedule } from "@/types/doctorSchedules";
 import { dateFormatter } from "@/utils/dateFormatter";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -28,7 +28,7 @@ const DoctorSchedulesPage = () => {
   const { data, isLoading } = useGetAllDocSchedulesQuery({ ...query });
   const [deleteDocSchedule] = useDeleteDoctorScheduleMutation();
 
-  const schedules = data?.data;
+  const doctorSchedules = data?.data;
   const meta = data?.meta;
 
   let pageCount: number;
@@ -42,16 +42,16 @@ const DoctorSchedulesPage = () => {
   };
 
   useEffect(() => {
-    const updateData = schedules?.map((schedule: ISchedule) => {
+    const updateData = doctorSchedules?.map((item: DoctorSchedule) => {
       return {
-        id: schedule?.scheduleId,
-        startDate: dateFormatter(schedule?.schedule?.startDateTime),
-        startTime: dayjs(schedule?.startDateTime).format("hh:mm a"),
-        endTime: dayjs(schedule?.endDateTime).format("hh:mm a"),
+        id: item?.scheduleId,
+        startDate: dateFormatter(item?.schedule?.startDateTime),
+        startTime: dayjs(item?.schedule?.startDateTime).format("hh:mm a"),
+        endTime: dayjs(item?.schedule?.endDateTime).format("hh:mm a"),
       };
     });
     setAllSchedule(updateData);
-  }, [schedules]);
+  }, [doctorSchedules]);
 
   const columns: GridColDef[] = [
     {

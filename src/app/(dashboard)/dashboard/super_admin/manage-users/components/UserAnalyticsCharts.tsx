@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 
 interface UserAnalyticsChartsProps {
-  stats: UserStats | null;
+  stats: UserStats | undefined;
   isLoading: boolean;
 }
 

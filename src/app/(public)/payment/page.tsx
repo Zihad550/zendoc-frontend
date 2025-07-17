@@ -1,17 +1,14 @@
 "use client";
 
+import SectionTitle from "@/components/Shared/SectionTitle";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ErrorIcon from "@mui/icons-material/Error";
 import { Box, Button, Container, Stack } from "@mui/material";
-import SectionTitle from "@/components/Shared/SectionTitle";
 import Link from "next/link";
+import { PageProps } from "../../../../.next/types/app/(public)/payment/page";
 
-interface PropTypes {
-  searchParams: { status: string };
-}
-
-const PaymentStatusPage = ({ searchParams }: PropTypes) => {
+const PaymentStatusPage = ({ searchParams }: PageProps) => {
   const status = searchParams.status; // could be success, cancel, failed
 
   let icon;

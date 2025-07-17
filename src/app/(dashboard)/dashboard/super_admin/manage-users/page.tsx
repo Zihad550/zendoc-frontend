@@ -1,30 +1,31 @@
-'use client';
+"use client";
 
-import { useScreenReaderAnnouncements } from '@/hooks/useScreenReaderAnnouncements';
+import { useScreenReaderAnnouncements } from "@/hooks/useScreenReaderAnnouncements";
 import {
   useDeleteUserMutation,
   useGetAllUsersQuery,
   useGetUserStatsQuery,
   useResetUserPasswordMutation,
   useUpdateUserMutation,
-} from '@/redux/features/user/userApi';
-import { GetAllUsersParams, UserStatus } from '@/types/user';
-import { Alert, Box, Button, Snackbar, Stack, Typography } from '@mui/material';
-import dayjs from 'dayjs';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import UserAnalyticsCharts from './components/UserAnalyticsCharts';
-import UserDataGrid from './components/UserDataGrid';
-import UserFiltersBar, { UserFilters } from './components/UserFiltersBar';
-import UserStatsCards from './components/UserStatsCards';
+} from "@/redux/features/user/userApi";
+import { GetAllUsersParams, UserStatus } from "@/types/user";
+import { Alert, Box, Button, Stack, Typography } from "@mui/material";
+import dayjs from "dayjs";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { toast } from "sonner";
+import UserAnalyticsCharts from "./components/UserAnalyticsCharts";
+import UserDataGrid from "./components/UserDataGrid";
+import UserFiltersBar, { UserFilters } from "./components/UserFiltersBar";
+import UserStatsCards from "./components/UserStatsCards";
 
 type UserAction =
-  | 'view'
-  | 'edit'
-  | 'suspend'
-  | 'activate'
-  | 'delete'
-  | 'resetPassword';
+  | "view"
+  | "edit"
+  | "suspend"
+  | "activate"
+  | "delete"
+  | "resetPassword";
 
 const ManageUsersPage = () => {
   const { announce, AnnouncementRegion } = useScreenReaderAnnouncements();
@@ -34,31 +35,22 @@ const ManageUsersPage = () => {
   const [loadingActions, setLoadingActions] = useState<{
     [userId: string]: UserAction;
   }>({});
-  const [notification, setNotification] = useState<{
-    open: boolean;
-    message: string;
-    severity: 'success' | 'error' | 'info' | 'warning';
-  }>({
-    open: false,
-    message: '',
-    severity: 'success',
-  });
 
   // Initialize state from URL parameters
   const initializeFromURL = useCallback(() => {
-    const urlPage = parseInt(searchParams.get('page') || '1');
-    const urlPageSize = parseInt(searchParams.get('pageSize') || '20');
-    const urlSearch = searchParams.get('search') || '';
+    const urlPage = parseInt(searchParams.get("page") || "1");
+    const urlPageSize = parseInt(searchParams.get("pageSize") || "20");
+    const urlSearch = searchParams.get("search") || "";
     const urlRoles =
-      searchParams.get('roles')?.split(',').filter(Boolean) || [];
+      searchParams.get("roles")?.split(",").filter(Boolean) || [];
     const urlStatus =
-      searchParams.get('status')?.split(',').filter(Boolean) || [];
-    const urlSortBy = searchParams.get('sortBy') || 'name';
-    const urlSortOrder = searchParams.get('sortOrder') || 'asc';
-    const urlDateFrom = searchParams.get('dateFrom');
-    const urlDateTo = searchParams.get('dateTo');
-    const urlLastLoginFrom = searchParams.get('lastLoginFrom');
-    const urlLastLoginTo = searchParams.get('lastLoginTo');
+      searchParams.get("status")?.split(",").filter(Boolean) || [];
+    const urlSortBy = searchParams.get("sortBy") || "name";
+    const urlSortOrder = searchParams.get("sortOrder") || "asc";
+    const urlDateFrom = searchParams.get("dateFrom");
+    const urlDateTo = searchParams.get("dateTo");
+    const urlLastLoginFrom = searchParams.get("lastLoginFrom");
+    const urlLastLoginTo = searchParams.get("lastLoginTo");
 
     return {
       pagination: {
@@ -103,8 +95,8 @@ const ManageUsersPage = () => {
       filters.dateRange.to ||
       filters.lastLoginRange.from ||
       filters.lastLoginRange.to ||
-      filters.sortBy !== 'name' ||
-      filters.sortOrder !== 'asc'
+      filters.sortBy !== "name" ||
+      filters.sortOrder !== "asc"
     );
   }, [filters]);
 
@@ -134,20 +126,20 @@ const ManageUsersPage = () => {
 
     // Registration date range
     if (filters.dateRange.from) {
-      params.dateFrom = filters.dateRange.from.format('YYYY-MM-DD');
+      params.dateFrom = filters.dateRange.from.format("YYYY-MM-DD");
     }
 
     if (filters.dateRange.to) {
-      params.dateTo = filters.dateRange.to.format('YYYY-MM-DD');
+      params.dateTo = filters.dateRange.to.format("YYYY-MM-DD");
     }
 
     // Last login date range (if supported by API)
     if (filters.lastLoginRange.from) {
-      params.lastLoginFrom = filters.lastLoginRange.from.format('YYYY-MM-DD');
+      params.lastLoginFrom = filters.lastLoginRange.from.format("YYYY-MM-DD");
     }
 
     if (filters.lastLoginRange.to) {
-      params.lastLoginTo = filters.lastLoginRange.to.format('YYYY-MM-DD');
+      params.lastLoginTo = filters.lastLoginRange.to.format("YYYY-MM-DD");
     }
 
     return params;
@@ -171,7 +163,7 @@ const ManageUsersPage = () => {
   const [resetUserPassword] = useResetUserPasswordMutation();
 
   // Extract users and pagination from response
-  const users = usersResponse?.data || [];
+  const users = useMemo(() => usersResponse?.data || [], [usersResponse?.data]);
   const totalUsers = usersResponse?.meta?.total || 0;
 
   // Update pagination total when data changes
@@ -188,44 +180,44 @@ const ManageUsersPage = () => {
 
       // Add pagination parameters
       if (newPagination.page !== 1) {
-        params.set('page', newPagination.page.toString());
+        params.set("page", newPagination.page.toString());
       }
       if (newPagination.pageSize !== 20) {
-        params.set('pageSize', newPagination.pageSize.toString());
+        params.set("pageSize", newPagination.pageSize.toString());
       }
 
       // Add filter parameters
       if (newFilters.searchTerm.trim()) {
-        params.set('search', newFilters.searchTerm.trim());
+        params.set("search", newFilters.searchTerm.trim());
       }
       if (newFilters.roles.length > 0) {
-        params.set('roles', newFilters.roles.join(','));
+        params.set("roles", newFilters.roles.join(","));
       }
       if (newFilters.status.length > 0) {
-        params.set('status', newFilters.status.join(','));
+        params.set("status", newFilters.status.join(","));
       }
-      if (newFilters.sortBy !== 'name') {
-        params.set('sortBy', newFilters.sortBy);
+      if (newFilters.sortBy !== "name") {
+        params.set("sortBy", newFilters.sortBy);
       }
-      if (newFilters.sortOrder !== 'asc') {
-        params.set('sortOrder', newFilters.sortOrder);
+      if (newFilters.sortOrder !== "asc") {
+        params.set("sortOrder", newFilters.sortOrder);
       }
       if (newFilters.dateRange.from) {
-        params.set('dateFrom', newFilters.dateRange.from.format('YYYY-MM-DD'));
+        params.set("dateFrom", newFilters.dateRange.from.format("YYYY-MM-DD"));
       }
       if (newFilters.dateRange.to) {
-        params.set('dateTo', newFilters.dateRange.to.format('YYYY-MM-DD'));
+        params.set("dateTo", newFilters.dateRange.to.format("YYYY-MM-DD"));
       }
       if (newFilters.lastLoginRange.from) {
         params.set(
-          'lastLoginFrom',
-          newFilters.lastLoginRange.from.format('YYYY-MM-DD')
+          "lastLoginFrom",
+          newFilters.lastLoginRange.from.format("YYYY-MM-DD"),
         );
       }
       if (newFilters.lastLoginRange.to) {
         params.set(
-          'lastLoginTo',
-          newFilters.lastLoginRange.to.format('YYYY-MM-DD')
+          "lastLoginTo",
+          newFilters.lastLoginRange.to.format("YYYY-MM-DD"),
         );
       }
 
@@ -236,7 +228,7 @@ const ManageUsersPage = () => {
 
       router.replace(newURL, { scroll: false });
     },
-    [router]
+    [router],
   );
 
   // Update URL when filters or pagination change
@@ -247,83 +239,80 @@ const ManageUsersPage = () => {
   // Announce data loading status to screen readers
   useEffect(() => {
     if (isLoading) {
-      announce('Loading users...', 'polite');
+      announce("Loading users...", "polite");
     } else if (users.length > 0) {
-      announce(`Loaded ${users.length} users`, 'polite');
+      announce(`Loaded ${users.length} users`, "polite");
     } else if (!isLoading && users.length === 0) {
-      announce('No users found', 'polite');
+      announce("No users found", "polite");
     }
   }, [isLoading, users.length, announce]);
 
   // Announce filter changes
   useEffect(() => {
     const activeFilters = [];
-    if (filters.searchTerm) activeFilters.push('search');
-    if (filters.roles.length > 0) activeFilters.push('roles');
-    if (filters.status.length > 0) activeFilters.push('status');
+    if (filters.searchTerm) activeFilters.push("search");
+    if (filters.roles.length > 0) activeFilters.push("roles");
+    if (filters.status.length > 0) activeFilters.push("status");
     if (filters.dateRange.from || filters.dateRange.to)
-      activeFilters.push('date range');
+      activeFilters.push("date range");
 
     if (activeFilters.length > 0) {
-      announce(`Filters applied: ${activeFilters.join(', ')}`, 'polite');
+      announce(`Filters applied: ${activeFilters.join(", ")}`, "polite");
     }
   }, [filters, announce]);
 
   // Handle user actions
+
   const handleUserAction = useCallback(
     async (action: UserAction, userId: string) => {
       setLoadingActions((prev) => ({ ...prev, [userId]: action }));
 
       try {
         switch (action) {
-          case 'view':
+          case "view":
             // TODO: Open user details modal (will be implemented in task 7.1)
-            showNotification('User details modal - Coming Soon', 'info');
+            toast.info("User details modal - Coming Soon");
             break;
 
-          case 'edit':
+          case "edit":
             // TODO: Open user edit modal (will be implemented in task 7.2)
-            showNotification('User edit modal - Coming Soon', 'info');
+            toast.info("User edit modal - Coming Soon");
             break;
 
-          case 'suspend':
+          case "suspend":
             await updateUser({
               id: userId,
               data: { status: UserStatus.BLOCKED },
             }).unwrap();
-            showNotification('User suspended successfully', 'success');
+            toast.success("User suspended successfully");
             break;
 
-          case 'activate':
+          case "activate":
             await updateUser({
               id: userId,
               data: { status: UserStatus.ACTIVE },
             }).unwrap();
-            showNotification('User activated successfully', 'success');
+            toast.success("User activated successfully");
             break;
 
-          case 'delete':
+          case "delete":
             await deleteUser(userId).unwrap();
-            showNotification('User deleted successfully', 'success');
+            toast.success("User deleted successfully");
             break;
 
-          case 'resetPassword':
+          case "resetPassword":
             const result = await resetUserPassword(userId).unwrap();
-            showNotification(
+            toast.success(
               `Password reset successfully. Temporary password: ${result.temporaryPassword}`,
-              'success'
             );
             break;
 
           default:
-            showNotification('Unknown action', 'error');
+            toast.error("Unknown action");
         }
       } catch (error: any) {
-        console.error('User action failed:', error);
-        showNotification(
-          error?.data?.message || `Failed to ${action} user`,
-          'error'
-        );
+        console.error("User action failed:", error);
+        toast.error(error?.data?.message || `Failed to ${action} user`);
       } finally {
         setLoadingActions((prev) => {
           const newState = { ...prev };
@@ -332,7 +321,7 @@ const ManageUsersPage = () => {
         });
       }
     },
-    [updateUser, deleteUser, resetUserPassword]
+    [updateUser, deleteUser, resetUserPassword],
   );
 
   // Handle row click (open user details) - with deep linking support
@@ -340,23 +329,23 @@ const ManageUsersPage = () => {
     (userId: string) => {
       // Add user ID to URL for deep linking
       const params = new URLSearchParams(window.location.search);
-      params.set('userId', userId);
+      params.set("userId", userId);
       const newURL = `${window.location.pathname}?${params.toString()}`;
       router.replace(newURL, { scroll: false });
 
-      handleUserAction('view', userId);
+      handleUserAction("view", userId);
     },
-    [handleUserAction, router]
+    [handleUserAction, router],
   );
 
   // Handle deep linking to specific user details
   useEffect(() => {
-    const userId = searchParams.get('userId');
+    const userId = searchParams.get("userId");
     if (userId && users.length > 0) {
       const user = users.find((u) => u.id === userId);
       if (user) {
         // Auto-open user details if user ID is in URL
-        handleUserAction('view', userId);
+        handleUserAction("view", userId);
       }
     }
   }, [searchParams, users, handleUserAction]);
@@ -368,14 +357,14 @@ const ManageUsersPage = () => {
       // Announce selection changes to screen readers
       if (userIds.length > 0) {
         announce(
-          `${userIds.length} user${userIds.length !== 1 ? 's' : ''} selected`,
-          'polite'
+          `${userIds.length} user${userIds.length !== 1 ? "s" : ""} selected`,
+          "polite",
         );
       } else {
-        announce('Selection cleared', 'polite');
+        announce("Selection cleared", "polite");
       }
     },
-    [announce]
+    [announce],
   );
 
   // Handle pagination change
@@ -383,7 +372,7 @@ const ManageUsersPage = () => {
     (newPagination: Partial<{ page: number; pageSize: number }>) => {
       setPagination((prev) => ({ ...prev, ...newPagination }));
     },
-    []
+    [],
   );
 
   // Handle filter changes
@@ -395,13 +384,13 @@ const ManageUsersPage = () => {
       // Clear selection when filters change
       setSelectedUsers([]);
     },
-    []
+    [],
   );
 
   // Handle clear filters
   const handleClearFilters = useCallback(() => {
     const defaultFilters = {
-      searchTerm: '',
+      searchTerm: "",
       roles: [],
       status: [],
       dateRange: {
@@ -412,35 +401,16 @@ const ManageUsersPage = () => {
         from: null,
         to: null,
       },
-      sortBy: 'name' as const,
-      sortOrder: 'asc' as const,
+      sortBy: "name" as const,
+      sortOrder: "asc" as const,
     };
     setFilters(defaultFilters);
     setPagination((prev) => ({ ...prev, page: 1 }));
   }, []);
 
-  // Show notification
-  const showNotification = (
-    message: string,
-    severity: 'success' | 'error' | 'info' | 'warning'
-  ) => {
-    setNotification({
-      open: true,
-      message,
-      severity,
-    });
-    // Announce to screen readers
-    announce(message, severity === 'error' ? 'assertive' : 'polite');
-  };
-
-  // Close notification
-  const handleCloseNotification = () => {
-    setNotification((prev) => ({ ...prev, open: false }));
-  };
-
   return (
     <Box
-      sx={{ width: '100%', overflow: 'hidden' }}
+      sx={{ width: "100%", overflow: "hidden" }}
       component="main"
       role="main"
       aria-labelledby="page-title"
@@ -452,7 +422,7 @@ const ManageUsersPage = () => {
           variant="h4"
           component="h1"
           sx={{
-            fontSize: { xs: '1.75rem', sm: '2.125rem' },
+            fontSize: { xs: "1.75rem", sm: "2.125rem" },
             fontWeight: 600,
             mb: 1,
           }}
@@ -462,7 +432,7 @@ const ManageUsersPage = () => {
         <Typography
           variant="body2"
           color="text.secondary"
-          sx={{ display: { xs: 'block', sm: 'none' } }}
+          sx={{ display: { xs: "block", sm: "none" } }}
           aria-describedby="page-title"
         >
           Comprehensive user management dashboard
@@ -477,9 +447,9 @@ const ManageUsersPage = () => {
 
       {/* Top Action Bar - Responsive */}
       <Stack
-        direction={{ xs: 'column', sm: 'row' }}
+        direction={{ xs: "column", sm: "row" }}
         justifyContent="space-between"
-        alignItems={{ xs: 'stretch', sm: 'center' }}
+        alignItems={{ xs: "stretch", sm: "center" }}
         spacing={{ xs: 2, sm: 0 }}
         sx={{ mb: 2 }}
       >
@@ -488,8 +458,8 @@ const ManageUsersPage = () => {
           disabled
           size="large"
           sx={{
-            minHeight: { xs: 44, sm: 'auto' }, // Touch-friendly height on mobile
-            fontSize: { xs: '0.875rem', sm: '1rem' },
+            minHeight: { xs: 44, sm: "auto" }, // Touch-friendly height on mobile
+            fontSize: { xs: "0.875rem", sm: "1rem" },
           }}
         >
           Create New User
@@ -510,19 +480,19 @@ const ManageUsersPage = () => {
           sx={{
             mb: 2,
             p: 1,
-            bgcolor: 'grey.50',
+            bgcolor: "grey.50",
             borderRadius: 1,
-            border: '1px solid',
-            borderColor: 'grey.200',
+            border: "1px solid",
+            borderColor: "grey.200",
           }}
         >
           <Typography variant="body2" color="text.secondary">
-            {users.length} user{users.length !== 1 ? 's' : ''} found
+            {users.length} user{users.length !== 1 ? "s" : ""} found
             {filters.searchTerm && ` matching "${filters.searchTerm}"`}
             {filters.roles.length > 0 &&
-              ` with roles: ${filters.roles.join(', ')}`}
+              ` with roles: ${filters.roles.join(", ")}`}
             {filters.status.length > 0 &&
-              ` with status: ${filters.status.join(', ')}`}
+              ` with status: ${filters.status.join(", ")}`}
           </Typography>
         </Box>
       )}
@@ -533,10 +503,10 @@ const ManageUsersPage = () => {
           sx={{
             mb: 2,
             p: { xs: 2, sm: 1 },
-            bgcolor: 'primary.50',
+            bgcolor: "primary.50",
             borderRadius: 1,
-            border: '1px solid',
-            borderColor: 'primary.200',
+            border: "1px solid",
+            borderColor: "primary.200",
           }}
         >
           <Typography variant="body2" color="text.secondary">
@@ -552,8 +522,8 @@ const ManageUsersPage = () => {
           severity="error"
           sx={{
             mb: 2,
-            '& .MuiAlert-message': {
-              fontSize: { xs: '0.875rem', sm: '1rem' },
+            "& .MuiAlert-message": {
+              fontSize: { xs: "0.875rem", sm: "1rem" },
             },
           }}
         >
@@ -567,8 +537,8 @@ const ManageUsersPage = () => {
           severity="warning"
           sx={{
             mb: 2,
-            '& .MuiAlert-message': {
-              fontSize: { xs: '0.875rem', sm: '1rem' },
+            "& .MuiAlert-message": {
+              fontSize: { xs: "0.875rem", sm: "1rem" },
             },
           }}
         >
@@ -579,48 +549,48 @@ const ManageUsersPage = () => {
       {/* Main User Data Grid - Enhanced for mobile */}
       <Box
         sx={{
-          width: '100%',
-          '& .MuiDataGrid-root': {
+          width: "100%",
+          "& .MuiDataGrid-root": {
             minHeight: { xs: 400, sm: 600 },
-            '& .MuiDataGrid-main': {
-              overflow: 'auto',
+            "& .MuiDataGrid-main": {
+              overflow: "auto",
             },
-            '& .MuiDataGrid-virtualScroller': {
+            "& .MuiDataGrid-virtualScroller": {
               // Enable horizontal scrolling on mobile
-              overflowX: { xs: 'auto', sm: 'hidden' },
+              overflowX: { xs: "auto", sm: "hidden" },
             },
-            '& .MuiDataGrid-columnHeaders': {
+            "& .MuiDataGrid-columnHeaders": {
               minHeight: { xs: 48, sm: 56 }, // Touch-friendly header height
-              '& .MuiDataGrid-columnHeader': {
-                fontSize: { xs: '0.75rem', sm: '0.875rem' },
+              "& .MuiDataGrid-columnHeader": {
+                fontSize: { xs: "0.75rem", sm: "0.875rem" },
                 fontWeight: 600,
               },
             },
-            '& .MuiDataGrid-row': {
+            "& .MuiDataGrid-row": {
               minHeight: { xs: 52, sm: 52 }, // Touch-friendly row height
-              '&:hover': {
+              "&:hover": {
                 backgroundColor: {
-                  xs: 'transparent',
-                  sm: 'rgba(0, 0, 0, 0.04)',
+                  xs: "transparent",
+                  sm: "rgba(0, 0, 0, 0.04)",
                 },
               },
             },
-            '& .MuiDataGrid-cell': {
-              fontSize: { xs: '0.75rem', sm: '0.875rem' },
-              padding: { xs: '8px 4px', sm: '16px' },
+            "& .MuiDataGrid-cell": {
+              fontSize: { xs: "0.75rem", sm: "0.875rem" },
+              padding: { xs: "8px 4px", sm: "16px" },
               borderBottom: {
-                xs: '1px solid rgba(224, 224, 224, 0.5)',
-                sm: '1px solid rgba(224, 224, 224, 1)',
+                xs: "1px solid rgba(224, 224, 224, 0.5)",
+                sm: "1px solid rgba(224, 224, 224, 1)",
               },
             },
-            '& .MuiDataGrid-footerContainer': {
+            "& .MuiDataGrid-footerContainer": {
               minHeight: { xs: 48, sm: 52 },
-              '& .MuiTablePagination-root': {
-                fontSize: { xs: '0.75rem', sm: '0.875rem' },
+              "& .MuiTablePagination-root": {
+                fontSize: { xs: "0.75rem", sm: "0.875rem" },
               },
-              '& .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows':
+              "& .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows":
                 {
-                  fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                  fontSize: { xs: "0.75rem", sm: "0.875rem" },
                 },
             },
           },
@@ -638,34 +608,6 @@ const ManageUsersPage = () => {
           onPaginationChange={handlePaginationChange}
         />
       </Box>
-
-      {/* Notification Snackbar - Responsive positioning */}
-      <Snackbar
-        open={notification.open}
-        autoHideDuration={6000}
-        onClose={handleCloseNotification}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
-        }}
-        sx={{
-          '& .MuiSnackbarContent-root': {
-            minWidth: { xs: '90vw', sm: 'auto' },
-            maxWidth: { xs: '90vw', sm: '600px' },
-          },
-        }}
-      >
-        <Alert
-          onClose={handleCloseNotification}
-          severity={notification.severity}
-          sx={{
-            width: '100%',
-            fontSize: { xs: '0.875rem', sm: '1rem' },
-          }}
-        >
-          {notification.message}
-        </Alert>
-      </Snackbar>
 
       {/* Screen Reader Announcement Region */}
       <AnnouncementRegion />
