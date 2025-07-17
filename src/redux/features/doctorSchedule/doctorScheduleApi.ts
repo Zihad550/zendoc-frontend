@@ -9,7 +9,7 @@ export const doctorScheduleApi = baseApi.injectEndpoints({
       query: (data) => ({
         url: "/doctor-schedule",
         method: "POST",
-        data,
+        body: data,
       }),
       invalidatesTags: [tagTypes.doctorSchedule],
     }),
@@ -25,13 +25,6 @@ export const doctorScheduleApi = baseApi.injectEndpoints({
         };
       },
 
-      providesTags: [tagTypes.doctorSchedule],
-    }),
-    getDoctorSchedule: build.query({
-      query: (id: string | string[] | undefined) => ({
-        url: `/doctor-schedule/${id}`,
-        method: "GET",
-      }),
       providesTags: [tagTypes.doctorSchedule],
     }),
     getMySchedule: build.query({
@@ -55,7 +48,6 @@ export const doctorScheduleApi = baseApi.injectEndpoints({
 export const {
   useCreateDoctorScheduleMutation,
   useGetAllDocSchedulesQuery,
-  useGetDoctorScheduleQuery,
   useGetMyScheduleQuery,
   useDeleteDoctorScheduleMutation,
 } = doctorScheduleApi;

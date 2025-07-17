@@ -1,30 +1,25 @@
 "use client";
 import assets from "@/assets";
-import { getUserInfo } from "@/services/auth.services";
+import { selectUser } from "@/redux/features/auth/authSlice";
+import { useAppSelector } from "@/redux/hooks";
 import { UserRole } from "@/types";
 import { drawerItems } from "@/utils/drawerItems";
 import {
+  alpha,
   Box,
   Divider,
   List,
   Stack,
   Typography,
   useTheme,
-  alpha,
 } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import SidebarItem from "./SidebarItem";
 
 const SideBar = () => {
-  const [userRole, setUserRole] = useState("");
   const theme = useTheme();
-
-  useEffect(() => {
-    const { role } = getUserInfo() as any;
-    setUserRole(role);
-  }, []);
+  const user = useAppSelector(selectUser);
 
   return (
     <Box
@@ -69,7 +64,7 @@ const SideBar = () => {
             "&:hover": {
               bgcolor: alpha(
                 theme.palette.mode === "dark" ? "#ffffff" : "#1a202c",
-                0.1
+                0.1,
               ),
             },
           }}
@@ -118,9 +113,11 @@ const SideBar = () => {
       {/* Navigation List */}
       <Box sx={{ flex: 1, position: "relative", zIndex: 1, p: 2 }}>
         <List sx={{ pt: 2 }}>
-          {drawerItems(userRole as UserRole).map((item, index) => (
-            <SidebarItem key={index} item={item} />
-          ))}
+          {drawerItems(user.role.toLowerCase() as UserRole).map(
+            (item, index) => (
+              <SidebarItem key={index} item={item} />
+            ),
+          )}
         </List>
       </Box>
 

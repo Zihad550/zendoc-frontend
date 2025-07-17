@@ -32,11 +32,11 @@ const PHForm = ({
   }
 
   const methods = useForm(formConfig);
-  const { handleSubmit, reset } = methods;
+  const { handleSubmit } = methods;
 
   const submit: SubmitHandler<FieldValues> = (data) => {
     onSubmit(data);
-    reset();
+    // reset();
   };
 
   return (

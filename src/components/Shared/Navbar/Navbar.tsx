@@ -1,11 +1,11 @@
-"use client";
-
-import useUserInfo from "@/hooks/useUserInfo";
-import { logoutUser } from "@/services/actions/logoutUser";
-import CloseIcon from "@mui/icons-material/Close";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
-import MenuIcon from "@mui/icons-material/Menu";
+'use client';
+import { logout, selectToken } from '@/redux/features/auth/authSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { decodedToken } from '@/utils/jwt';
+import CloseIcon from '@mui/icons-material/Close';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+import MenuIcon from '@mui/icons-material/Menu';
 import {
   AppBar,
   Avatar,
@@ -28,44 +28,56 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
-} from "@mui/material";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
-import ModeToggle from "./ModeToggle";
+} from '@mui/material';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { useState } from 'react';
+import ModeToggle from './ModeToggle';
 
 const Navbar = () => {
-  const userInfo = useUserInfo();
+  const dispatch = useAppDispatch();
+  const token = useAppSelector(selectToken);
 
   const router = useRouter();
+
+  let userInfo;
+  if (token) {
+    try {
+      userInfo = decodedToken(token);
+      if (!userInfo) dispatch(logout());
+    } catch {
+      dispatch(logout());
+    }
+  }
+
   const pathname = usePathname();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [userMenuAnchor, setUserMenuAnchor] = useState<null | HTMLElement>(
-    null,
+    null
   );
   const [servicesAnchor, setServicesAnchor] = useState<null | HTMLElement>(
-    null,
+    null
   );
   const [aboutAnchor, setAboutAnchor] = useState<null | HTMLElement>(null);
 
   const navigationLinks = [
-    { label: "Doctors", href: "/doctors" },
-    { label: "Consultation", href: "/consultation" },
+    { label: 'Doctors', href: '/doctors' },
+    { label: 'Consultation', href: '/consultation' },
   ];
 
   const servicesLinks = [
-    { label: "All Services", href: "/services" },
-    { label: "Health Plans", href: "/health-plans" },
-    { label: "Pricing", href: "/pricing" },
+    { label: 'All Services', href: '/services' },
+    { label: 'Health Plans', href: '/health-plans' },
+    { label: 'Pricing', href: '/pricing' },
   ];
 
   const aboutLinks = [
-    { label: "About Us", href: "/about-us" },
-    { label: "Our History", href: "/history" },
-    { label: "Contact", href: "/contact-us" },
+    { label: 'About Us', href: '/about-us' },
+    { label: 'Our History', href: '/history' },
+    { label: 'Contact', href: '/contact-us' },
   ];
 
   const allMobileLinks = [...navigationLinks, ...servicesLinks, ...aboutLinks];
@@ -98,13 +110,13 @@ const Navbar = () => {
     setAboutAnchor(null);
   };
 
-  const handleLogout = () => {
-    logoutUser(router);
-    handleUserMenuClose();
-  };
-
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    handleUserMenuClose();
   };
 
   return (
@@ -113,9 +125,9 @@ const Navbar = () => {
         position="sticky"
         elevation={0}
         sx={{
-          bgcolor: "background.paper",
-          borderBottom: "1px solid",
-          borderColor: "divider",
+          bgcolor: 'background.paper',
+          borderBottom: '1px solid',
+          borderColor: 'divider',
           py: 1,
         }}
       >
@@ -130,14 +142,14 @@ const Navbar = () => {
             <Stack direction="row" alignItems="center" spacing={1.5}>
               <Box
                 sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   width: 40,
                   height: 40,
-                  borderRadius: "8px",
-                  bgcolor: "primary.main",
-                  color: "white",
+                  borderRadius: '8px',
+                  bgcolor: 'primary.main',
+                  color: 'white',
                 }}
               >
                 <LocalHospitalIcon sx={{ fontSize: 24 }} />
@@ -148,9 +160,9 @@ const Navbar = () => {
                 variant="h5"
                 fontWeight={700}
                 sx={{
-                  textDecoration: "none",
-                  color: "text.primary",
-                  letterSpacing: "-0.5px",
+                  textDecoration: 'none',
+                  color: 'text.primary',
+                  letterSpacing: '-0.5px',
                 }}
               >
                 ZenDoc
@@ -168,28 +180,28 @@ const Navbar = () => {
                     variant="body1"
                     fontWeight={500}
                     sx={{
-                      textDecoration: "none",
+                      textDecoration: 'none',
                       color: isActive(link.href)
-                        ? "primary.main"
-                        : "text.primary",
-                      position: "relative",
+                        ? 'primary.main'
+                        : 'text.primary',
+                      position: 'relative',
                       py: 1,
-                      transition: "color 0.2s ease",
-                      "&:hover": {
-                        color: "primary.main",
+                      transition: 'color 0.2s ease',
+                      '&:hover': {
+                        color: 'primary.main',
                       },
-                      "&::after": {
+                      '&::after': {
                         content: '""',
-                        position: "absolute",
+                        position: 'absolute',
                         bottom: 0,
                         left: 0,
-                        width: isActive(link.href) ? "100%" : "0%",
-                        height: "2px",
-                        bgcolor: "primary.main",
-                        transition: "width 0.2s ease",
+                        width: isActive(link.href) ? '100%' : '0%',
+                        height: '2px',
+                        bgcolor: 'primary.main',
+                        transition: 'width 0.2s ease',
                       },
-                      "&:hover::after": {
-                        width: "100%",
+                      '&:hover::after': {
+                        width: '100%',
                       },
                     }}
                   >
@@ -198,21 +210,21 @@ const Navbar = () => {
                 ))}
 
                 {/* Services Dropdown */}
-                <Box sx={{ position: "relative" }}>
+                <Box sx={{ position: 'relative' }}>
                   <Stack
                     direction="row"
                     alignItems="center"
                     spacing={0.5}
                     onClick={handleServicesOpen}
                     sx={{
-                      cursor: "pointer",
+                      cursor: 'pointer',
                       py: 1,
                       color: isGroupActive(servicesLinks)
-                        ? "primary.main"
-                        : "text.primary",
-                      transition: "color 0.2s ease",
-                      "&:hover": {
-                        color: "primary.main",
+                        ? 'primary.main'
+                        : 'text.primary',
+                      transition: 'color 0.2s ease',
+                      '&:hover': {
+                        color: 'primary.main',
                       },
                     }}
                   >
@@ -223,9 +235,9 @@ const Navbar = () => {
                       sx={{
                         fontSize: 20,
                         transform: Boolean(servicesAnchor)
-                          ? "rotate(180deg)"
-                          : "rotate(0deg)",
-                        transition: "transform 0.2s ease",
+                          ? 'rotate(180deg)'
+                          : 'rotate(0deg)',
+                        transition: 'transform 0.2s ease',
                       }}
                     />
                   </Stack>
@@ -245,9 +257,9 @@ const Navbar = () => {
                             mt: 1,
                             minWidth: 200,
                             borderRadius: 2,
-                            overflow: "hidden",
-                            border: "1px solid",
-                            borderColor: "divider",
+                            overflow: 'hidden',
+                            border: '1px solid',
+                            borderColor: 'divider',
                           }}
                         >
                           <ClickAwayListener onClickAway={handleServicesClose}>
@@ -262,12 +274,12 @@ const Navbar = () => {
                                     py: 1.5,
                                     px: 2,
                                     color: isActive(item.href)
-                                      ? "primary.main"
-                                      : "text.primary",
+                                      ? 'primary.main'
+                                      : 'text.primary',
                                     fontWeight: isActive(item.href) ? 600 : 400,
-                                    "&:hover": {
-                                      bgcolor: "action.hover",
-                                      color: "primary.main",
+                                    '&:hover': {
+                                      bgcolor: 'action.hover',
+                                      color: 'primary.main',
                                     },
                                   }}
                                 >
@@ -283,21 +295,21 @@ const Navbar = () => {
                 </Box>
 
                 {/* About Dropdown */}
-                <Box sx={{ position: "relative" }}>
+                <Box sx={{ position: 'relative' }}>
                   <Stack
                     direction="row"
                     alignItems="center"
                     spacing={0.5}
                     onClick={handleAboutOpen}
                     sx={{
-                      cursor: "pointer",
+                      cursor: 'pointer',
                       py: 1,
                       color: isGroupActive(aboutLinks)
-                        ? "primary.main"
-                        : "text.primary",
-                      transition: "color 0.2s ease",
-                      "&:hover": {
-                        color: "primary.main",
+                        ? 'primary.main'
+                        : 'text.primary',
+                      transition: 'color 0.2s ease',
+                      '&:hover': {
+                        color: 'primary.main',
                       },
                     }}
                   >
@@ -308,9 +320,9 @@ const Navbar = () => {
                       sx={{
                         fontSize: 20,
                         transform: Boolean(aboutAnchor)
-                          ? "rotate(180deg)"
-                          : "rotate(0deg)",
-                        transition: "transform 0.2s ease",
+                          ? 'rotate(180deg)'
+                          : 'rotate(0deg)',
+                        transition: 'transform 0.2s ease',
                       }}
                     />
                   </Stack>
@@ -330,9 +342,9 @@ const Navbar = () => {
                             mt: 1,
                             minWidth: 200,
                             borderRadius: 2,
-                            overflow: "hidden",
-                            border: "1px solid",
-                            borderColor: "divider",
+                            overflow: 'hidden',
+                            border: '1px solid',
+                            borderColor: 'divider',
                           }}
                         >
                           <ClickAwayListener onClickAway={handleAboutClose}>
@@ -347,12 +359,12 @@ const Navbar = () => {
                                     py: 1.5,
                                     px: 2,
                                     color: isActive(item.href)
-                                      ? "primary.main"
-                                      : "text.primary",
+                                      ? 'primary.main'
+                                      : 'text.primary',
                                     fontWeight: isActive(item.href) ? 600 : 400,
-                                    "&:hover": {
-                                      bgcolor: "action.hover",
-                                      color: "primary.main",
+                                    '&:hover': {
+                                      bgcolor: 'action.hover',
+                                      color: 'primary.main',
                                     },
                                   }}
                                 >
@@ -368,9 +380,9 @@ const Navbar = () => {
                 </Box>
               </Stack>
             )}
-            <ModeToggle />
             {/* User Actions */}
             <Stack direction="row" alignItems="center" spacing={2}>
+              {!isMobile && <ModeToggle />}
               {userInfo?.email ? (
                 <Box>
                   <IconButton onClick={handleUserMenuOpen} sx={{ p: 0 }}>
@@ -378,8 +390,8 @@ const Navbar = () => {
                       sx={{
                         width: 40,
                         height: 40,
-                        bgcolor: "primary.main",
-                        fontSize: "1rem",
+                        bgcolor: 'primary.main',
+                        fontSize: '1rem',
                         fontWeight: 600,
                       }}
                     >
@@ -390,38 +402,46 @@ const Navbar = () => {
                     anchorEl={userMenuAnchor}
                     open={Boolean(userMenuAnchor)}
                     onClose={handleUserMenuClose}
-                    transformOrigin={{ horizontal: "right", vertical: "top" }}
-                    anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+                    transformOrigin={{
+                      horizontal: 'right',
+                      vertical: 'top',
+                    }}
+                    anchorOrigin={{
+                      horizontal: 'right',
+                      vertical: 'bottom',
+                    }}
                     sx={{
                       mt: 1,
-                      "& .MuiPaper-root": {
+                      '& .MuiPaper-root': {
                         borderRadius: 2,
                         minWidth: 180,
-                        border: "1px solid",
-                        borderColor: "divider",
+                        border: '1px solid',
+                        borderColor: 'divider',
                       },
                     }}
                   >
                     <MenuItem
                       onClick={() => {
-                        router.push("/dashboard");
+                        router.push(
+                          `/dashboard/${userInfo.role.toLowerCase()}`
+                        );
                         handleUserMenuClose();
                       }}
                     >
                       Dashboard
                     </MenuItem>
-                    <MenuItem
+                    {/* <MenuItem
                       onClick={() => {
                         router.push("/profile");
                         handleUserMenuClose();
                       }}
                     >
                       Profile
-                    </MenuItem>
+                    </MenuItem> */}
                     <Divider />
                     <MenuItem
                       onClick={handleLogout}
-                      sx={{ color: "error.main" }}
+                      sx={{ color: 'error.main' }}
                     >
                       Logout
                     </MenuItem>
@@ -434,15 +454,15 @@ const Navbar = () => {
                   variant="body1"
                   fontWeight={600}
                   sx={{
-                    textDecoration: "none",
-                    color: "text.primary",
+                    textDecoration: 'none',
+                    color: 'text.primary',
                     px: 2,
                     py: 1,
                     borderRadius: 1,
-                    transition: "all 0.2s ease",
-                    "&:hover": {
-                      color: "primary.main",
-                      bgcolor: "action.hover",
+                    transition: 'all 0.2s ease',
+                    '&:hover': {
+                      color: 'primary.main',
+                      bgcolor: 'action.hover',
                     },
                   }}
                 >
@@ -456,9 +476,9 @@ const Navbar = () => {
                   onClick={toggleDrawer}
                   sx={{
                     ml: 1,
-                    color: "text.primary",
-                    "&:hover": {
-                      bgcolor: "action.hover",
+                    color: 'text.primary',
+                    '&:hover': {
+                      bgcolor: 'action.hover',
                     },
                   }}
                 >
@@ -476,41 +496,50 @@ const Navbar = () => {
         open={drawerOpen}
         onClose={toggleDrawer}
         sx={{
-          "& .MuiDrawer-paper": {
-            width: "280px",
-            bgcolor: "background.paper",
+          '& .MuiDrawer-paper': {
+            width: '280px',
+            bgcolor: 'background.paper',
           },
         }}
       >
         {/* Drawer Header */}
         <Box
           sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
             p: 2,
-            borderBottom: "1px solid",
-            borderColor: "divider",
+            borderBottom: '1px solid',
+            borderColor: 'divider',
+            bgcolor: 'background.paper',
           }}
         >
-          <Typography variant="h6" fontWeight={600}>
+          <Typography variant="h6" fontWeight={600} color="text.primary">
             Menu
           </Typography>
-          <IconButton onClick={toggleDrawer}>
+          <IconButton
+            onClick={toggleDrawer}
+            sx={{
+              color: 'text.primary',
+              '&:hover': {
+                bgcolor: 'action.hover',
+              },
+            }}
+          >
             <CloseIcon />
           </IconButton>
         </Box>
 
         {/* User Info (Mobile) */}
         {userInfo?.email && (
-          <Box sx={{ p: 2, borderBottom: "1px solid", borderColor: "divider" }}>
+          <Box sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider' }}>
             <Stack direction="row" alignItems="center" spacing={2}>
-              <Avatar sx={{ bgcolor: "primary.main" }}>
+              <Avatar sx={{ bgcolor: 'primary.main' }}>
                 {userInfo.email.charAt(0).toUpperCase()}
               </Avatar>
               <Box>
                 <Typography variant="subtitle1" fontWeight={600}>
-                  {userInfo.email.split("@")[0]}
+                  {userInfo.email.split('@')[0]}
                 </Typography>
                 <Typography variant="caption" color="text.secondary">
                   {userInfo.email}
@@ -519,6 +548,20 @@ const Navbar = () => {
             </Stack>
           </Box>
         )}
+
+        {/* Theme Toggle Section */}
+        <Box sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider' }}>
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <Typography variant="body2" fontWeight={500} color="text.primary">
+              Theme
+            </Typography>
+            <ModeToggle />
+          </Stack>
+        </Box>
 
         {/* Navigation Links */}
         <List sx={{ px: 1, py: 2 }}>
@@ -531,14 +574,20 @@ const Navbar = () => {
                 sx={{
                   borderRadius: 1,
                   mb: 0.5,
-                  color: isActive(link.href) ? "primary.main" : "text.primary",
+                  color: isActive(link.href) ? 'primary.main' : 'text.primary',
                   bgcolor: isActive(link.href)
-                    ? "primary.light"
-                    : "transparent",
-                  "&:hover": {
+                    ? (theme) =>
+                        theme.palette.mode === 'dark'
+                          ? 'rgba(144, 202, 249, 0.16)'
+                          : 'primary.light'
+                    : 'transparent',
+                  '&:hover': {
                     bgcolor: isActive(link.href)
-                      ? "primary.light"
-                      : "action.hover",
+                      ? (theme) =>
+                          theme.palette.mode === 'dark'
+                            ? 'rgba(144, 202, 249, 0.24)'
+                            : 'primary.light'
+                      : 'action.hover',
                   },
                 }}
               >
@@ -558,16 +607,16 @@ const Navbar = () => {
               <ListItem disablePadding>
                 <ListItemButton
                   component={Link}
-                  href="/dashboard"
+                  href={`/dashboard/${userInfo.role.toLowerCase()}`}
                   onClick={toggleDrawer}
                   sx={{
                     borderRadius: 1,
                     mb: 0.5,
-                    color: isActive("/dashboard")
-                      ? "primary.main"
-                      : "text.primary",
-                    "&:hover": {
-                      bgcolor: "action.hover",
+                    color: isActive('/dashboard')
+                      ? 'primary.main'
+                      : 'text.primary',
+                    '&:hover': {
+                      bgcolor: 'action.hover',
                     },
                   }}
                 >
@@ -581,10 +630,10 @@ const Navbar = () => {
         {/* Bottom Actions */}
         <Box
           sx={{
-            mt: "auto",
+            mt: 'auto',
             p: 2,
-            borderTop: "1px solid",
-            borderColor: "divider",
+            borderTop: '1px solid',
+            borderColor: 'divider',
           }}
         >
           {userInfo?.email ? (
@@ -594,15 +643,15 @@ const Navbar = () => {
                 toggleDrawer();
               }}
               sx={{
-                textAlign: "center",
+                textAlign: 'center',
                 py: 1.5,
-                color: "error.main",
-                cursor: "pointer",
+                color: 'error.main',
+                cursor: 'pointer',
                 borderRadius: 1,
-                transition: "background-color 0.2s ease",
-                "&:hover": {
-                  bgcolor: "error.light",
-                  color: "error.dark",
+                transition: 'background-color 0.2s ease',
+                '&:hover': {
+                  bgcolor: 'error.light',
+                  color: 'error.dark',
                 },
               }}
             >
@@ -617,16 +666,16 @@ const Navbar = () => {
                 href="/login"
                 onClick={toggleDrawer}
                 sx={{
-                  display: "block",
-                  textAlign: "center",
+                  display: 'block',
+                  textAlign: 'center',
                   py: 1.5,
-                  bgcolor: "primary.main",
-                  color: "white",
+                  bgcolor: 'primary.main',
+                  color: 'white',
                   borderRadius: 1,
-                  textDecoration: "none",
-                  transition: "background-color 0.2s ease",
-                  "&:hover": {
-                    bgcolor: "primary.dark",
+                  textDecoration: 'none',
+                  transition: 'background-color 0.2s ease',
+                  '&:hover': {
+                    bgcolor: 'primary.dark',
                   },
                 }}
               >
@@ -639,18 +688,18 @@ const Navbar = () => {
                 href="/register"
                 onClick={toggleDrawer}
                 sx={{
-                  display: "block",
-                  textAlign: "center",
+                  display: 'block',
+                  textAlign: 'center',
                   py: 1.5,
-                  border: "1px solid",
-                  borderColor: "primary.main",
-                  color: "primary.main",
+                  border: '1px solid',
+                  borderColor: 'primary.main',
+                  color: 'primary.main',
                   borderRadius: 1,
-                  textDecoration: "none",
-                  transition: "all 0.2s ease",
-                  "&:hover": {
-                    bgcolor: "primary.main",
-                    color: "white",
+                  textDecoration: 'none',
+                  transition: 'all 0.2s ease',
+                  '&:hover': {
+                    bgcolor: 'primary.main',
+                    color: 'white',
                   },
                 }}
               >

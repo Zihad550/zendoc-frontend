@@ -1,7 +1,6 @@
 import { baseApi } from "@/redux/api/baseApi";
 import { tagTypes } from "@/redux/tag-types";
 import { IResponseRedux } from "@/types/apiResponse";
-import { IMeta } from "@/types/common";
 import { ISchedule } from "@/types/schedule";
 
 export const scheduleApi = baseApi.injectEndpoints({
@@ -10,22 +9,19 @@ export const scheduleApi = baseApi.injectEndpoints({
       query: (data) => ({
         url: "/schedule",
         method: "POST",
-        data,
+        body: data,
       }),
       invalidatesTags: [tagTypes.schedule],
     }),
-    getAllSchedules: build.query({
-      query: (arg: Record<string, any>) => {
+    getAllSchedules: build.query<
+      IResponseRedux<ISchedule[]>,
+      Record<string, unknown> | undefined
+    >({
+      query: (arg) => {
         return {
           url: "/schedule",
           method: "GET",
           params: arg,
-        };
-      },
-      transformResponse: (response: [], meta: IMeta) => {
-        return {
-          schedules: response,
-          meta,
         };
       },
       providesTags: [tagTypes.schedule],

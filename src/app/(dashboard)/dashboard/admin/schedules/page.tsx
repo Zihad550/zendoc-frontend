@@ -5,7 +5,10 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import ScheduleModal from "./components/ScheduleModal";
 
-import { useGetAllSchedulesQuery } from "@/redux/features/schedule/scheduleApi";
+import {
+  useDeleteScheduleMutation,
+  useGetAllSchedulesQuery,
+} from "@/redux/features/schedule/scheduleApi";
 import { ISchedule } from "@/types/schedule";
 import { dateFormatter } from "@/utils/dateFormatter";
 import dayjs from "dayjs";
@@ -14,8 +17,9 @@ const SchedulesPage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [allSchedule, setAllSchedule] = useState<any>([]);
   const { data, isLoading } = useGetAllSchedulesQuery({});
+  const [deleteSchedule] = useDeleteScheduleMutation();
 
-  const schedules = data?.schedules;
+  const schedules = data?.data;
 
   useEffect(() => {
     const updateData = schedules?.map((schedule: ISchedule, index: number) => {
@@ -42,9 +46,12 @@ const SchedulesPage = () => {
       flex: 1,
       headerAlign: "center",
       align: "center",
-      renderCell: () => {
+      renderCell: (cell) => {
         return (
-          <IconButton aria-label="delete">
+          <IconButton
+            onClick={() => deleteSchedule(cell.id)}
+            aria-label="delete"
+          >
             <DeleteIcon sx={{ color: "red" }} />
           </IconButton>
         );

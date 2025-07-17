@@ -11,17 +11,3 @@ export enum tagTypes {
   review = "review",
   payment = "payment",
 }
-
-export const tagTypesList = [
-  tagTypes.specialties,
-  tagTypes.admin,
-  tagTypes.doctor,
-  tagTypes.patient,
-  tagTypes.schedule,
-  tagTypes.appointment,
-  tagTypes.doctorSchedule,
-  tagTypes.user,
-  tagTypes.prescription,
-  tagTypes.review,
-  tagTypes.payment,
-];

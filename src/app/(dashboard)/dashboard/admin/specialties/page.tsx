@@ -4,7 +4,7 @@ import {
   useGetAllSpecialtiesQuery,
 } from "@/redux/features/specialties/specialtiesApi";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Box, Button, IconButton, Stack, TextField } from "@mui/material";
+import { Box, Button, IconButton, Stack } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Image from "next/image";
 import { useState } from "react";
@@ -62,11 +62,11 @@ const SpecialtiesPage = () => {
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <Button onClick={() => setIsModalOpen(true)}>Create Specialty</Button>
         <SpecialtyModal open={isModalOpen} setOpen={setIsModalOpen} />
-        <TextField size="small" placeholder="Search Specialist" />
+        {/* <TextField size="small" placeholder="Search Specialist" /> */}
       </Stack>
       {!isLoading ? (
         <Box my={2}>
-          <DataGrid rows={data} columns={columns} hideFooter={true} />
+          <DataGrid rows={data.data} columns={columns} hideFooter={true} />
         </Box>
       ) : (
         <h1>Loading.....</h1>

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   alpha,
@@ -13,61 +13,62 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Link as MuiLink,
   Paper,
   Stack,
   TextField,
   Typography,
   useTheme,
-} from "@mui/material";
-import Link from "next/link";
-import React, { useState } from "react";
+} from '@mui/material';
+import Link from 'next/link';
+import React, { useState } from 'react';
 
 // Icons
-import ArticleIcon from "@mui/icons-material/Article";
-import EmailIcon from "@mui/icons-material/Email";
-import HealingIcon from "@mui/icons-material/Healing";
-import HealthAndSafetyIcon from "@mui/icons-material/HealthAndSafety";
-import InfoIcon from "@mui/icons-material/Info";
+import ArticleIcon from '@mui/icons-material/Article';
+import EmailIcon from '@mui/icons-material/Email';
+import HealingIcon from '@mui/icons-material/Healing';
+import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
+import InfoIcon from '@mui/icons-material/Info';
 
-import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import MedicalServicesIcon from "@mui/icons-material/MedicalServices";
-import PhoneIcon from "@mui/icons-material/Phone";
-import PolicyIcon from "@mui/icons-material/Policy";
-import SendIcon from "@mui/icons-material/Send";
-import SocialMediaLinks from "../Links/SocialMediaLinks";
+import { CONTACT } from '@/contants/contact';
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
+import PhoneIcon from '@mui/icons-material/Phone';
+import PolicyIcon from '@mui/icons-material/Policy';
+import SendIcon from '@mui/icons-material/Send';
+import SocialMediaLinks from '../Links/SocialMediaLinks';
 
 const Footer = () => {
   const theme = useTheme();
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
 
   const handleSubscribe = () => {
     // Handle newsletter subscription logic here
-    console.log(`Subscribing email: ${email}`);
-    setEmail("");
+    setEmail('');
     // Add toast notification or confirmation message
   };
 
   return (
-    <Box sx={{ position: "relative" }}>
+    <Box sx={{ position: 'relative' }}>
       {/* Wave Shape Separator */}
       <Box
         sx={{
-          position: "relative",
+          position: 'relative',
           height: 60,
-          overflow: "hidden",
+          overflow: 'hidden',
           marginBottom: -1,
         }}
       >
         <Box
           sx={{
-            position: "absolute",
+            position: 'absolute',
             top: 0,
             left: 0,
-            width: "100%",
-            height: "100%",
+            width: '100%',
+            height: '100%',
             backgroundColor: theme.palette.background.default,
-            clipPath: "polygon(0 0, 100% 0, 100% 20%, 0% 100%)",
+            clipPath: 'polygon(0 0, 100% 0, 100% 20%, 0% 100%)',
             zIndex: 1,
           }}
         />
@@ -79,28 +80,28 @@ const Footer = () => {
           bgcolor: alpha(theme.palette.primary.main, 0.05),
           pt: 8,
           pb: 4,
-          position: "relative",
-          overflow: "hidden",
+          position: 'relative',
+          overflow: 'hidden',
           borderTop: `1px solid ${alpha(theme.palette.primary.main, 0.1)}`,
         }}
       >
         {/* Background Pattern */}
         <Box
           sx={{
-            position: "absolute",
+            position: 'absolute',
             top: 0,
             left: 0,
             right: 0,
             bottom: 0,
             opacity: 0.03,
             backgroundImage:
-              "radial-gradient(circle, rgba(21, 134, 253, 0.6) 1px, transparent 1px)",
-            backgroundSize: "20px 20px",
+              'radial-gradient(circle, rgba(21, 134, 253, 0.6) 1px, transparent 1px)',
+            backgroundSize: '20px 20px',
             zIndex: 0,
           }}
         />
 
-        <Container sx={{ position: "relative", zIndex: 1 }}>
+        <Container sx={{ position: 'relative', zIndex: 1 }}>
           <Grid container spacing={4}>
             {/* Company Info & Logo */}
             <Grid size={{ xs: 12, md: 4 }}>
@@ -112,7 +113,7 @@ const Footer = () => {
                     sx={{
                       fontSize: 36,
                       filter:
-                        "drop-shadow(0px 2px 4px rgba(21, 134, 253, 0.3))",
+                        'drop-shadow(0px 2px 4px rgba(21, 134, 253, 0.3))',
                     }}
                   />
                   <Typography
@@ -122,12 +123,12 @@ const Footer = () => {
                     fontWeight={700}
                     color="primary.main"
                     sx={{
-                      textDecoration: "none",
-                      letterSpacing: "-0.5px",
-                      display: "flex",
-                      alignItems: "center",
-                      fontSize: { xs: "1.75rem", md: "2rem" },
-                      textShadow: "0px 2px 4px rgba(21, 134, 253, 0.2)",
+                      textDecoration: 'none',
+                      letterSpacing: '-0.5px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      fontSize: { xs: '1.75rem', md: '2rem' },
+                      textShadow: '0px 2px 4px rgba(21, 134, 253, 0.2)',
                     }}
                   >
                     ZenDoc
@@ -147,18 +148,32 @@ const Footer = () => {
                       <PhoneIcon color="primary" fontSize="small" />
                     </ListItemIcon>
                     <ListItemText
-                      primary="(555) 123-4567"
-                      primaryTypographyProps={{ variant: "body2" }}
+                      primary={CONTACT.phone}
+                      primaryTypographyProps={{ variant: 'body2' }}
                     />
                   </ListItem>
                   <ListItem disableGutters sx={{ pb: 1 }}>
                     <ListItemIcon sx={{ minWidth: 36 }}>
                       <EmailIcon color="primary" fontSize="small" />
                     </ListItemIcon>
-                    <ListItemText
-                      primary="contact@zendoc.com"
+                    <MuiLink
+                      href={`mailto:${CONTACT.email}`}
+                      color="#fff"
+                      // underline="none"
+                      variant="body2"
+                      sx={{
+                        textDecoration: 'none',
+                        color: 'inherit',
+                      }}
+                    >
+                      {CONTACT.email}
+                    </MuiLink>
+                    {/* <ListItemText
+                      component="a"
+                      href={`mailto:${CONTACT.email}`}
+                      primary={CONTACT.email}
                       primaryTypographyProps={{ variant: "body2" }}
-                    />
+                    /> */}
                   </ListItem>
                   <ListItem disableGutters>
                     <ListItemIcon sx={{ minWidth: 36 }}>
@@ -166,7 +181,7 @@ const Footer = () => {
                     </ListItemIcon>
                     <ListItemText
                       primary="123 Healthcare Ave, Medical District, City, State 12345"
-                      primaryTypographyProps={{ variant: "body2" }}
+                      primaryTypographyProps={{ variant: 'body2' }}
                     />
                   </ListItem>
                 </List>
@@ -180,17 +195,17 @@ const Footer = () => {
                 fontWeight="600"
                 mb={3}
                 sx={{
-                  position: "relative",
-                  display: "inline-block",
-                  "&::after": {
+                  position: 'relative',
+                  display: 'inline-block',
+                  '&::after': {
                     content: '""',
-                    position: "absolute",
-                    width: "30px",
-                    height: "2px",
-                    bottom: "-8px",
-                    left: "0",
-                    backgroundColor: "primary.main",
-                    borderRadius: "2px",
+                    position: 'absolute',
+                    width: '30px',
+                    height: '2px',
+                    bottom: '-8px',
+                    left: '0',
+                    backgroundColor: 'primary.main',
+                    borderRadius: '2px',
                   },
                 }}
               >
@@ -199,23 +214,23 @@ const Footer = () => {
               <List disablePadding sx={{ mt: 2 }}>
                 {[
                   {
-                    label: "Consultation",
-                    href: "/consultation",
+                    label: 'Consultation',
+                    href: '/consultation',
                     icon: <MedicalServicesIcon fontSize="small" />,
                   },
                   {
-                    label: "Health Plans",
-                    href: "/health-plans",
+                    label: 'Health Plans',
+                    href: '/health-plans',
                     icon: <HealthAndSafetyIcon fontSize="small" />,
                   },
                   {
-                    label: "Services",
-                    href: "/services",
+                    label: 'Services',
+                    href: '/services',
                     icon: <HealingIcon fontSize="small" />,
                   },
                   {
-                    label: "Doctors",
-                    href: "/doctors",
+                    label: 'Doctors',
+                    href: '/doctors',
                     icon: <LocalHospitalIcon fontSize="small" />,
                   },
                 ].map((item) => (
@@ -227,44 +242,44 @@ const Footer = () => {
                   >
                     <Link
                       href={item.href}
-                      style={{ textDecoration: "none", width: "100%" }}
+                      style={{ textDecoration: 'none', width: '100%' }}
                     >
                       <Box
                         component="div"
                         sx={{
-                          display: "flex",
-                          alignItems: "center",
+                          display: 'flex',
+                          alignItems: 'center',
                           py: 0.75,
                           pl: 0.5,
                           pr: 1,
                           borderRadius: 1,
-                          position: "relative",
-                          overflow: "hidden",
-                          "&::before": {
+                          position: 'relative',
+                          overflow: 'hidden',
+                          '&::before': {
                             content: '""',
-                            position: "absolute",
+                            position: 'absolute',
                             left: 0,
                             top: 0,
                             bottom: 0,
-                            width: "0",
-                            borderRadius: "4px 0 0 4px",
+                            width: '0',
+                            borderRadius: '4px 0 0 4px',
                             backgroundColor: alpha(
                               theme.palette.primary.main,
-                              0.1,
+                              0.1
                             ),
-                            transition: "width 0.3s ease",
+                            transition: 'width 0.3s ease',
                           },
-                          "&:hover": {
-                            "&::before": {
-                              width: "100%",
+                          '&:hover': {
+                            '&::before': {
+                              width: '100%',
                             },
-                            "& .MuiSvgIcon-root": {
-                              transform: "translateX(3px)",
+                            '& .MuiSvgIcon-root': {
+                              transform: 'translateX(3px)',
                               color: theme.palette.primary.main,
                             },
-                            "& .footerLinkText": {
+                            '& .footerLinkText': {
                               color: theme.palette.primary.main,
-                              transform: "translateX(3px)",
+                              transform: 'translateX(3px)',
                             },
                           },
                         }}
@@ -273,23 +288,23 @@ const Footer = () => {
                           sx={{
                             width: 28,
                             height: 28,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
                             backgroundColor: alpha(
                               theme.palette.primary.main,
-                              0.08,
+                              0.08
                             ),
-                            borderRadius: "50%",
+                            borderRadius: '50%',
                             mr: 1.5,
-                            transition: "all 0.3s ease",
+                            transition: 'all 0.3s ease',
                           }}
                         >
                           {React.cloneElement(item.icon, {
                             sx: {
                               color: theme.palette.primary.main,
-                              fontSize: "16px",
-                              transition: "transform 0.3s ease",
+                              fontSize: '16px',
+                              transition: 'transform 0.3s ease',
                             },
                           })}
                         </Box>
@@ -297,9 +312,9 @@ const Footer = () => {
                           variant="body2"
                           className="footerLinkText"
                           sx={{
-                            color: "text.secondary",
+                            color: 'text.secondary',
                             fontWeight: 500,
-                            transition: "all 0.3s ease",
+                            transition: 'all 0.3s ease',
                             zIndex: 1,
                           }}
                         >
@@ -319,17 +334,17 @@ const Footer = () => {
                 fontWeight="600"
                 mb={3}
                 sx={{
-                  position: "relative",
-                  display: "inline-block",
-                  "&::after": {
+                  position: 'relative',
+                  display: 'inline-block',
+                  '&::after': {
                     content: '""',
-                    position: "absolute",
-                    width: "30px",
-                    height: "2px",
-                    bottom: "-8px",
-                    left: "0",
-                    backgroundColor: "primary.main",
-                    borderRadius: "2px",
+                    position: 'absolute',
+                    width: '30px',
+                    height: '2px',
+                    bottom: '-8px',
+                    left: '0',
+                    backgroundColor: 'primary.main',
+                    borderRadius: '2px',
                   },
                 }}
               >
@@ -338,23 +353,23 @@ const Footer = () => {
               <List disablePadding sx={{ mt: 2 }}>
                 {[
                   {
-                    label: "About Us",
-                    href: "/about-us",
+                    label: 'About Us',
+                    href: '/about-us',
                     icon: <InfoIcon fontSize="small" />,
                   },
                   {
-                    label: "Contact Us",
-                    href: "/contact-us",
+                    label: 'Contact Us',
+                    href: '/contact-us',
                     icon: <EmailIcon fontSize="small" />,
                   },
                   {
-                    label: "Our History",
-                    href: "/history",
+                    label: 'Our History',
+                    href: '/history',
                     icon: <ArticleIcon fontSize="small" />,
                   },
                   {
-                    label: "Careers",
-                    href: "/careers",
+                    label: 'Careers',
+                    href: '/careers',
                     icon: <HealingIcon fontSize="small" />,
                   },
                 ].map((item) => (
@@ -366,44 +381,44 @@ const Footer = () => {
                   >
                     <Link
                       href={item.href}
-                      style={{ textDecoration: "none", width: "100%" }}
+                      style={{ textDecoration: 'none', width: '100%' }}
                     >
                       <Box
                         component="div"
                         sx={{
-                          display: "flex",
-                          alignItems: "center",
+                          display: 'flex',
+                          alignItems: 'center',
                           py: 0.75,
                           pl: 0.5,
                           pr: 1,
                           borderRadius: 1,
-                          position: "relative",
-                          overflow: "hidden",
-                          "&::before": {
+                          position: 'relative',
+                          overflow: 'hidden',
+                          '&::before': {
                             content: '""',
-                            position: "absolute",
+                            position: 'absolute',
                             left: 0,
                             top: 0,
                             bottom: 0,
-                            width: "0",
-                            borderRadius: "4px 0 0 4px",
+                            width: '0',
+                            borderRadius: '4px 0 0 4px',
                             backgroundColor: alpha(
                               theme.palette.primary.main,
-                              0.1,
+                              0.1
                             ),
-                            transition: "width 0.3s ease",
+                            transition: 'width 0.3s ease',
                           },
-                          "&:hover": {
-                            "&::before": {
-                              width: "100%",
+                          '&:hover': {
+                            '&::before': {
+                              width: '100%',
                             },
-                            "& .MuiSvgIcon-root": {
-                              transform: "translateX(3px)",
+                            '& .MuiSvgIcon-root': {
+                              transform: 'translateX(3px)',
                               color: theme.palette.primary.main,
                             },
-                            "& .footerLinkText": {
+                            '& .footerLinkText': {
                               color: theme.palette.primary.main,
-                              transform: "translateX(3px)",
+                              transform: 'translateX(3px)',
                             },
                           },
                         }}
@@ -412,23 +427,23 @@ const Footer = () => {
                           sx={{
                             width: 28,
                             height: 28,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
                             backgroundColor: alpha(
                               theme.palette.primary.main,
-                              0.08,
+                              0.08
                             ),
-                            borderRadius: "50%",
+                            borderRadius: '50%',
                             mr: 1.5,
-                            transition: "all 0.3s ease",
+                            transition: 'all 0.3s ease',
                           }}
                         >
                           {React.cloneElement(item.icon, {
                             sx: {
                               color: theme.palette.primary.main,
-                              fontSize: "16px",
-                              transition: "transform 0.3s ease",
+                              fontSize: '16px',
+                              transition: 'transform 0.3s ease',
                             },
                           })}
                         </Box>
@@ -436,9 +451,9 @@ const Footer = () => {
                           variant="body2"
                           className="footerLinkText"
                           sx={{
-                            color: "text.secondary",
+                            color: 'text.secondary',
                             fontWeight: 500,
-                            transition: "all 0.3s ease",
+                            transition: 'all 0.3s ease',
                             zIndex: 1,
                           }}
                         >
@@ -462,7 +477,7 @@ const Footer = () => {
                   p: 3,
                   backgroundColor: alpha(theme.palette.primary.main, 0.03),
                   borderRadius: 2,
-                  border: "1px solid",
+                  border: '1px solid',
                   borderColor: alpha(theme.palette.primary.main, 0.1),
                 }}
               >
@@ -479,15 +494,35 @@ const Footer = () => {
                   size="small"
                   sx={{
                     mb: 2,
-                    backgroundColor: "white",
+                    backgroundColor:
+                      theme.palette.mode === 'dark'
+                        ? alpha(theme.palette.background.paper, 0.8)
+                        : 'white',
                     borderRadius: 1,
-                    "& .MuiOutlinedInput-root": {
-                      "& fieldset": {
-                        borderColor: alpha(theme.palette.primary.main, 0.2),
+                    '& .MuiOutlinedInput-root': {
+                      color:
+                        theme.palette.mode === 'dark'
+                          ? theme.palette.text.primary
+                          : 'inherit',
+                      '& fieldset': {
+                        borderColor:
+                          theme.palette.mode === 'dark'
+                            ? alpha(theme.palette.primary.main, 0.3)
+                            : alpha(theme.palette.primary.main, 0.2),
                       },
-                      "&:hover fieldset": {
-                        borderColor: "primary.main",
+                      '&:hover fieldset': {
+                        borderColor: 'primary.main',
                       },
+                      '&.Mui-focused fieldset': {
+                        borderColor: 'primary.main',
+                      },
+                    },
+                    '& .MuiInputBase-input::placeholder': {
+                      color:
+                        theme.palette.mode === 'dark'
+                          ? alpha(theme.palette.text.secondary, 0.7)
+                          : 'inherit',
+                      opacity: 1,
                     },
                   }}
                   InputProps={{
@@ -506,13 +541,13 @@ const Footer = () => {
                   }}
                 />
                 <Typography variant="caption" color="text.secondary">
-                  By subscribing, you agree to our{" "}
+                  By subscribing, you agree to our{' '}
                   <Link
                     href="/privacy-policy"
                     style={{ color: theme.palette.primary.main }}
                   >
                     Privacy Policy
-                  </Link>{" "}
+                  </Link>{' '}
                   and consent to receive updates from ZenDoc.
                 </Typography>
               </Paper>
@@ -534,9 +569,9 @@ const Footer = () => {
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
               <Stack
-                direction={{ xs: "column", sm: "row" }}
+                direction={{ xs: 'column', sm: 'row' }}
                 spacing={{ xs: 1, sm: 2 }}
-                justifyContent={{ xs: "flex-start", md: "flex-end" }}
+                justifyContent={{ xs: 'flex-start', md: 'flex-end' }}
               >
                 <Button
                   variant="text"
@@ -544,16 +579,16 @@ const Footer = () => {
                   href="/privacy-policy"
                   color="inherit"
                   sx={{
-                    fontSize: "0.75rem",
-                    color: "text.secondary",
-                    padding: "2px 8px",
-                    minWidth: "auto",
-                    "&:hover": {
-                      color: "primary.main",
-                      backgroundColor: "transparent",
+                    fontSize: '0.75rem',
+                    color: 'text.secondary',
+                    padding: '2px 8px',
+                    minWidth: 'auto',
+                    '&:hover': {
+                      color: 'primary.main',
+                      backgroundColor: 'transparent',
                     },
                   }}
-                  startIcon={<PolicyIcon sx={{ fontSize: "16px" }} />}
+                  startIcon={<PolicyIcon sx={{ fontSize: '16px' }} />}
                 >
                   Privacy Policy
                 </Button>
@@ -563,16 +598,16 @@ const Footer = () => {
                   href="/terms-conditions"
                   color="inherit"
                   sx={{
-                    fontSize: "0.75rem",
-                    color: "text.secondary",
-                    padding: "2px 8px",
-                    minWidth: "auto",
-                    "&:hover": {
-                      color: "primary.main",
-                      backgroundColor: "transparent",
+                    fontSize: '0.75rem',
+                    color: 'text.secondary',
+                    padding: '2px 8px',
+                    minWidth: 'auto',
+                    '&:hover': {
+                      color: 'primary.main',
+                      backgroundColor: 'transparent',
                     },
                   }}
-                  startIcon={<ArticleIcon sx={{ fontSize: "16px" }} />}
+                  startIcon={<ArticleIcon sx={{ fontSize: '16px' }} />}
                 >
                   Terms & Conditions
                 </Button>
@@ -582,16 +617,16 @@ const Footer = () => {
                   href="/sitemap"
                   color="inherit"
                   sx={{
-                    fontSize: "0.75rem",
-                    color: "text.secondary",
-                    padding: "2px 8px",
-                    minWidth: "auto",
-                    "&:hover": {
-                      color: "primary.main",
-                      backgroundColor: "transparent",
+                    fontSize: '0.75rem',
+                    color: 'text.secondary',
+                    padding: '2px 8px',
+                    minWidth: 'auto',
+                    '&:hover': {
+                      color: 'primary.main',
+                      backgroundColor: 'transparent',
                     },
                   }}
-                  startIcon={<InfoIcon sx={{ fontSize: "16px" }} />}
+                  startIcon={<InfoIcon sx={{ fontSize: '16px' }} />}
                 >
                   Sitemap
                 </Button>

@@ -1,4 +1,5 @@
 "use client";
+import { CONTACT } from "@/contants/contact";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import {
@@ -241,7 +242,7 @@ const ServiceFAQ = () => {
               >
                 Or call us at:{" "}
                 <Box component="span" fontWeight={700} color="primary.main">
-                  (888) 555-1234
+                  {CONTACT.phone}
                 </Box>
               </Typography>
             </Box>

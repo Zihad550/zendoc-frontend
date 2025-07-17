@@ -16,18 +16,20 @@ type TProps = {
 };
 
 const SpecialtyModal = ({ open, setOpen }: TProps) => {
-  const [createSpecialty] = useCreateSpecialtyMutation();
+  const [createSpecialty, { isLoading }] = useCreateSpecialtyMutation();
 
   const handleFormSubmit = async (values: FieldValues) => {
+    const toastId = toast.loading("Creating specialty");
     const data = modifyPayload(values);
     try {
       const res = await createSpecialty(data).unwrap();
-      if (res?.id) {
-        toast.success("Specialty created successfully!!");
+      if (res?.data?.id) {
+        toast.success("Specialty created successfully!!", { id: toastId });
         setOpen(false);
       }
     } catch (err: any) {
       console.error(err.message);
+      toast.error("Failed to create specialty", { id: toastId });
     }
   };
 
@@ -42,7 +44,7 @@ const SpecialtyModal = ({ open, setOpen }: TProps) => {
             <PHFileUploader name="file" label="Upload File" />
           </Grid>
         </Grid>
-        <Button sx={{ mt: 1 }} type="submit">
+        <Button disabled={isLoading} sx={{ mt: 1 }} type="submit">
           Create
         </Button>
       </PHForm>

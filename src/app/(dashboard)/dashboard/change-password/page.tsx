@@ -3,11 +3,9 @@
 import PHForm from "@/components/Forms/PHForm";
 import PHInput from "@/components/Forms/PHInput";
 import { useChangePasswordMutation } from "@/redux/features/auth/authApi";
-import { logoutUser } from "@/services/actions/logoutUser";
 import { zodResolver } from "@hookform/resolvers/zod";
 import KeyIcon from "@mui/icons-material/Key";
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
-import { useRouter } from "next/navigation";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -19,19 +17,18 @@ const validationSchema = z.object({
 
 const ChangePassword = () => {
   const [changePassword] = useChangePasswordMutation();
-  const router = useRouter();
+
   const onSubmit = async (values: FieldValues) => {
     try {
       const res = await changePassword(values);
 
-      if ("data" in res && res.data.status === 200) {
-        logoutUser(router);
+      if ("data" in res) {
         toast.success("Password Changed Successfully");
       } else {
         throw new Error("Incorrect Old Password");
       }
     } catch {
-      toast.success("Incorrect Old Password");
+      toast.error("Incorrect Old Password");
     }
   };
 

@@ -1,12 +1,12 @@
 "use client";
-import { getUserInfo } from "@/services/auth.services";
+import { selectUser } from "@/redux/features/auth/authSlice";
+import { useAppSelector } from "@/redux/hooks";
 import { ArrowForward as ArrowForwardIcon } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import Link from "next/link";
 
 const ServiceCTARegisterButton = () => {
-  const userInfo = getUserInfo();
-  console.log(userInfo);
+  const userInfo = useAppSelector(selectUser);
   return (
     <Button
       href="/register"

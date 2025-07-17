@@ -1,0 +1,370 @@
+/* Healthcare Spinner Styles */
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  padding: 2rem;
+}
+
+.spinner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.spinner-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Medical Cross Spinner */
+.medical-spinner {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.medical-cross {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  z-index: 2;
+  animation: rotate 2s linear infinite;
+}
+
+.cross-horizontal,
+.cross-vertical {
+  position: absolute;
+  background: linear-gradient(135deg, #4CAF50, #2E7D32);
+  border-radius: 3px;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+.cross-horizontal {
+  width: 40px;
+  height: 8px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.cross-vertical {
+  width: 8px;
+  height: 40px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Pulse Rings */
+.pulse-ring {
+  position: absolute;
+  border: 2px solid #4CAF50;
+  border-radius: 50%;
+  opacity: 0;
+  animation: pulse 2s ease-out infinite;
+}
+
+.pulse-ring-1 {
+  width: 80px;
+  height: 80px;
+  animation-delay: 0s;
+}
+
+.pulse-ring-2 {
+  width: 100px;
+  height: 100px;
+  animation-delay: 0.5s;
+}
+
+.pulse-ring-3 {
+  width: 120px;
+  height: 120px;
+  animation-delay: 1s;
+}
+
+/* Heartbeat Line */
+.heartbeat-line {
+  position: relative;
+  width: 200px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.line {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    #FF6B6B 20%, 
+    #FF6B6B 80%, 
+    transparent 100%
+  );
+  opacity: 0.7;
+}
+
+.beat {
+  position: absolute;
+  width: 40px;
+  height: 30px;
+  background: linear-gradient(135deg, #FF6B6B, #E53E3E);
+  clip-path: polygon(
+    0% 50%,
+    15% 20%,
+    25% 50%,
+    35% 10%,
+    45% 50%,
+    55% 90%,
+    65% 50%,
+    75% 30%,
+    85% 50%,
+    100% 50%
+  );
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+/* Loading Message */
+.spinner-message {
+  text-align: center;
+  color: #2E7D32;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 500;
+}
+
+.message-text {
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.dots {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.dot {
+  font-size: 1.5rem;
+  color: #4CAF50;
+  animation: bounce 1.4s infinite;
+}
+
+.dot-1 { animation-delay: 0s; }
+.dot-2 { animation-delay: 0.2s; }
+.dot-3 { animation-delay: 0.4s; }
+
+/* Size Variants */
+.spinner-small .medical-cross {
+  width: 40px;
+  height: 40px;
+}
+
+.spinner-small .cross-horizontal {
+  width: 28px;
+  height: 6px;
+}
+
+.spinner-small .cross-vertical {
+  width: 6px;
+  height: 28px;
+}
+
+.spinner-small .pulse-ring-1 { width: 60px; height: 60px; }
+.spinner-small .pulse-ring-2 { width: 75px; height: 75px; }
+.spinner-small .pulse-ring-3 { width: 90px; height: 90px; }
+
+.spinner-small .heartbeat-line {
+  width: 150px;
+  height: 30px;
+}
+
+.spinner-small .message-text {
+  font-size: 0.9rem;
+}
+
+.spinner-large .medical-cross {
+  width: 80px;
+  height: 80px;
+}
+
+.spinner-large .cross-horizontal {
+  width: 55px;
+  height: 10px;
+}
+
+.spinner-large .cross-vertical {
+  width: 10px;
+  height: 55px;
+}
+
+.spinner-large .pulse-ring-1 { width: 110px; height: 110px; }
+.spinner-large .pulse-ring-2 { width: 140px; height: 140px; }
+.spinner-large .pulse-ring-3 { width: 170px; height: 170px; }
+
+.spinner-large .heartbeat-line {
+  width: 250px;
+  height: 50px;
+}
+
+.spinner-large .message-text {
+  font-size: 1.3rem;
+}
+
+/* Color Variants */
+.spinner-primary .cross-horizontal,
+.spinner-primary .cross-vertical {
+  background: linear-gradient(135deg, #2196F3, #1565C0);
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+}
+
+.spinner-primary .pulse-ring {
+  border-color: #2196F3;
+}
+
+.spinner-primary .spinner-message {
+  color: #1565C0;
+}
+
+.spinner-primary .dot {
+  color: #2196F3;
+}
+
+.spinner-secondary .cross-horizontal,
+.spinner-secondary .cross-vertical {
+  background: linear-gradient(135deg, #FF9800, #E65100);
+  box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+}
+
+.spinner-secondary .pulse-ring {
+  border-color: #FF9800;
+}
+
+.spinner-secondary .spinner-message {
+  color: #E65100;
+}
+
+.spinner-secondary .dot {
+  color: #FF9800;
+}
+
+/* Animations */
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: translateX(-100px) scaleY(1);
+    opacity: 0;
+  }
+  20% {
+    transform: translateX(-50px) scaleY(1.2);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(0px) scaleY(1);
+    opacity: 1;
+  }
+  80% {
+    transform: translateX(50px) scaleY(1.2);
+    opacity: 1;
+  }
+}
+
+@keyframes bounce {
+  0%, 80%, 100% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .spinner-container {
+    min-height: 150px;
+    padding: 1rem;
+  }
+  
+  .spinner-wrapper {
+    gap: 1rem;
+  }
+  
+  .heartbeat-line {
+    width: 150px !important;
+  }
+  
+  .message-text {
+    font-size: 1rem !important;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .medical-cross {
+    animation: none;
+  }
+  
+  .pulse-ring {
+    animation: none;
+    opacity: 0.3;
+  }
+  
+  .beat {
+    animation: none;
+  }
+  
+  .dot {
+    animation: none;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .spinner-overlay {
+    background: rgba(18, 18, 18, 0.95);
+  }
+  
+  .spinner-message {
+    color: #81C784;
+  }
+  
+  .line {
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      #FF8A80 20%, 
+      #FF8A80 80%, 
+      transparent 100%
+    );
+  }
+}

@@ -37,19 +37,16 @@ const DoctorScheduleModal = ({ open, setOpen }: TProps) => {
   }
 
   const { data } = useGetAllSchedulesQuery(query);
-  const schedules = data?.schedules;
+  const schedules = data?.data;
 
   const [createDoctorSchedule, { isLoading }] =
     useCreateDoctorScheduleMutation();
 
-  console.log(selectedScheduleIds);
-
   const onSubmit = async () => {
     try {
-      const res = await createDoctorSchedule({
+      await createDoctorSchedule({
         scheduleIds: selectedScheduleIds,
       });
-      console.log(res);
       setOpen(false);
     } catch (error) {
       console.log(error);

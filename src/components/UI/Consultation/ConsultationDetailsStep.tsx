@@ -1,3 +1,4 @@
+import DoctorScheduleSlots from "@/app/(public)/doctors/components/DoctorScheduleSlots";
 import {
   Box,
   FormControl,
@@ -19,11 +20,13 @@ interface ConsultationDetailsStepProps {
     additionalNotes: string;
   };
   setConsultationDetails: (details: any) => void;
+  doctorId: string;
 }
 
 export default function ConsultationDetailsStep({
   consultationDetails,
   setConsultationDetails,
+  doctorId,
 }: ConsultationDetailsStepProps) {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -70,67 +73,79 @@ export default function ConsultationDetailsStep({
               // Enhanced TextField styling for dark theme
               "& .MuiOutlinedInput-root": {
                 borderRadius: 2,
-                backgroundColor: (theme) => theme.palette.mode === "dark" 
-                  ? alpha(theme.palette.primary.main, 0.05) 
-                  : "transparent",
+                backgroundColor: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? alpha(theme.palette.primary.main, 0.05)
+                    : "transparent",
                 "& fieldset": {
-                  borderColor: (theme) => theme.palette.mode === "dark" 
-                    ? alpha(theme.palette.primary.main, 0.3) 
-                    : "inherit",
+                  borderColor: (theme) =>
+                    theme.palette.mode === "dark"
+                      ? alpha(theme.palette.primary.main, 0.3)
+                      : "inherit",
                 },
                 "&:hover fieldset": {
-                  borderColor: (theme) => theme.palette.mode === "dark" 
-                    ? alpha(theme.palette.primary.main, 0.5) 
-                    : "inherit",
+                  borderColor: (theme) =>
+                    theme.palette.mode === "dark"
+                      ? alpha(theme.palette.primary.main, 0.5)
+                      : "inherit",
                 },
                 "&.Mui-focused fieldset": {
-                  borderColor: (theme) => theme.palette.mode === "dark" 
-                    ? theme.palette.primary.main 
-                    : "inherit",
+                  borderColor: (theme) =>
+                    theme.palette.mode === "dark"
+                      ? theme.palette.primary.main
+                      : "inherit",
                 },
               },
               "& .MuiInputLabel-root": {
-                color: (theme) => theme.palette.mode === "dark" ? "text.primary" : "inherit",
+                color: (theme) =>
+                  theme.palette.mode === "dark" ? "text.primary" : "inherit",
               },
               "& .MuiFormHelperText-root": {
-                color: (theme) => theme.palette.mode === "dark" ? "text.secondary" : "inherit",
+                color: (theme) =>
+                  theme.palette.mode === "dark" ? "text.secondary" : "inherit",
               },
             }}
           />
         </Grid>
 
         <Grid size={{ xs: 12, md: 6 }}>
-          <FormControl 
-            fullWidth 
+          <FormControl
+            fullWidth
             required
             sx={{
               // Enhanced FormControl styling for dark theme
               "& .MuiOutlinedInput-root": {
                 borderRadius: 2,
-                backgroundColor: (theme) => theme.palette.mode === "dark" 
-                  ? alpha(theme.palette.primary.main, 0.05) 
-                  : "transparent",
+                backgroundColor: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? alpha(theme.palette.primary.main, 0.05)
+                    : "transparent",
                 "& fieldset": {
-                  borderColor: (theme) => theme.palette.mode === "dark" 
-                    ? alpha(theme.palette.primary.main, 0.3) 
-                    : "inherit",
+                  borderColor: (theme) =>
+                    theme.palette.mode === "dark"
+                      ? alpha(theme.palette.primary.main, 0.3)
+                      : "inherit",
                 },
                 "&:hover fieldset": {
-                  borderColor: (theme) => theme.palette.mode === "dark" 
-                    ? alpha(theme.palette.primary.main, 0.5) 
-                    : "inherit",
+                  borderColor: (theme) =>
+                    theme.palette.mode === "dark"
+                      ? alpha(theme.palette.primary.main, 0.5)
+                      : "inherit",
                 },
                 "&.Mui-focused fieldset": {
-                  borderColor: (theme) => theme.palette.mode === "dark" 
-                    ? theme.palette.primary.main 
-                    : "inherit",
+                  borderColor: (theme) =>
+                    theme.palette.mode === "dark"
+                      ? theme.palette.primary.main
+                      : "inherit",
                 },
               },
               "& .MuiInputLabel-root": {
-                color: (theme) => theme.palette.mode === "dark" ? "text.primary" : "inherit",
+                color: (theme) =>
+                  theme.palette.mode === "dark" ? "text.primary" : "inherit",
               },
               "& .MuiFormHelperText-root": {
-                color: (theme) => theme.palette.mode === "dark" ? "text.secondary" : "inherit",
+                color: (theme) =>
+                  theme.palette.mode === "dark" ? "text.secondary" : "inherit",
               },
             }}
           >
@@ -171,27 +186,32 @@ export default function ConsultationDetailsStep({
               // Enhanced TextField styling for dark theme
               "& .MuiOutlinedInput-root": {
                 borderRadius: 2,
-                backgroundColor: (theme) => theme.palette.mode === "dark" 
-                  ? alpha(theme.palette.primary.main, 0.05) 
-                  : "transparent",
+                backgroundColor: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? alpha(theme.palette.primary.main, 0.05)
+                    : "transparent",
                 "& fieldset": {
-                  borderColor: (theme) => theme.palette.mode === "dark" 
-                    ? alpha(theme.palette.primary.main, 0.3) 
-                    : "inherit",
+                  borderColor: (theme) =>
+                    theme.palette.mode === "dark"
+                      ? alpha(theme.palette.primary.main, 0.3)
+                      : "inherit",
                 },
                 "&:hover fieldset": {
-                  borderColor: (theme) => theme.palette.mode === "dark" 
-                    ? alpha(theme.palette.primary.main, 0.5) 
-                    : "inherit",
+                  borderColor: (theme) =>
+                    theme.palette.mode === "dark"
+                      ? alpha(theme.palette.primary.main, 0.5)
+                      : "inherit",
                 },
                 "&.Mui-focused fieldset": {
-                  borderColor: (theme) => theme.palette.mode === "dark" 
-                    ? theme.palette.primary.main 
-                    : "inherit",
+                  borderColor: (theme) =>
+                    theme.palette.mode === "dark"
+                      ? theme.palette.primary.main
+                      : "inherit",
                 },
               },
               "& .MuiInputLabel-root": {
-                color: (theme) => theme.palette.mode === "dark" ? "text.primary" : "inherit",
+                color: (theme) =>
+                  theme.palette.mode === "dark" ? "text.primary" : "inherit",
               },
             }}
           />
@@ -213,34 +233,42 @@ export default function ConsultationDetailsStep({
               // Enhanced TextField styling for dark theme
               "& .MuiOutlinedInput-root": {
                 borderRadius: 2,
-                backgroundColor: (theme) => theme.palette.mode === "dark" 
-                  ? alpha(theme.palette.primary.main, 0.05) 
-                  : "transparent",
+                backgroundColor: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? alpha(theme.palette.primary.main, 0.05)
+                    : "transparent",
                 "& fieldset": {
-                  borderColor: (theme) => theme.palette.mode === "dark" 
-                    ? alpha(theme.palette.primary.main, 0.3) 
-                    : "inherit",
+                  borderColor: (theme) =>
+                    theme.palette.mode === "dark"
+                      ? alpha(theme.palette.primary.main, 0.3)
+                      : "inherit",
                 },
                 "&:hover fieldset": {
-                  borderColor: (theme) => theme.palette.mode === "dark" 
-                    ? alpha(theme.palette.primary.main, 0.5) 
-                    : "inherit",
+                  borderColor: (theme) =>
+                    theme.palette.mode === "dark"
+                      ? alpha(theme.palette.primary.main, 0.5)
+                      : "inherit",
                 },
                 "&.Mui-focused fieldset": {
-                  borderColor: (theme) => theme.palette.mode === "dark" 
-                    ? theme.palette.primary.main 
-                    : "inherit",
+                  borderColor: (theme) =>
+                    theme.palette.mode === "dark"
+                      ? theme.palette.primary.main
+                      : "inherit",
                 },
               },
               "& .MuiInputLabel-root": {
-                color: (theme) => theme.palette.mode === "dark" ? "text.primary" : "inherit",
+                color: (theme) =>
+                  theme.palette.mode === "dark" ? "text.primary" : "inherit",
               },
               "& .MuiFormHelperText-root": {
-                color: (theme) => theme.palette.mode === "dark" ? "text.secondary" : "inherit",
+                color: (theme) =>
+                  theme.palette.mode === "dark" ? "text.secondary" : "inherit",
               },
             }}
           />
         </Grid>
+
+        <DoctorScheduleSlots id={doctorId} />
       </Grid>
     </Box>
   );

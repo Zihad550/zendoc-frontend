@@ -30,7 +30,7 @@ const DoctorsPage = () => {
   const { data, isLoading } = useGetAllDoctorsQuery({ ...query });
   const [deleteDoctor] = useDeleteDoctorMutation();
 
-  const doctors = data?.doctors;
+  const doctors = data?.data;
 
   const handleDelete = async (id: string) => {
     try {

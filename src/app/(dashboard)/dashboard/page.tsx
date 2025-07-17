@@ -1,6 +1,5 @@
 "use client";
 import assets from "@/assets";
-import { getUserInfo } from "@/services/auth.services";
 import {
   AccessTime,
   ArrowForward,
@@ -29,23 +28,10 @@ import {
   alpha,
   useTheme,
 } from "@mui/material";
-import { useEffect, useState } from "react";
 
 const DashboardHomePage = () => {
+  const currentTime = new Date();
   const theme = useTheme();
-  const [userInfo, setUserInfo] = useState<any>(null);
-  const [currentTime, setCurrentTime] = useState(new Date());
-
-  useEffect(() => {
-    const user = getUserInfo();
-    setUserInfo(user);
-
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
 
   // Mock data for demonstration
   const statsData = [
@@ -263,7 +249,7 @@ const DashboardHomePage = () => {
                       theme.palette.mode === "dark" ? "transparent" : "inherit",
                   }}
                 >
-                  Welcome back, {userInfo?.name || "User"}!
+                  Welcome back, {"User"}!
                 </Typography>
                 <Typography
                   variant="h6"

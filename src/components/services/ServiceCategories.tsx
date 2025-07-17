@@ -15,8 +15,9 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import { AnimatePresence, motion, useInView } from "motion/react";
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 // Service category data
 const categories = [
@@ -214,197 +215,330 @@ const categories = [
   },
 ];
 
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.3,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  },
+};
+
+const tabVariants = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.4,
+      ease: "easeOut",
+    },
+  },
+};
+
+const serviceCardVariants = {
+  hidden: { opacity: 0, x: -20 },
+  visible: (i: number) => ({
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.5,
+      delay: i * 0.1,
+      ease: "easeOut",
+    },
+  }),
+};
+
+const imageVariants = {
+  hidden: { opacity: 0, scale: 0.8, rotateY: -15 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    rotateY: -5,
+    transition: {
+      duration: 0.8,
+      ease: "easeOut",
+    },
+  },
+};
+
 const ServiceCategories = () => {
+  const [selectedTab, setSelectedTab] = useState(0);
   const theme = useTheme();
-  const [activeTab, setActiveTab] = useState(0);
+  const containerRef = useRef(null);
+  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-    setActiveTab(newValue);
+    setSelectedTab(newValue);
   };
 
   return (
-    <Box sx={{ py: 8, backgroundColor: theme.palette.background.paper }}>
+    <Box
+      ref={containerRef}
+      sx={{ py: 8, backgroundColor: theme.palette.background.paper }}
+    >
       <Container maxWidth="lg">
-        {/* Section Title */}
-        <Box sx={{ textAlign: "center", mb: 6 }}>
-          <Typography
-            component="span"
-            sx={{
-              color: "primary.main",
-              fontWeight: 600,
-              fontSize: "1.1rem",
-              textTransform: "uppercase",
-              letterSpacing: 1,
-            }}
-          >
-            Explore Our Services
-          </Typography>
-          <Typography
-            variant="h3"
-            sx={{
-              fontWeight: 700,
-              my: 2,
-              fontSize: { xs: "2rem", md: "2.5rem" },
-            }}
-          >
-            Comprehensive Healthcare Solutions
-          </Typography>
-          <Box
-            sx={{
-              width: 80,
-              height: 4,
-              backgroundColor: "primary.main",
-              mx: "auto",
-              mb: 3,
-            }}
-          />
-          <Typography
-            variant="body1"
-            sx={{
-              maxWidth: "700px",
-              mx: "auto",
-              color: theme.palette.text.secondary,
-            }}
-          >
-            Browse through our wide range of medical services designed to meet
-            your healthcare needs
-          </Typography>
-        </Box>
-
-        {/* Category Tabs */}
-        <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 4 }}>
-          <Tabs
-            value={activeTab}
-            onChange={handleTabChange}
-            variant="scrollable"
-            scrollButtons="auto"
-            aria-label="service categories tabs"
-            sx={{
-              "& .MuiTabs-indicator": {
-                backgroundColor: "primary.main",
-                height: 3,
-              },
-              "& .MuiTab-root": {
-                textTransform: "none",
-                fontWeight: 600,
-                fontSize: "1rem",
-                minWidth: 120,
-                "&.Mui-selected": {
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        >
+          {/* Section Title */}
+          <motion.div variants={itemVariants}>
+            <Box sx={{ textAlign: "center", mb: 6 }}>
+              <Typography
+                component="span"
+                sx={{
                   color: "primary.main",
-                },
-              },
-            }}
-          >
-            {categories.map((category) => (
-              <Tab
-                key={category.id}
-                label={category.name}
-                id={`tab-${category.id}`}
-                aria-controls={`tabpanel-${category.id}`}
-                icon={category.icon}
-                iconPosition="start"
-              />
-            ))}
-          </Tabs>
-        </Box>
+                  fontWeight: 600,
+                  fontSize: "1.1rem",
+                  textTransform: "uppercase",
+                  letterSpacing: 1,
+                }}
+              >
+                Explore Our Services
+              </Typography>
+              <Typography
+                variant="h3"
+                sx={{
+                  fontWeight: 700,
+                  my: 2,
+                  fontSize: { xs: "2rem", md: "2.5rem" },
+                }}
+              >
+                Comprehensive Healthcare Solutions
+              </Typography>
+              <motion.div
+                initial={{ width: 0 }}
+                animate={isInView ? { width: 80 } : { width: 0 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+              >
+                <Box
+                  sx={{
+                    height: 4,
+                    backgroundColor: "primary.main",
+                    mx: "auto",
+                    mb: 3,
+                  }}
+                />
+              </motion.div>
+              <Typography
+                variant="body1"
+                sx={{
+                  maxWidth: "700px",
+                  mx: "auto",
+                  color: theme.palette.text.secondary,
+                }}
+              >
+                Browse through our wide range of medical services designed to
+                meet your healthcare needs
+              </Typography>
+            </Box>
+          </motion.div>
 
-        {/* Category Content */}
-        {categories.map((category, index) => (
-          <Box
-            key={category.id}
-            role="tabpanel"
-            hidden={activeTab !== index}
-            id={`tabpanel-${category.id}`}
-            aria-labelledby={`tab-${category.id}`}
-          >
-            {activeTab === index && (
-              <Grid container spacing={4} alignItems="center">
-                <Grid size={{ xs: 12, md: 6 }}>
-                  <Box
-                    sx={{
-                      position: "relative",
-                      height: { xs: 300, md: 400 },
-                      width: "100%",
-                      borderRadius: 3,
-                      overflow: "hidden",
-                      boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
-                      transform: "perspective(1000px) rotateY(-5deg)",
-                      transition: "all 0.5s ease",
-                      "&:hover": {
-                        transform: "perspective(1000px) rotateY(0deg)",
-                      },
-                    }}
+          {/* Category Tabs */}
+          <motion.div variants={itemVariants}>
+            <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 4 }}>
+              <Tabs
+                value={selectedTab}
+                onChange={handleTabChange}
+                variant="scrollable"
+                scrollButtons="auto"
+                aria-label="service categories tabs"
+                sx={{
+                  "& .MuiTabs-indicator": {
+                    backgroundColor: "primary.main",
+                    height: 3,
+                  },
+                  "& .MuiTab-root": {
+                    textTransform: "none",
+                    fontWeight: 600,
+                    fontSize: "1rem",
+                    minWidth: 120,
+                    transition: "all 0.3s ease",
+                    "&:hover": {
+                      transform: "translateY(-2px)",
+                      color: "primary.main",
+                    },
+                    "&.Mui-selected": {
+                      color: "primary.main",
+                    },
+                  },
+                }}
+              >
+                {categories.map((category, index) => (
+                  <motion.div
+                    key={category.id}
+                    variants={tabVariants}
+                    initial="hidden"
+                    animate={isInView ? "visible" : "hidden"}
+                    transition={{ delay: index * 0.1 }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    <Image
-                      src={category.image}
-                      alt={category.name}
-                      fill
-                      style={{
-                        objectFit: "cover",
-                        objectPosition: "center",
-                      }}
-                      priority
+                    <Tab
+                      label={category.name}
+                      id={`tab-${category.id}`}
+                      aria-controls={`tabpanel-${category.id}`}
+                      icon={category.icon}
+                      iconPosition="start"
+                      onClick={() => setSelectedTab(index)}
                     />
-                  </Box>
-                </Grid>
-                <Grid size={{ xs: 12, md: 6 }}>
-                  <Typography
-                    variant="h4"
-                    sx={{ mb: 3, fontWeight: 700, color: "primary.main" }}
-                  >
-                    {category.name}
-                  </Typography>
-                  <Grid container spacing={2}>
-                    {category.services.map((service) => (
-                      <Grid size={{ xs: 12 }} key={service.id}>
-                        <Paper
-                          elevation={0}
-                          sx={{
-                            p: 3,
-                            borderRadius: 2,
-                            border: "1px solid",
-                            borderColor: theme.palette.grey[200],
-                            transition: "all 0.3s ease",
-                            "&:hover": {
-                              boxShadow: "0 5px 15px rgba(0,0,0,0.08)",
-                              borderColor: "primary.light",
-                              transform: "translateY(-5px)",
-                            },
+                  </motion.div>
+                ))}
+              </Tabs>
+            </Box>
+          </motion.div>
+
+          {/* Category Content */}
+          <AnimatePresence mode="wait">
+            {categories.map((category, index) => (
+              <motion.div
+                key={category.id}
+                role="tabpanel"
+                hidden={selectedTab !== index}
+                id={`tabpanel-${category.id}`}
+                aria-labelledby={`tab-${category.id}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={
+                  selectedTab === index
+                    ? { opacity: 1, y: 0 }
+                    : { opacity: 0, y: 20 }
+                }
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+              >
+                {selectedTab === index && (
+                  <Grid container spacing={4} alignItems="center">
+                    <Grid size={{ xs: 12, md: 6 }}>
+                      <motion.div
+                        variants={imageVariants}
+                        initial="hidden"
+                        animate="visible"
+                        key={`image-${category.id}`}
+                      >
+                        <motion.div
+                          whileHover={{
+                            scale: 1.02,
+                            rotateY: 0,
+                            transition: { duration: 0.3 },
                           }}
                         >
-                          <Typography
-                            variant="h6"
-                            fontWeight={600}
-                            gutterBottom
+                          <Box
+                            sx={{
+                              position: "relative",
+                              height: { xs: 300, md: 400 },
+                              width: "100%",
+                              borderRadius: 3,
+                              overflow: "hidden",
+                              boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+                              transform: "perspective(1000px) rotateY(-5deg)",
+                              transition: "all 0.5s ease",
+                            }}
                           >
-                            {service.name}
-                          </Typography>
-                          <Typography variant="body2" color="text.secondary">
-                            {service.description}
-                          </Typography>
-                        </Paper>
+                            <Image
+                              src={category.image}
+                              alt={category.name}
+                              fill
+                              style={{
+                                objectFit: "cover",
+                                objectPosition: "center",
+                              }}
+                              priority
+                            />
+                          </Box>
+                        </motion.div>
+                      </motion.div>
+                    </Grid>
+                    <Grid size={{ xs: 12, md: 6 }}>
+                      <motion.div
+                        initial={{ opacity: 0, x: 30 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                      >
+                        <Typography
+                          variant="h4"
+                          sx={{ mb: 3, fontWeight: 700, color: "primary.main" }}
+                        >
+                          {category.name}
+                        </Typography>
+                      </motion.div>
+                      <Grid container spacing={2}>
+                        {category.services.map((service, serviceIndex) => (
+                          <Grid size={{ xs: 12 }} key={service.id}>
+                            <motion.div
+                              variants={serviceCardVariants}
+                              initial="hidden"
+                              animate="visible"
+                              custom={serviceIndex}
+                              key={`service-${category.id}-${service.id}`}
+                            >
+                              <motion.div
+                                whileHover={{
+                                  scale: 1.02,
+                                  y: -5,
+                                  transition: { duration: 0.2 },
+                                }}
+                                whileTap={{ scale: 0.98 }}
+                              >
+                                <Paper
+                                  elevation={0}
+                                  sx={{
+                                    p: 3,
+                                    borderRadius: 2,
+                                    border: "1px solid",
+                                    borderColor: theme.palette.grey[200],
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    "&:hover": {
+                                      boxShadow: "0 8px 25px rgba(0,0,0,0.12)",
+                                      borderColor: "primary.light",
+                                      backgroundColor:
+                                        "rgba(25, 118, 210, 0.02)",
+                                    },
+                                  }}
+                                >
+                                  <Typography
+                                    variant="h6"
+                                    fontWeight={600}
+                                    gutterBottom
+                                  >
+                                    {service.name}
+                                  </Typography>
+                                  <Typography
+                                    variant="body2"
+                                    color="text.secondary"
+                                  >
+                                    {service.description}
+                                  </Typography>
+                                </Paper>
+                              </motion.div>
+                            </motion.div>
+                          </Grid>
+                        ))}
                       </Grid>
-                    ))}
+                    </Grid>
                   </Grid>
-                  {/* <Button
-                    variant="contained"
-                    color="primary"
-                    sx={{
-                      mt: 3,
-                      py: 1.5,
-                      px: 4,
-                      borderRadius: 2,
-                      textTransform: "none",
-                      fontSize: "1rem",
-                    }}
-                  >
-                    Learn More About {category.name}
-                  </Button> */}
-                </Grid>
-              </Grid>
-            )}
-          </Box>
-        ))}
+                )}
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </Container>
     </Box>
   );

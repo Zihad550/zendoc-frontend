@@ -44,8 +44,11 @@ const validationSchema = z.object({
 });
 
 const ProfileUpdateModal = ({ open, setOpen, id }: TProps) => {
-  const { data: doctorData, refetch, isSuccess } = useGetDoctorQuery(id);
-  const { data: allSpecialties } = useGetAllSpecialtiesQuery(undefined);
+  const { data, refetch, isSuccess } = useGetDoctorQuery(id);
+  const { data: specialtiesData } = useGetAllSpecialtiesQuery(undefined);
+
+  const allSpecialties = specialtiesData?.data;
+  const doctorData = data?.data;
   const [selectedSpecialtiesIds, setSelectedSpecialtiesIds] = useState([]);
 
   const [updateDoctor, { isLoading: updating }] = useUpdateDoctorMutation();

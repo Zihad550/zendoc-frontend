@@ -1,8 +1,20 @@
-import DashedLine from "@/components/UI/Doctor/DashedLine";
-import SectionTitle from "@/components/Shared/SectionTitle";
-import { Box, Chip, Container, Stack, Typography } from "@mui/material";
-import Image from "next/image";
-import DoctorScheduleSlots from "../components/DoctorScheduleSlots";
+'use client';
+import SectionTitle from '@/components/Shared/SectionTitle';
+import Spinner from '@/components/Shared/Spinner/Spinner';
+import DashedLine from '@/components/UI/Doctor/DashedLine';
+import { useGetDoctorQuery } from '@/redux/features/doctor/doctorApi';
+import {
+  alpha,
+  Box,
+  Chip,
+  Container,
+  Stack,
+  Typography,
+  useTheme,
+} from '@mui/material';
+import Image from 'next/image';
+import { use } from 'react';
+import DoctorScheduleSlots from '../components/DoctorScheduleSlots';
 
 type PropTypes = {
   params: {
@@ -10,28 +22,53 @@ type PropTypes = {
   };
 };
 
-const InfoBoxStyles = {
-  background:
-    "linear-gradient(to bottom, rgba(21,134,253,0.3), rgba(255,255,255,1) 100%)",
-  width: "100%",
-  p: 3,
-  "& h6": {
-    color: "primary.main",
-  },
-  "& p": {
-    color: "secondary.main",
-  },
-};
+const DoctorsProfilePage = ({ params }: PropTypes) => {
+  const theme = useTheme();
+  const { id } = use(params);
+  const { data, isLoading } = useGetDoctorQuery(id);
 
-const DoctorsProfilePage = async ({ params }: PropTypes) => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/doctor/${params.id}`,
-  );
-  const { data: doctor } = await res.json();
+  const InfoBoxStyles = {
+    background:
+      theme.palette.mode === 'dark'
+        ? `linear-gradient(to bottom, ${alpha(
+            theme.palette.primary.main,
+            0.2
+          )}, ${alpha(theme.palette.background.paper, 0.8)} 100%)`
+        : 'linear-gradient(to bottom, rgba(21,134,253,0.3), rgba(255,255,255,1) 100%)',
+    width: '100%',
+    p: 3,
+    borderRadius: 2,
+    border:
+      theme.palette.mode === 'dark'
+        ? `1px solid ${alpha(theme.palette.primary.main, 0.2)}`
+        : 'none',
+    '& h6': {
+      color: 'primary.main',
+    },
+    '& p': {
+      color:
+        theme.palette.mode === 'dark' ? 'text.secondary' : 'secondary.main',
+    },
+  };
 
-  const specialties = doctor.doctorSpecialties.map(
-    (ds: any) => ds.specialties.title,
-  );
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  const doctor = data?.data;
+
+  if (!doctor) {
+    return (
+      <Container>
+        <Box my={5} textAlign="center">
+          <Typography>Doctor not found</Typography>
+        </Box>
+      </Container>
+    );
+  }
+
+  const specialties =
+    doctor.doctorSpecialties?.map((ds: any) => ds.specialties.title) || [];
 
   return (
     <Container>
@@ -44,17 +81,52 @@ const DoctorsProfilePage = async ({ params }: PropTypes) => {
       </Box>
 
       <Box>
-        <Box sx={{ my: 10, p: 3, bgcolor: "#f8f8f8" }}>
-          <Stack sx={{ bgcolor: "white", p: 3 }}>
+        <Box
+          sx={{
+            my: 10,
+            p: 3,
+            bgcolor:
+              theme.palette.mode === 'dark'
+                ? alpha(theme.palette.background.paper, 0.3)
+                : '#f8f8f8',
+            borderRadius: 2,
+          }}
+        >
+          <Stack
+            sx={{
+              bgcolor:
+                theme.palette.mode === 'dark'
+                  ? theme.palette.background.paper
+                  : 'white',
+              p: 3,
+              borderRadius: 2,
+              border:
+                theme.palette.mode === 'dark'
+                  ? `1px solid ${alpha(theme.palette.primary.main, 0.1)}`
+                  : 'none',
+            }}
+          >
             <Stack direction="row" gap={3}>
-              <Box sx={{ width: 281, height: 281, bgcolor: "#808080" }}>
+              <Box
+                sx={{
+                  width: 281,
+                  height: 281,
+                  bgcolor:
+                    theme.palette.mode === 'dark'
+                      ? alpha(theme.palette.primary.main, 0.1)
+                      : '#808080',
+                  borderRadius: 2,
+                  overflow: 'hidden',
+                }}
+              >
                 <Image
                   src={doctor?.profilePhoto}
                   alt="doctor image"
                   width={281}
                   height={281}
                   style={{
-                    height: "281px",
+                    height: '281px',
+                    objectFit: 'cover',
                   }}
                 />
               </Box>
@@ -63,14 +135,14 @@ const DoctorsProfilePage = async ({ params }: PropTypes) => {
                   <Typography variant="h6" fontWeight={600}>
                     {doctor?.name}
                   </Typography>
-                  <Typography sx={{ my: "2px", color: "secondary.main" }}>
+                  <Typography sx={{ my: '2px', color: 'secondary.main' }}>
                     {doctor?.designation}
                   </Typography>
                   <Stack direction="row" alignItems="center" gap={2} mt={1}>
                     <Typography
                       noWrap
                       sx={{
-                        maxWidth: "45ch",
+                        maxWidth: '45ch',
                       }}
                     >
                       Specialties in
@@ -90,17 +162,19 @@ const DoctorsProfilePage = async ({ params }: PropTypes) => {
 
                 <DashedLine />
                 <Box>
-                  <Typography sx={{ my: "2px" }}>Working at</Typography>
+                  <Typography sx={{ my: '2px' }}>Working at</Typography>
                   <Typography>{doctor?.currentWorkingPlace}</Typography>
                 </Box>
                 <DashedLine />
                 <Box>
                   <Stack direction="row">
                     <Typography
-                      fontWeight={"bold"}
-                      // fontSize={20}
+                      fontWeight={'bold'}
                       sx={{
-                        color: "#141414",
+                        color:
+                          theme.palette.mode === 'dark'
+                            ? 'text.primary'
+                            : '#141414',
                       }}
                     >
                       Consultation Fee
@@ -120,9 +194,9 @@ const DoctorsProfilePage = async ({ params }: PropTypes) => {
               </Stack>
             </Stack>
             <Stack
-              direction={"row"}
+              direction={'row'}
               gap={3}
-              justifyContent={"space-between"}
+              justifyContent={'space-between'}
               sx={{
                 my: 4,
               }}

@@ -9,7 +9,7 @@ import { getTimeIn12HourFormat } from "../schedules/components/MultipleSelectFie
 
 const PatientAppointmentsPage = () => {
   const { data, isLoading } = useGetMyAppointmentsQuery({});
-  const appointments = data?.appointments;
+  const appointments = data?.data;
 
   const columns: GridColDef[] = [
     {

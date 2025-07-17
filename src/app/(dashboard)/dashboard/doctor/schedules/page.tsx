@@ -1,5 +1,8 @@
 "use client";
-import { useGetAllDocSchedulesQuery } from "@/redux/features/doctorSchedule/doctorScheduleApi";
+import {
+  useDeleteDoctorScheduleMutation,
+  useGetAllDocSchedulesQuery,
+} from "@/redux/features/doctorSchedule/doctorScheduleApi";
 import { ISchedule } from "@/types/schedule";
 import { dateFormatter } from "@/utils/dateFormatter";
 import AddIcon from "@mui/icons-material/Add";
@@ -23,6 +26,7 @@ const DoctorSchedulesPage = () => {
 
   const [allSchedule, setAllSchedule] = useState<any>([]);
   const { data, isLoading } = useGetAllDocSchedulesQuery({ ...query });
+  const [deleteDocSchedule] = useDeleteDoctorScheduleMutation();
 
   const schedules = data?.data;
   const meta = data?.meta;
@@ -41,16 +45,20 @@ const DoctorSchedulesPage = () => {
     const updateData = schedules?.map((schedule: ISchedule) => {
       return {
         id: schedule?.scheduleId,
-        startDate: dateFormatter(schedule?.schedule?.startDate),
-        startTime: dayjs(schedule?.startDate).format("hh:mm a"),
-        endTime: dayjs(schedule?.endDate).format("hh:mm a"),
+        startDate: dateFormatter(schedule?.schedule?.startDateTime),
+        startTime: dayjs(schedule?.startDateTime).format("hh:mm a"),
+        endTime: dayjs(schedule?.endDateTime).format("hh:mm a"),
       };
     });
     setAllSchedule(updateData);
   }, [schedules]);
 
   const columns: GridColDef[] = [
-    { field: "startDate", headerName: "Date", flex: 1 },
+    {
+      field: "startDate",
+      headerName: "Date",
+      flex: 1,
+    },
     { field: "startTime", headerName: "Start Time", flex: 1 },
     { field: "endTime", headerName: "End Time", flex: 1 },
     {
@@ -59,9 +67,12 @@ const DoctorSchedulesPage = () => {
       flex: 1,
       headerAlign: "center",
       align: "center",
-      renderCell: () => {
+      renderCell: (cell) => {
         return (
-          <IconButton aria-label="delete">
+          <IconButton
+            onClick={() => deleteDocSchedule(cell?.id)}
+            aria-label="delete"
+          >
             <DeleteIcon sx={{ color: "red" }} />
           </IconButton>
         );

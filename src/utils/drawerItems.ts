@@ -2,7 +2,6 @@ import { USER_ROLE } from "@/contants/role";
 import { DrawerItem, UserRole } from "@/types";
 
 //icons
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import BookOnlineIcon from "@mui/icons-material/BookOnline";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -10,25 +9,18 @@ import GroupIcon from "@mui/icons-material/Group";
 import KeyIcon from "@mui/icons-material/Key";
 import MedicalInformationIcon from "@mui/icons-material/MedicalInformation";
 import PersonIcon from "@mui/icons-material/Person";
-import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
-import ReviewsIcon from "@mui/icons-material/Reviews";
 import TryIcon from "@mui/icons-material/Try";
 
 export const drawerItems = (role: UserRole): DrawerItem[] => {
   const roleMenus: DrawerItem[] = [];
 
-  const defaultMenus = [
-    {
-      title: "Profile",
-      path: `${role}/profile`,
-      icon: PersonIcon,
-    },
-    {
-      title: "Change Password",
-      path: `change-password`,
-      icon: KeyIcon,
-    },
-  ];
+  // const defaultMenus = [
+  //   {
+  //     title: "Profile",
+  //     path: `${role}/profile`,
+  //     icon: PersonIcon,
+  //   },
+  // ];
 
   switch (role) {
     case USER_ROLE.SUPER_ADMIN:
@@ -73,10 +65,15 @@ export const drawerItems = (role: UserRole): DrawerItem[] => {
           path: `${role}/appointments`,
           icon: BookOnlineIcon,
         },
+        // {
+        //   title: "Reviews",
+        //   path: `${role}/reviews`,
+        //   icon: ReviewsIcon,
+        // },
         {
-          title: "Reviews",
-          path: `${role}/reviews`,
-          icon: ReviewsIcon,
+          title: "Change Password",
+          path: `change-password`,
+          icon: KeyIcon,
         },
       );
       break;
@@ -89,6 +86,11 @@ export const drawerItems = (role: UserRole): DrawerItem[] => {
           icon: DashboardIcon,
         },
         {
+          title: "Profile",
+          path: `${role}/profile`,
+          icon: PersonIcon,
+        },
+        {
           title: "Schedules",
           path: `${role}/schedules`,
           icon: CalendarMonthIcon,
@@ -97,6 +99,11 @@ export const drawerItems = (role: UserRole): DrawerItem[] => {
           title: "Appointments",
           path: `${role}/appointment`,
           icon: BookOnlineIcon,
+        },
+        {
+          title: "Change Password",
+          path: `change-password`,
+          icon: KeyIcon,
         },
       );
       break;
@@ -108,15 +115,20 @@ export const drawerItems = (role: UserRole): DrawerItem[] => {
           path: `${role}/appointments`,
           icon: BookOnlineIcon,
         },
+        // {
+        //   title: "Prescriptions",
+        //   path: `${role}/prescriptions`,
+        //   icon: ReceiptLongIcon,
+        // },
+        // {
+        //   title: "Payment History",
+        //   path: `${role}/payment-history`,
+        //   icon: AttachMoneyIcon,
+        // },
         {
-          title: "Prescriptions",
-          path: `${role}/prescriptions`,
-          icon: ReceiptLongIcon,
-        },
-        {
-          title: "Payment History",
-          path: `${role}/payment-history`,
-          icon: AttachMoneyIcon,
+          title: "Change Password",
+          path: `change-password`,
+          icon: KeyIcon,
         },
       );
       break;
@@ -125,5 +137,6 @@ export const drawerItems = (role: UserRole): DrawerItem[] => {
       break;
   }
 
-  return [...roleMenus, ...defaultMenus];
+  // return [...roleMenus, ...defaultMenus];
+  return [...roleMenus];
 };

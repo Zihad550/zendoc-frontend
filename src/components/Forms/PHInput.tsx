@@ -10,6 +10,7 @@ type TInputProps = {
   sx?: SxProps;
   placeholder?: string;
   required?: boolean;
+  disabled?: boolean;
 };
 
 const PHInput = ({
@@ -20,6 +21,7 @@ const PHInput = ({
   fullWidth,
   sx,
   required,
+  disabled,
 }: TInputProps) => {
   const { control } = useFormContext();
   return (
@@ -39,6 +41,7 @@ const PHInput = ({
           required={required}
           error={!!error?.message}
           helperText={error?.message}
+          disabled={disabled}
         />
       )}
     />

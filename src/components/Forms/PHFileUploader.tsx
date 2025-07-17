@@ -26,14 +26,14 @@ export default function PHFileUploader({ name, label, sx }: TProps) {
             startIcon={<CloudUploadIcon />}
             sx={{ ...sx }}
           >
-            {label || "Upload file"}
+            {value?.name ? value.name : label || "Upload file"}
             <Input
               {...field}
               type={name}
-              value={value?.fileName}
-              onChange={(e) =>
-                onChange((e?.target as HTMLInputElement).files?.[0])
-              }
+              disabled={value?.name}
+              onChange={(e) => {
+                onChange((e?.target as HTMLInputElement).files?.[0]);
+              }}
               style={{ display: "none" }}
             />
           </Button>

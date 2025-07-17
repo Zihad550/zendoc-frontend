@@ -11,7 +11,7 @@ export const doctorApi = baseApi.injectEndpoints({
         url: "/user/create-doctor",
         method: "POST",
         contentType: "multipart/form-data",
-        data,
+        body: data,
       }),
       invalidatesTags: [tagTypes.doctor],
     }),
@@ -49,7 +49,7 @@ export const doctorApi = baseApi.injectEndpoints({
         return {
           url: `/doctor/${data.id}`,
           method: "PATCH",
-          data: data.body,
+          body: data.body,
         };
       },
       invalidatesTags: [tagTypes.doctor, tagTypes.user],

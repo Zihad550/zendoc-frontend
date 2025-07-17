@@ -1,3 +1,4 @@
+import { AnimatedSection, animationVariants } from "@/components/animation";
 import ServiceCategories from "@/components/services/ServiceCategories";
 import ServiceCTA from "@/components/services/ServiceCTA";
 import ServiceFAQ from "@/components/services/ServiceFAQ";
@@ -18,11 +19,21 @@ export default function ServicesPage() {
   return (
     <>
       <ServicesHero />
-      <ServiceCategories />
-      <ServicesFeatures />
-      <ServiceTestimonials />
-      <ServiceFAQ />
-      <ServiceCTA />
+      <AnimatedSection variants={animationVariants.slideFromLeft} delay={0.1}>
+        <ServiceCategories />
+      </AnimatedSection>
+      <AnimatedSection variants={animationVariants.fadeInUp} delay={0.2}>
+        <ServicesFeatures />
+      </AnimatedSection>
+      <AnimatedSection variants={animationVariants.slideFromRight} delay={0.3}>
+        <ServiceTestimonials />
+      </AnimatedSection>
+      <AnimatedSection variants={animationVariants.scaleIn} delay={0.4}>
+        <ServiceFAQ />
+      </AnimatedSection>
+      <AnimatedSection variants={animationVariants.sectionVariants} delay={0.5}>
+        <ServiceCTA />
+      </AnimatedSection>
     </>
   );
 }

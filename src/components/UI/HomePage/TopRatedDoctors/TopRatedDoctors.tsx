@@ -1,5 +1,7 @@
 "use client";
 import assets from "@/assets";
+import { animationVariants } from "@/components/animation";
+import StaggeredAnimationWrapper from "@/components/animation/AnimatedComponents";
 import SectionTitle from "@/components/Shared/SectionTitle";
 import { theme } from "@/lib/theme/theme";
 import { useGetAllDoctorsQuery } from "@/redux/features/doctor/doctorApi";
@@ -23,16 +25,13 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 
 const TopRatedDoctors = () => {
-  // const theme = useTheme();
   const { data } = useGetAllDoctorsQuery({ limit: 3 });
-  // const res = await fetch(
-  //   `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/doctor?page=1&limit=3`,
-  // );
-  // const { data: doctors } = (await res.json()) as IResponse<Doctor[]>;
+
   return (
     <Box
       sx={{
@@ -69,346 +68,385 @@ const TopRatedDoctors = () => {
         },
       }}
     >
-      <Box sx={{ textAlign: "center", position: "relative", zIndex: 1 }}>
-        <SectionTitle
-          title="Our Top Rated Doctors"
-          subtitle="Access to expert physicians and surgeons, advanced technologies and top-quality surgery facilities right here."
-          size="large"
-          containerSx={{ mb: 6 }}
-          titleSx={{
-            fontWeight: 800,
-            background: (theme) =>
-              `linear-gradient(135deg, ${theme.palette.primary.main} 0%, #0A5CB8 100%)`,
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            mb: 2,
-          }}
-          subtitleSx={{
-            maxWidth: 700,
-            mx: "auto",
-            opacity: 0.8,
-            fontSize: "1.1rem",
-          }}
-          dividerSx={{
-            width: 100,
-            height: 5,
-            borderRadius: 10,
-            background: (theme) =>
-              `linear-gradient(90deg, ${theme.palette.primary.main} 0%, #0A5CB8 100%)`,
-            mb: 3,
-            boxShadow: (theme) =>
-              `0 2px 8px ${alpha(theme.palette.primary.main, 0.3)}`,
-          }}
-        />
-      </Box>
+      <StaggeredAnimationWrapper>
+        <Box sx={{ textAlign: "center", position: "relative", zIndex: 1 }}>
+          <motion.div variants={animationVariants.titleVariants}>
+            <SectionTitle
+              title="Our Top Rated Doctors"
+              subtitle="Access to expert physicians and surgeons, advanced technologies and top-quality surgery facilities right here."
+              size="large"
+              containerSx={{ mb: 6 }}
+              titleSx={{
+                fontWeight: 800,
+                background: (theme) =>
+                  `linear-gradient(135deg, ${theme.palette.primary.main} 0%, #0A5CB8 100%)`,
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                mb: 2,
+              }}
+              subtitleSx={{
+                maxWidth: 700,
+                mx: "auto",
+                opacity: 0.8,
+                fontSize: "1.1rem",
+              }}
+              dividerSx={{
+                width: 100,
+                height: 5,
+                borderRadius: 10,
+                background: (theme) =>
+                  `linear-gradient(90deg, ${theme.palette.primary.main} 0%, #0A5CB8 100%)`,
+                mb: 3,
+                boxShadow: (theme) =>
+                  `0 2px 8px ${alpha(theme.palette.primary.main, 0.3)}`,
+              }}
+            />
+          </motion.div>
+        </Box>
 
-      <Container sx={{ margin: "30px auto", position: "relative", zIndex: 1 }}>
-        <Grid container spacing={3}>
-          {data?.data
-            ? data.data.map((doctor) => (
-                <Grid size={{ xs: 12, md: 4 }} key={doctor.id}>
-                  <Card
-                    sx={{
-                      borderRadius: "16px",
-                      overflow: "hidden",
-                      boxShadow: (theme) =>
-                        theme.palette.mode === "dark"
-                          ? "0 8px 32px rgba(0,0,0,0.3)"
-                          : "0 8px 24px rgba(0,0,0,0.08)",
-                      backgroundColor: (theme) =>
-                        theme.palette.mode === "dark" ? "#1E2139" : "#ffffff",
-                      border: (theme) =>
-                        theme.palette.mode === "dark"
-                          ? "1px solid rgba(255, 255, 255, 0.1)"
-                          : "none",
-                      transition: "all 0.3s ease",
-                      "&:hover": {
-                        transform: "translateY(-8px)",
-                        boxShadow: (theme) =>
-                          theme.palette.mode === "dark"
-                            ? "0 16px 40px rgba(0,0,0,0.4)"
-                            : "0 12px 30px rgba(0,0,0,0.12)",
-                      },
-                      height: "100%",
-                      display: "flex",
-                      flexDirection: "column",
-                      position: "relative",
-                    }}
-                  >
-                    {/* Doctor specialties chip displayed over the image */}
-                    <Box
-                      sx={{
-                        position: "absolute",
-                        top: 16,
-                        right: 16,
-                        zIndex: 10,
+        <Container
+          sx={{ margin: "30px auto", position: "relative", zIndex: 1 }}
+        >
+          <Grid container spacing={3}>
+            {data?.data
+              ? data.data.map((doctor) => (
+                  <Grid size={{ xs: 12, md: 4 }} key={doctor.id}>
+                    <motion.div
+                      variants={animationVariants.cardVariants}
+                      whileHover={{
+                        scale: 1.02,
+                        y: -12,
+                        transition: { duration: 0.3 },
+                      }}
+                      whileTap={{
+                        scale: 0.98,
+                        transition: { duration: 0.1 },
                       }}
                     >
-                      <Chip
-                        icon={<VerifiedIcon sx={{ fontSize: 16 }} />}
-                        label="Top Rated"
-                        size="small"
+                      <Card
                         sx={{
-                          bgcolor: "white",
-                          color: (theme) => theme.palette.primary.main,
-                          fontWeight: 600,
-                          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                        }}
-                      />
-                    </Box>
-
-                    {/* Doctor image with styling */}
-                    <Box
-                      sx={{
-                        position: "relative",
-                        width: "100%",
-                        height: 280,
-                        overflow: "hidden",
-                        "&::after": {
-                          content: '""',
-                          position: "absolute",
-                          bottom: 0,
-                          left: 0,
-                          width: "100%",
-                          height: "30%",
-                          background:
-                            "linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 100%)",
-                          zIndex: 1,
-                        },
-                        "& img": {
-                          width: "100%",
+                          borderRadius: "16px",
+                          overflow: "hidden",
+                          boxShadow: (theme) =>
+                            theme.palette.mode === "dark"
+                              ? "0 8px 32px rgba(0,0,0,0.3)"
+                              : "0 8px 24px rgba(0,0,0,0.08)",
+                          backgroundColor: (theme) =>
+                            theme.palette.mode === "dark"
+                              ? "#1E2139"
+                              : "#ffffff",
+                          border: (theme) =>
+                            theme.palette.mode === "dark"
+                              ? "1px solid rgba(255, 255, 255, 0.1)"
+                              : "none",
+                          transition: "all 0.3s ease",
+                          "&:hover": {
+                            boxShadow: (theme) =>
+                              theme.palette.mode === "dark"
+                                ? "0 16px 40px rgba(0,0,0,0.4)"
+                                : "0 12px 30px rgba(0,0,0,0.12)",
+                          },
                           height: "100%",
-                          objectFit: "cover",
-                          transition: "all 0.5s ease",
-                          filter: "brightness(0.95)",
-                        },
-                        "&:hover img": {
-                          transform: "scale(1.05)",
-                          filter: "brightness(1)",
-                        },
-                      }}
-                    >
-                      <Image
-                        src={doctor.profilePhoto}
-                        alt={doctor.name}
-                        width={500}
-                        height={500}
-                        priority
-                      />
-
-                      {/* Doctor rating displayed on the image */}
-                      <Box
-                        sx={{
-                          position: "absolute",
-                          bottom: 16,
-                          left: 16,
-                          zIndex: 2,
                           display: "flex",
-                          alignItems: "center",
-                          bgcolor: "rgba(255, 255, 255, 0.9)",
-                          borderRadius: "20px",
-                          py: 0.5,
-                          px: 1.5,
-                          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                          flexDirection: "column",
+                          position: "relative",
                         }}
                       >
-                        <Rating
-                          value={doctor.averageRating}
-                          readOnly
-                          precision={0.1}
-                          size="small"
-                          icon={
-                            <StarIcon
-                              fontSize="inherit"
-                              sx={{ color: "#FFB400" }}
-                            />
-                          }
-                          emptyIcon={
-                            <StarIcon
-                              fontSize="inherit"
-                              sx={{ color: "#FFB400", opacity: 0.3 }}
-                            />
-                          }
-                        />
-                        <Typography
-                          variant="body2"
-                          fontWeight="bold"
-                          sx={{ ml: 0.5 }}
-                        >
-                          {doctor.averageRating}
-                        </Typography>
-                      </Box>
-                    </Box>
-                    <CardContent sx={{ pb: 0, pt: 2.5, px: 2.5, flexGrow: 1 }}>
-                      {/* Doctor name with verified badge */}
-                      <Box
-                        sx={{ display: "flex", alignItems: "center", mb: 1 }}
-                      >
-                        <Typography
-                          variant="h6"
-                          component="h3"
+                        {/* Doctor specialties chip displayed over the image */}
+                        <Box
                           sx={{
-                            fontWeight: 700,
-                            color: "text.primary",
-                            mr: 0.5,
-                            fontSize: "1.25rem",
+                            position: "absolute",
+                            top: 16,
+                            right: 16,
+                            zIndex: 10,
                           }}
                         >
-                          {doctor.name}
-                        </Typography>
-                      </Box>
-
-                      {/* Doctor qualifications */}
-                      <Typography
-                        variant="subtitle2"
-                        color="primary.main"
-                        fontWeight="600"
-                        sx={{ mb: 1.5 }}
-                      >
-                        {doctor.qualification}, {doctor.designation}
-                      </Typography>
-
-                      {/* Doctor specialties */}
-                      <Stack
-                        direction="row"
-                        spacing={1}
-                        sx={{ mb: 2, flexWrap: "wrap", gap: 1 }}
-                      >
-                        {doctor.doctorSpecialties.map((specialty, index) => (
                           <Chip
-                            key={index}
-                            label={specialty.specialties.title}
+                            icon={<VerifiedIcon sx={{ fontSize: 16 }} />}
+                            label="Top Rated"
                             size="small"
                             sx={{
-                              borderRadius: "6px",
-                              bgcolor: (theme) =>
-                                alpha(theme.palette.primary.main, 0.1),
+                              bgcolor: "white",
                               color: (theme) => theme.palette.primary.main,
-                              fontWeight: 500,
-                              fontSize: "0.75rem",
+                              fontWeight: 600,
+                              boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
                             }}
                           />
-                        ))}
-                      </Stack>
-
-                      <Divider sx={{ my: 1.5 }} />
-
-                      {/* Doctor info */}
-                      <Stack spacing={1.5} sx={{ mt: 2 }}>
-                        <Box sx={{ display: "flex", alignItems: "center" }}>
-                          <LocationOnIcon
-                            sx={{
-                              fontSize: 20,
-                              color: "text.secondary",
-                              mr: 1,
-                            }}
-                          />
-                          <Typography variant="body2" color="text.secondary">
-                            {doctor.address}
-                          </Typography>
                         </Box>
 
-                        <Box sx={{ display: "flex", alignItems: "center" }}>
-                          <MedicalServicesIcon
-                            sx={{
-                              fontSize: 20,
-                              color: "text.secondary",
-                              mr: 1,
-                            }}
-                          />
-                          <Typography variant="body2" color="text.secondary">
-                            {doctor.experience} years experience
-                          </Typography>
-                        </Box>
-                      </Stack>
-                    </CardContent>
-                    <CardActions
-                      sx={{
-                        justifyContent: "space-between",
-                        px: 2.5,
-                        pb: 2.5,
-                        pt: 1.5,
-                        mt: "auto",
-                      }}
-                    >
-                      <Link href={`/doctors/${doctor?.id}`}>
-                        <Button
-                          startIcon={<CalendarMonthIcon />}
+                        {/* Doctor image with styling */}
+                        <Box
                           sx={{
-                            borderRadius: "8px",
-                            py: 1,
-                            background: (theme) =>
-                              `linear-gradient(135deg, ${theme.palette.primary.main} 0%, #0A5CB8 100%)`,
-                            boxShadow: (theme) =>
-                              `0 4px 12px ${alpha(theme.palette.primary.main, 0.3)}`,
-                            fontWeight: 600,
-                            "&:hover": {
-                              boxShadow: (theme) =>
-                                `0 6px 16px ${alpha(theme.palette.primary.main, 0.4)}`,
-                              transform: "translateY(-2px)",
+                            position: "relative",
+                            width: "100%",
+                            height: 280,
+                            overflow: "hidden",
+                            "&::after": {
+                              content: '""',
+                              position: "absolute",
+                              bottom: 0,
+                              left: 0,
+                              width: "100%",
+                              height: "30%",
+                              background:
+                                "linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 100%)",
+                              zIndex: 1,
                             },
-                            transition: "all 0.3s ease",
+                            "& img": {
+                              width: "100%",
+                              height: "100%",
+                              objectFit: "cover",
+                              transition: "all 0.5s ease",
+                              filter: "brightness(0.95)",
+                            },
+                            "&:hover img": {
+                              transform: "scale(1.05)",
+                              filter: "brightness(1)",
+                            },
                           }}
-                          type="button"
                         >
-                          Book Now
-                        </Button>
-                      </Link>
-                      <Button
-                        variant="outlined"
-                        sx={{
-                          borderRadius: "8px",
-                          py: 1,
-                          borderColor: (theme) => theme.palette.primary.main,
-                          fontWeight: 600,
-                          "&:hover": {
-                            borderColor: (theme) => theme.palette.primary.main,
-                            backgroundColor: (theme) =>
-                              alpha(theme.palette.primary.main, 0.05),
-                          },
-                        }}
-                      >
-                        View Profile
-                      </Button>
-                    </CardActions>
-                  </Card>
-                </Grid>
-              ))
-            : "No doctors available at the time"}
-        </Grid>
-        <Box
-          sx={{
-            textAlign: "center",
-            mt: 6,
-          }}
-        >
-          <Button
-            variant="outlined"
-            size="large"
+                          <Image
+                            src={doctor.profilePhoto}
+                            alt={doctor.name}
+                            width={500}
+                            height={500}
+                            priority
+                          />
+
+                          {/* Doctor rating displayed on the image */}
+                          <Box
+                            sx={{
+                              position: "absolute",
+                              bottom: 16,
+                              left: 16,
+                              zIndex: 2,
+                              display: "flex",
+                              alignItems: "center",
+                              bgcolor: "rgba(255, 255, 255, 0.9)",
+                              borderRadius: "20px",
+                              py: 0.5,
+                              px: 1.5,
+                              boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                            }}
+                          >
+                            <Rating
+                              value={doctor.averageRating}
+                              readOnly
+                              precision={0.1}
+                              size="small"
+                              icon={
+                                <StarIcon
+                                  fontSize="inherit"
+                                  sx={{ color: "#FFB400" }}
+                                />
+                              }
+                              emptyIcon={
+                                <StarIcon
+                                  fontSize="inherit"
+                                  sx={{ color: "#FFB400", opacity: 0.3 }}
+                                />
+                              }
+                            />
+                            <Typography
+                              variant="body2"
+                              fontWeight="bold"
+                              sx={{ ml: 0.5 }}
+                            >
+                              {doctor.averageRating}
+                            </Typography>
+                          </Box>
+                        </Box>
+                        <CardContent
+                          sx={{ pb: 0, pt: 2.5, px: 2.5, flexGrow: 1 }}
+                        >
+                          {/* Doctor name with verified badge */}
+                          <Box
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              mb: 1,
+                            }}
+                          >
+                            <Typography
+                              variant="h6"
+                              component="h3"
+                              sx={{
+                                fontWeight: 700,
+                                color: "text.primary",
+                                mr: 0.5,
+                                fontSize: "1.25rem",
+                              }}
+                            >
+                              {doctor.name}
+                            </Typography>
+                          </Box>
+
+                          {/* Doctor qualifications */}
+                          <Typography
+                            variant="subtitle2"
+                            color="primary.main"
+                            fontWeight="600"
+                            sx={{ mb: 1.5 }}
+                          >
+                            {doctor.qualification}, {doctor.designation}
+                          </Typography>
+
+                          {/* Doctor specialties */}
+                          <Stack
+                            direction="row"
+                            spacing={1}
+                            sx={{ mb: 2, flexWrap: "wrap", gap: 1 }}
+                          >
+                            {doctor.doctorSpecialties.map(
+                              (specialty, index) => (
+                                <Chip
+                                  key={index}
+                                  label={specialty.specialties.title}
+                                  size="small"
+                                  sx={{
+                                    borderRadius: "6px",
+                                    bgcolor: (theme) =>
+                                      alpha(theme.palette.primary.main, 0.1),
+                                    color: (theme) =>
+                                      theme.palette.primary.main,
+                                    fontWeight: 500,
+                                    fontSize: "0.75rem",
+                                  }}
+                                />
+                              ),
+                            )}
+                          </Stack>
+
+                          <Divider sx={{ my: 1.5 }} />
+
+                          {/* Doctor info */}
+                          <Stack spacing={1.5} sx={{ mt: 2 }}>
+                            <Box sx={{ display: "flex", alignItems: "center" }}>
+                              <LocationOnIcon
+                                sx={{
+                                  fontSize: 20,
+                                  color: "text.secondary",
+                                  mr: 1,
+                                }}
+                              />
+                              <Typography
+                                variant="body2"
+                                color="text.secondary"
+                              >
+                                {doctor.address}
+                              </Typography>
+                            </Box>
+
+                            <Box sx={{ display: "flex", alignItems: "center" }}>
+                              <MedicalServicesIcon
+                                sx={{
+                                  fontSize: 20,
+                                  color: "text.secondary",
+                                  mr: 1,
+                                }}
+                              />
+                              <Typography
+                                variant="body2"
+                                color="text.secondary"
+                              >
+                                {doctor.experience} years experience
+                              </Typography>
+                            </Box>
+                          </Stack>
+                        </CardContent>
+                        <CardActions
+                          sx={{
+                            justifyContent: "space-between",
+                            px: 2.5,
+                            pb: 2.5,
+                            pt: 1.5,
+                            mt: "auto",
+                          }}
+                        >
+                          <Link href={`/doctors/${doctor?.id}`}>
+                            <Button
+                              startIcon={<CalendarMonthIcon />}
+                              sx={{
+                                borderRadius: "8px",
+                                py: 1,
+                                background: (theme) =>
+                                  `linear-gradient(135deg, ${theme.palette.primary.main} 0%, #0A5CB8 100%)`,
+                                boxShadow: (theme) =>
+                                  `0 4px 12px ${alpha(theme.palette.primary.main, 0.3)}`,
+                                fontWeight: 600,
+                                "&:hover": {
+                                  boxShadow: (theme) =>
+                                    `0 6px 16px ${alpha(theme.palette.primary.main, 0.4)}`,
+                                  transform: "translateY(-2px)",
+                                },
+                                transition: "all 0.3s ease",
+                              }}
+                              type="button"
+                            >
+                              Book Now
+                            </Button>
+                          </Link>
+                          <Button
+                            variant="outlined"
+                            sx={{
+                              borderRadius: "8px",
+                              py: 1,
+                              borderColor: (theme) =>
+                                theme.palette.primary.main,
+                              fontWeight: 600,
+                              "&:hover": {
+                                borderColor: (theme) =>
+                                  theme.palette.primary.main,
+                                backgroundColor: (theme) =>
+                                  alpha(theme.palette.primary.main, 0.05),
+                              },
+                            }}
+                          >
+                            View Profile
+                          </Button>
+                        </CardActions>
+                      </Card>
+                    </motion.div>
+                  </Grid>
+                ))
+              : "No doctors available at the time"}
+          </Grid>
+          <Box
             sx={{
-              borderRadius: "30px",
-              py: 1.2,
-              px: 4,
-              borderWidth: 2,
-              borderColor: (theme) => theme.palette.primary.main,
-              fontWeight: 600,
-              "&:hover": {
-                borderWidth: 2,
-                borderColor: (theme) => theme.palette.primary.main,
-                backgroundColor: alpha(theme.palette.primary.main, 0.05),
-                transform: "translateY(-2px)",
-                boxShadow: (theme) =>
-                  `0 6px 16px ${alpha(theme.palette.primary.main, 0.15)}`,
-              },
-              transition: "all 0.3s ease",
+              textAlign: "center",
+              mt: 6,
             }}
-            component={Link}
-            href="/doctors"
           >
-            View All Doctors
-          </Button>
-        </Box>
-      </Container>
+            <motion.div variants={animationVariants.buttonVariants}>
+              <Button
+                variant="outlined"
+                size="large"
+                sx={{
+                  borderRadius: "30px",
+                  py: 1.2,
+                  px: 4,
+                  borderWidth: 2,
+                  borderColor: (theme) => theme.palette.primary.main,
+                  fontWeight: 600,
+                  "&:hover": {
+                    borderWidth: 2,
+                    borderColor: (theme) => theme.palette.primary.main,
+                    backgroundColor: alpha(theme.palette.primary.main, 0.05),
+                    transform: "translateY(-2px)",
+                    boxShadow: (theme) =>
+                      `0 6px 16px ${alpha(theme.palette.primary.main, 0.15)}`,
+                  },
+                  transition: "all 0.3s ease",
+                }}
+                component={Link}
+                href="/doctors"
+              >
+                View All Doctors
+              </Button>
+            </motion.div>
+          </Box>
+        </Container>
+      </StaggeredAnimationWrapper>
     </Box>
   );
 };

@@ -3,6 +3,7 @@
 import PHForm from "@/components/Forms/PHForm";
 import PHInput from "@/components/Forms/PHInput";
 import PHSelectField from "@/components/Forms/PHSelectField";
+import Spinner from "@/components/Shared/Spinner/Spinner";
 import {
   useGetDoctorQuery,
   useUpdateDoctorMutation,
@@ -10,6 +11,7 @@ import {
 import { Gender } from "@/types";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { use } from "react";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -22,19 +24,23 @@ type TParams = {
 const DoctorUpdatePage = ({ params }: TParams) => {
   const router = useRouter();
 
-  const id = params?.doctorId;
+  // const id = params?.doctorId;
+  const { doctorId: id } = use(params);
 
-  const { data, isLoading } = useGetDoctorQuery(id);
+  const { data: doctorData, isLoading } = useGetDoctorQuery(id);
   const [updateDoctor] = useUpdateDoctorMutation();
+
+  if (isLoading) return <Spinner />;
+  const data = doctorData.data;
 
   const handleFormSubmit = async (values: FieldValues) => {
     values.experience = Number(values.experience);
-    values.apointmentFee = Number(values.apointmentFee);
+    values.appointmentFee = Number(values.appointmentFee);
     values.id = id;
 
     try {
       const res = await updateDoctor({ id: values.id, body: values }).unwrap();
-      if (res?.id) {
+      if (res?.data?.id) {
         toast.success("Doctor Updated Successfully!!!");
         router.push("/dashboard/admin/doctors");
       }
@@ -51,7 +57,7 @@ const DoctorUpdatePage = ({ params }: TParams) => {
     registrationNumber: data?.registrationNumber || "",
     gender: data?.gender || "",
     experience: data?.experience || 0,
-    apointmentFee: data?.apointmentFee || 0,
+    appointmentFee: data?.appointmentFee || 0,
     qualification: data?.qualification || "",
     currentWorkingPlace: data?.currentWorkingPlace || "",
     designation: data?.designation || "",
@@ -130,9 +136,9 @@ const DoctorUpdatePage = ({ params }: TParams) => {
             </Grid>
             <Grid size={{ xs: 12, sm: 12, md: 4 }}>
               <PHInput
-                name="apointmentFee"
+                name="appointmentFee"
                 type="number"
-                label="ApointmentFee"
+                label="Appointment Fee"
                 fullWidth={true}
                 sx={{ mb: 2 }}
               />

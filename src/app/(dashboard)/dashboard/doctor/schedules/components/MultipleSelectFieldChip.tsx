@@ -6,6 +6,7 @@ import MenuItem from "@mui/material/MenuItem";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Theme, useTheme } from "@mui/material/styles";
+import dayjs from "dayjs";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -79,11 +80,9 @@ export default function MultipleSelectFieldChip({
 
                   if (!selectedSchedule) return null;
 
-                  const formattedTimeSlot = `${getTimeIn12HourFormat(
-                    selectedSchedule.startDate,
-                  )} - ${getTimeIn12HourFormat(selectedSchedule.endDate)}`;
+                  const formatted = `${dayjs(selectedSchedule?.startDate).format("hh:mm a")} - ${dayjs(selectedSchedule?.endDate).format("hh:mm a")}`;
 
-                  return <Chip key={value} label={formattedTimeSlot} />;
+                  return <Chip key={value} label={formatted} />;
                 })}
               </Box>
             );
@@ -96,9 +95,7 @@ export default function MultipleSelectFieldChip({
               value={schedule.id}
               style={getStyles(schedule.id, selectedScheduleIds, theme)}
             >
-              {`${getTimeIn12HourFormat(
-                schedule.startDate,
-              )} - ${getTimeIn12HourFormat(schedule.endDate)}`}
+              {`${dayjs(schedule?.startDate).format("hh:mm a")} - ${dayjs(schedule?.endDate).format("hh:mm a")}`}
             </MenuItem>
           ))}
         </Select>

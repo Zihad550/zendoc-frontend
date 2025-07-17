@@ -6,11 +6,13 @@ const AUTH_URL = "/auth";
 export const authApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     userLogin: build.mutation({
-      query: (loginData) => ({
-        url: `${AUTH_URL}/login`,
-        method: "POST",
-        data: loginData,
-      }),
+      query: (loginData) => {
+        return {
+          url: `${AUTH_URL}/login`,
+          method: "POST",
+          body: loginData,
+        };
+      },
       invalidatesTags: [tagTypes.user],
     }),
     changePassword: build.mutation({
@@ -18,7 +20,7 @@ export const authApi = baseApi.injectEndpoints({
         url: `${AUTH_URL}/change-password`,
         method: "POST",
         contentType: "application/json",
-        data: data,
+        body: data,
       }),
       invalidatesTags: [tagTypes.user],
     }),
@@ -26,7 +28,7 @@ export const authApi = baseApi.injectEndpoints({
       query: (data) => ({
         url: `${AUTH_URL}/forgot-password`,
         method: "POST",
-        data: data,
+        body: data,
       }),
       invalidatesTags: [tagTypes.user],
     }),
@@ -34,7 +36,7 @@ export const authApi = baseApi.injectEndpoints({
       query: (data) => ({
         url: `${AUTH_URL}/reset-password`,
         method: "POST",
-        data: data,
+        body: data,
       }),
       invalidatesTags: [tagTypes.user],
     }),

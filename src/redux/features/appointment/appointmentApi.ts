@@ -1,6 +1,5 @@
 import { baseApi } from "@/redux/api/baseApi";
 import { tagTypes } from "@/redux/tag-types";
-import { IMeta } from "@/types/common";
 
 export const appointmentApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -8,9 +7,13 @@ export const appointmentApi = baseApi.injectEndpoints({
       query: (data) => ({
         url: "/appointment",
         method: "POST",
-        data,
+        body: data,
       }),
-      invalidatesTags: [tagTypes.appointment],
+      invalidatesTags: [
+        tagTypes.appointment,
+        tagTypes.doctorSchedule,
+        tagTypes.schedule,
+      ],
     }),
     getAllAppointments: build.query({
       query: (arg: Record<string, any>) => {
@@ -18,12 +21,6 @@ export const appointmentApi = baseApi.injectEndpoints({
           url: "/appointment",
           method: "GET",
           params: arg,
-        };
-      },
-      transformResponse: (response: [], meta: IMeta) => {
-        return {
-          appointments: response,
-          meta,
         };
       },
       providesTags: [tagTypes.appointment],
@@ -34,12 +31,6 @@ export const appointmentApi = baseApi.injectEndpoints({
           url: "/appointment/my-appointments",
           method: "GET",
           params: arg,
-        };
-      },
-      transformResponse: (response: [], meta: IMeta) => {
-        return {
-          appointments: response,
-          meta,
         };
       },
       providesTags: [tagTypes.appointment],
@@ -55,7 +46,7 @@ export const appointmentApi = baseApi.injectEndpoints({
       query: (data) => ({
         url: `/appointment/status/${data.id}`,
         method: "PATCH",
-        data: data.body,
+        body: data.body,
       }),
       invalidatesTags: [tagTypes.appointment],
     }),

@@ -1,9 +1,10 @@
 // "use server";
 
+import { decodedToken } from "@/utils/jwt";
 import { FieldValues } from "react-hook-form";
 import setAccessToken from "./setAccessToken";
 
-export const userLogin = async (data: FieldValues) => {
+export const userLoginV1 = async (data: FieldValues) => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/auth/login`,
     {
@@ -21,9 +22,10 @@ export const userLogin = async (data: FieldValues) => {
   const passwordChangeRequired = userInfo.data.needPasswordChange;
 
   if (userInfo.data.accessToken) {
+    const userData = decodedToken(userInfo.data.accessToken);
     if (passwordChangeRequired)
       setAccessToken(userInfo.data.accessToken, {
-        redirect: "/dashboard",
+        redirect: `/dashboard/${userData.role.toLowerCase()}`,
         passwordChangeRequired,
       });
     else

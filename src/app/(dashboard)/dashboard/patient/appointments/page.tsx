@@ -1,16 +1,15 @@
 "use client";
 import PhChips from "@/components/Shared/PhChip/PhChips";
-import { getTimeIn12HourFormat } from "@/components/UI/Doctor/MultipleSelectFieldChip";
 import { useGetMyAppointmentsQuery } from "@/redux/features/appointment/appointmentApi";
-import { dateFormatter } from "@/utils/dateFormatter";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import { Box, IconButton } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import dayjs from "dayjs";
 import Link from "next/link";
 
 const PatientAppointmentsPage = () => {
   const { data, isLoading } = useGetMyAppointmentsQuery({});
-  const appointments = data?.appointments;
+  const appointments = data?.data;
 
   const columns: GridColDef[] = [
     {
@@ -28,7 +27,7 @@ const PatientAppointmentsPage = () => {
       align: "center",
       flex: 1,
       renderCell: ({ row }) => {
-        return dateFormatter(row.schedule.startDate);
+        return dayjs(row.schedule.startDate).format("hh:mm a");
       },
     },
     {
@@ -38,7 +37,7 @@ const PatientAppointmentsPage = () => {
       align: "center",
       flex: 1,
       renderCell: ({ row }) => {
-        return getTimeIn12HourFormat(row.schedule.startDate);
+        return dayjs(row.schedule.startDate).format("hh:mm a");
       },
     },
 
@@ -67,7 +66,7 @@ const PatientAppointmentsPage = () => {
           <IconButton
             component={Link}
             href={`/video?videoCallingId=${row?.videoCallingId}`}
-            disabled={row.paymentStatus === "UNPAID"}
+            // disabled={row.paymentStatus === "UNPAID"}
           >
             <VideocamIcon
               sx={{
