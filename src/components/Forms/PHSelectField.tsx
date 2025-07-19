@@ -1,26 +1,34 @@
-import { MenuItem, SxProps, TextField } from "@mui/material";
-import React from "react";
-import { Controller, useFormContext } from "react-hook-form";
+import { MenuItem, SxProps, TextField } from '@mui/material';
+import { Controller, useFormContext } from 'react-hook-form';
 
 interface ITextField {
   name: string;
-  size?: "small" | "medium";
+  size?: 'small' | 'medium';
   placeholder?: string;
   label?: string;
   required?: boolean;
   fullWidth?: boolean;
   sx?: SxProps;
-  items: string[];
+  items?: string[];
+  options?: { value: string; label: string }[];
+  disabled?: boolean;
+  helperText?: string;
+  multiple?: boolean;
 }
 
 const PHSelectField = ({
   items,
+  options,
   name,
   label,
-  size = "small",
+  size = 'small',
   required,
   fullWidth = true,
   sx,
+  placeholder,
+  disabled,
+  helperText,
+  multiple,
 }: ITextField) => {
   const { control, formState } = useFormContext();
   const isError = formState.errors[name] !== undefined;
@@ -38,18 +46,29 @@ const PHSelectField = ({
           size={size}
           select
           label={label}
+          placeholder={placeholder}
           required={required}
           fullWidth={fullWidth}
+          disabled={disabled}
           error={isError}
           helperText={
-            isError ? (formState.errors[name]?.message as string) : ""
+            isError ? (formState.errors[name]?.message as string) : helperText
           }
+          SelectProps={{
+            multiple: multiple,
+          }}
         >
-          {items.map((name) => (
-            <MenuItem key={name} value={name}>
-              {name}
-            </MenuItem>
-          ))}
+          {options
+            ? options.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))
+            : items?.map((name) => (
+                <MenuItem key={name} value={name}>
+                  {name}
+                </MenuItem>
+              ))}
         </TextField>
       )}
     />

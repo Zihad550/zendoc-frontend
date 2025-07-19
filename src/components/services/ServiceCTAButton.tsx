@@ -1,9 +1,9 @@
-"use client";
-import { selectUser } from "@/redux/features/auth/authSlice";
-import { useAppSelector } from "@/redux/hooks";
-import { ArrowForward as ArrowForwardIcon } from "@mui/icons-material";
-import { Button } from "@mui/material";
-import Link from "next/link";
+'use client';
+import { selectUser } from '@/redux/features/auth/authSlice';
+import { useAppSelector } from '@/redux/hooks';
+import { ArrowForward as ArrowForwardIcon } from '@mui/icons-material';
+import { Button } from '@mui/material';
+import Link from 'next/link';
 
 const ServiceCTARegisterButton = () => {
   const userInfo = useAppSelector(selectUser);
@@ -11,7 +11,7 @@ const ServiceCTARegisterButton = () => {
     <Button
       href="/register"
       component={Link}
-      disabled={userInfo?.email}
+      disabled={!!userInfo?.email}
       variant="contained"
       color="secondary"
       size="large"
@@ -21,16 +21,16 @@ const ServiceCTARegisterButton = () => {
       sx={{
         py: 1.8,
         px: 4,
-        backgroundColor: "white",
-        color: "primary.main",
+        backgroundColor: 'white',
+        color: 'primary.main',
         fontWeight: 600,
-        fontSize: "1rem",
-        textTransform: "none",
+        fontSize: '1rem',
+        textTransform: 'none',
         borderRadius: 2,
-        "&:hover": {
-          backgroundColor: "rgba(255,255,255,0.9)",
+        '&:hover': {
+          backgroundColor: 'rgba(255,255,255,0.9)',
         },
-        minWidth: { xs: "100%", sm: 200 },
+        minWidth: { xs: '100%', sm: 200 },
       }}
     >
       Create Account

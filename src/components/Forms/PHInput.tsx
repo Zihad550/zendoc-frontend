@@ -1,27 +1,37 @@
-import { SxProps, TextField } from "@mui/material";
-import { Controller, useFormContext } from "react-hook-form";
+import { SxProps, TextField } from '@mui/material';
+import { Controller, useFormContext } from 'react-hook-form';
 
 type TInputProps = {
   name: string;
   label?: string;
   type?: string;
-  size?: "small" | "medium";
+  size?: 'small' | 'medium';
   fullWidth?: boolean;
   sx?: SxProps;
   placeholder?: string;
   required?: boolean;
   disabled?: boolean;
+  helperText?: string;
+  multiline?: boolean;
+  rows?: number;
+  startAdornment?: string;
+  endAdornment?: string;
 };
 
 const PHInput = ({
   name,
   label,
-  type = "text",
-  size = "small",
+  type = 'text',
+  size = 'small',
   fullWidth,
   sx,
   required,
   disabled,
+  helperText,
+  multiline,
+  rows,
+  startAdornment,
+  endAdornment,
 }: TInputProps) => {
   const { control } = useFormContext();
   return (
@@ -40,8 +50,14 @@ const PHInput = ({
           placeholder={label}
           required={required}
           error={!!error?.message}
-          helperText={error?.message}
+          helperText={error?.message || helperText}
           disabled={disabled}
+          multiline={multiline}
+          rows={rows}
+          InputProps={{
+            startAdornment: startAdornment,
+            endAdornment: endAdornment,
+          }}
         />
       )}
     />

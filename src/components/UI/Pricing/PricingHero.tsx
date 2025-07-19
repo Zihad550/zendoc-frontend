@@ -1,29 +1,29 @@
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import PeopleIcon from '@mui/icons-material/People';
-import MoneyOffIcon from '@mui/icons-material/MoneyOff';
-import PaidIcon from '@mui/icons-material/Paid';
 import HeroSection from '@/components/Shared/HeroSection';
 import { FeatureItem } from '@/components/Shared/HeroSection/HeroSection';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import MoneyOffIcon from '@mui/icons-material/MoneyOff';
+import PaidIcon from '@mui/icons-material/Paid';
+import PeopleIcon from '@mui/icons-material/People';
 
 export default function PricingHero() {
   const features: FeatureItem[] = [
     {
-      id: "24-7-access",
+      id: '24-7-access',
       icon: AccessTimeIcon,
-      title: "24/7",
-      description: "Access to Care",
+      title: '24/7',
+      description: 'Access to Care',
     },
     {
-      id: "specialists",
+      id: 'specialists',
       icon: PeopleIcon,
-      title: "100+",
-      description: "Specialists",
+      title: '100+',
+      description: 'Specialists',
     },
     {
-      id: "setup-fee",
+      id: 'setup-fee',
       icon: MoneyOffIcon,
-      title: "$0",
-      description: "Setup Fee",
+      title: '$0',
+      description: 'Setup Fee',
     },
   ];
 
@@ -38,7 +38,6 @@ export default function PricingHero() {
       textGradient={false}
       iconContainerShape="circle"
       centerIconSize={80}
-      heightSize="small"
       featureAnimation={false}
     />
   );

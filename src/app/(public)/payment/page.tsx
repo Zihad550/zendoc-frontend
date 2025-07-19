@@ -1,43 +1,48 @@
-"use client";
+'use client';
 
-import SectionTitle from "@/components/Shared/SectionTitle";
-import CancelIcon from "@mui/icons-material/Cancel";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import ErrorIcon from "@mui/icons-material/Error";
-import { Box, Button, Container, Stack } from "@mui/material";
-import Link from "next/link";
-import { PageProps } from "../../../../.next/types/app/(public)/payment/page";
+import SectionTitle from '@/components/Shared/SectionTitle';
+import CancelIcon from '@mui/icons-material/Cancel';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ErrorIcon from '@mui/icons-material/Error';
+import { Box, Button, Container, Stack } from '@mui/material';
+import Link from 'next/link';
+import { use } from 'react';
+// Define page props type locally
+type PageProps = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
 
 const PaymentStatusPage = ({ searchParams }: PageProps) => {
-  const status = searchParams.status; // could be success, cancel, failed
+  const resolvedSearchParams = use(searchParams!);
+  const status = resolvedSearchParams?.status; // could be success, cancel, failed
 
   let icon;
   let title;
 
   switch (status) {
-    case "success":
-      icon = <CheckCircleIcon sx={{ fontSize: "90px", color: "#23b93c" }} />;
-      title = "Payment Successful";
+    case 'success':
+      icon = <CheckCircleIcon sx={{ fontSize: '90px', color: '#23b93c' }} />;
+      title = 'Payment Successful';
       break;
-    case "cancel":
-      icon = <CancelIcon sx={{ fontSize: "90px", color: "#FF0000" }} />;
-      title = "Payment Cancelled";
+    case 'cancel':
+      icon = <CancelIcon sx={{ fontSize: '90px', color: '#FF0000' }} />;
+      title = 'Payment Cancelled';
       break;
-    case "failed":
-      icon = <ErrorIcon sx={{ fontSize: "90px", color: "#FF0000" }} />;
-      title = "Payment Failed";
+    case 'failed':
+      icon = <ErrorIcon sx={{ fontSize: '90px', color: '#FF0000' }} />;
+      title = 'Payment Failed';
       break;
     default:
       icon = null;
-      title = "Unknown Status!";
+      title = 'Unknown Status!';
   }
 
   return (
     <Container>
       <Box
         sx={{
-          mx: "auto",
-          width: "100%",
+          mx: 'auto',
+          width: '100%',
           maxWidth: 500,
           borderRadius: 2,
           boxShadow: 1,
@@ -54,14 +59,14 @@ const PaymentStatusPage = ({ searchParams }: PageProps) => {
             size="medium"
             containerSx={{ my: 2 }}
           />
-          {status === "success" && (
+          {status === 'success' && (
             <Button size="small" variant="outlined">
               <Link href="/dashboard/patient/appointments">
                 Go To Dashboard
               </Link>
             </Button>
           )}
-          {status !== "success" && (
+          {status !== 'success' && (
             <Button size="small" variant="outlined">
               <Link href="/doctors">Bokk Again</Link>
             </Button>

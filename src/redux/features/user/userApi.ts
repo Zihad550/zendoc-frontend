@@ -1,6 +1,6 @@
-import { baseApi } from "@/redux/api/baseApi";
-import { tagTypes } from "@/redux/tag-types";
-import { IResponseRedux } from "@/types/apiResponse";
+import { baseApi } from '@/redux/api/baseApi';
+import { tagTypes } from '@/redux/tag-types';
+import { IResponseRedux } from '@/types/apiResponse';
 import {
   BulkOperationResult,
   BulkUserOperation,
@@ -11,15 +11,15 @@ import {
   GetAllUsersParams,
   UpdateUserData,
   UserStats,
-} from "@/types/user";
-import generateUrlParams from "@/utils/generateUrlParams";
+} from '@/types/user';
+import generateUrlParams from '@/utils/generateUrlParams';
 
 export const userApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getSingleUser: build.query({
       query: () => ({
-        url: "/user/me",
-        method: "GET",
+        url: '/user/me',
+        method: 'GET',
       }),
       providesTags: [tagTypes.user],
     }),
@@ -29,8 +29,8 @@ export const userApi = baseApi.injectEndpoints({
       GetAllUsersParams | undefined
     >({
       query: (args) => ({
-        url: "/user/all",
-        method: "GET",
+        url: '/user/all',
+        method: 'GET',
         params: generateUrlParams(args),
       }),
       providesTags: [tagTypes.user],
@@ -43,7 +43,7 @@ export const userApi = baseApi.injectEndpoints({
     >({
       query: ({ id, data }) => ({
         url: `/user/${id}`,
-        method: "PATCH",
+        method: 'PATCH',
         body: data,
       }),
       invalidatesTags: [
@@ -55,12 +55,12 @@ export const userApi = baseApi.injectEndpoints({
       // Optimistic update
       async onQueryStarted({ id, data }, { dispatch, queryFulfilled }) {
         const patchResult = dispatch(
-          userApi.util.updateQueryData("getAllUsers", undefined, (draft) => {
+          userApi.util.updateQueryData('getAllUsers', undefined, (draft) => {
             const userIndex = draft.data?.findIndex((user) => user.id === id);
             if (userIndex !== undefined && userIndex >= 0 && draft.data) {
               Object.assign(draft.data[userIndex], data);
             }
-          }),
+          })
         );
         try {
           await queryFulfilled;
@@ -73,20 +73,20 @@ export const userApi = baseApi.injectEndpoints({
     deleteUser: build.mutation<void, string>({
       query: (id) => ({
         url: `/user/soft/${id}`,
-        method: "DELETE",
+        method: 'DELETE',
       }),
       invalidatesTags: [tagTypes.user],
       // Optimistic update
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         const patchResult = dispatch(
-          userApi.util.updateQueryData("getAllUsers", undefined, (draft) => {
+          userApi.util.updateQueryData('getAllUsers', undefined, (draft) => {
             if (draft.data) {
               const userIndex = draft.data.findIndex((user) => user.id === id);
               if (userIndex >= 0) {
-                draft.data[userIndex].status = "DELETED" as any;
+                draft.data[userIndex].status = 'DELETED' as any;
               }
             }
-          }),
+          })
         );
         try {
           await queryFulfilled;
@@ -99,15 +99,15 @@ export const userApi = baseApi.injectEndpoints({
     resetUserPassword: build.mutation<{ temporaryPassword: string }, string>({
       query: (id) => ({
         url: `/user/${id}/reset-password`,
-        method: "POST",
+        method: 'POST',
       }),
       invalidatesTags: [tagTypes.user],
     }),
 
     bulkUpdateUsers: build.mutation<BulkOperationResult, BulkUserOperation>({
       query: (data) => ({
-        url: "/user/bulk-update",
-        method: "POST",
+        url: '/user/bulk-update',
+        method: 'POST',
         body: data,
       }),
       invalidatesTags: [tagTypes.user],
@@ -115,8 +115,8 @@ export const userApi = baseApi.injectEndpoints({
 
     getUserStats: build.query<UserStats, void>({
       query: () => ({
-        url: "/user/stats",
-        method: "GET",
+        url: '/user/stats',
+        method: 'GET',
       }),
       providesTags: [tagTypes.user],
       keepUnusedDataFor: 300, // 5 minutes cache
@@ -124,8 +124,8 @@ export const userApi = baseApi.injectEndpoints({
 
     exportUsers: build.mutation<Blob, ExportUsersParams>({
       query: (params) => ({
-        url: "/user/export",
-        method: "POST",
+        url: '/user/export',
+        method: 'POST',
         body: params,
         responseHandler: (response: Response) => response.blob(),
       }),
@@ -135,7 +135,7 @@ export const userApi = baseApi.injectEndpoints({
           await queryFulfilled;
           // Log export action for audit purposes
         } catch (error) {
-          console.error("User export failed:", error);
+          console.error('User export failed:', error);
         }
       },
     }),
@@ -146,8 +146,8 @@ export const userApi = baseApi.injectEndpoints({
       { password: string }
     >({
       query: (data) => ({
-        url: "/user/verify-export-password",
-        method: "POST",
+        url: '/user/verify-export-password',
+        method: 'POST',
         body: data,
       }),
     }),
@@ -155,27 +155,27 @@ export const userApi = baseApi.injectEndpoints({
     // Get export history for audit trail
     getExportHistory: build.query<ExportHistoryEntry[], void>({
       query: () => ({
-        url: "/user/export-history",
-        method: "GET",
+        url: '/user/export-history',
+        method: 'GET',
       }),
-      providesTags: ["exportHistory"],
+      providesTags: [tagTypes.exportHistory],
       keepUnusedDataFor: 300, // 5 minutes cache
     }),
 
     // Log export action for audit
     logExportAction: build.mutation<void, ExportAuditLog>({
       query: (data) => ({
-        url: "/user/export-audit",
-        method: "POST",
+        url: '/user/export-audit',
+        method: 'POST',
         body: data,
       }),
-      invalidatesTags: ["exportHistory"],
+      invalidatesTags: [tagTypes.exportHistory],
     }),
 
     createUser: build.mutation<ExtendedUser, any>({
       query: (data) => ({
-        url: "/user/create",
-        method: "POST",
+        url: '/user/create',
+        method: 'POST',
         body: data,
       }),
       invalidatesTags: [tagTypes.user],
@@ -184,7 +184,7 @@ export const userApi = baseApi.injectEndpoints({
     checkEmailUniqueness: build.query<{ isUnique: boolean }, string>({
       query: (email) => ({
         url: `/user/check-email?email=${encodeURIComponent(email)}`,
-        method: "GET",
+        method: 'GET',
       }),
     }),
   }),

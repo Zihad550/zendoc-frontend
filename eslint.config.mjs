@@ -15,7 +15,26 @@ const eslintConfig = [
     extends: ["next"],
     rules: {
       "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          "argsIgnorePattern": "^_",
+          "varsIgnorePattern": "^_",
+          "caughtErrorsIgnorePattern": "^_"
+        }
+      ],
+      "@typescript-eslint/no-empty-object-type": "off",
+      "@next/next/no-img-element": "off",
     },
+    overrides: [
+      {
+        files: ["**/__tests__/**/*.{ts,tsx}", "**/*.test.{ts,tsx}", "**/test/**/*.{ts,tsx}"],
+        rules: {
+          "@typescript-eslint/no-unused-vars": "off",
+          "@next/next/no-img-element": "off",
+        },
+      },
+    ],
   }),
 ];
 

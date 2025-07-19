@@ -1,6 +1,6 @@
-import Spinner from "@/components/Shared/Spinner/Spinner";
-import { useGetAllDoctorsQuery } from "@/redux/features/doctor/doctorApi";
-import { Doctor } from "@/types/doctor";
+import Spinner from '@/components/Shared/Spinner/Spinner';
+import { useGetAllDoctorsQuery } from '@/redux/features/doctor/doctorApi';
+import { Doctor } from '@/types/doctor';
 import {
   Avatar,
   Box,
@@ -9,7 +9,7 @@ import {
   ListItemText,
   Typography,
   alpha,
-} from "@mui/material";
+} from '@mui/material';
 
 interface DoctorSelectionStepProps {
   selectedDoctor: Doctor;
@@ -30,36 +30,43 @@ export default function DoctorSelectionStep({
       <List
         sx={{
           // Enhanced list styling for dark theme
-          "& .MuiListItemButton-root": {
+          '& .MuiListItemButton-root': {
             borderRadius: 2,
             mb: 1,
-            border: (theme) => theme.palette.mode === "dark" 
-              ? "1px solid rgba(255, 255, 255, 0.05)" 
-              : "1px solid rgba(0, 0, 0, 0.05)",
-            backgroundColor: (theme) => theme.palette.mode === "dark" 
-              ? "rgba(255, 255, 255, 0.02)" 
-              : "rgba(0, 0, 0, 0.02)",
-            transition: "all 0.3s ease",
-            "&:hover": {
-              backgroundColor: (theme) => theme.palette.mode === "dark" 
-                ? alpha(theme.palette.primary.main, 0.1) 
-                : alpha(theme.palette.primary.main, 0.04),
-              borderColor: (theme) => theme.palette.mode === "dark" 
-                ? alpha(theme.palette.primary.main, 0.3) 
-                : alpha(theme.palette.primary.main, 0.2),
-              transform: "translateY(-1px)",
+            border: (theme) =>
+              theme.palette.mode === 'dark'
+                ? '1px solid rgba(255, 255, 255, 0.05)'
+                : '1px solid rgba(0, 0, 0, 0.05)',
+            backgroundColor: (theme) =>
+              theme.palette.mode === 'dark'
+                ? 'rgba(255, 255, 255, 0.02)'
+                : 'rgba(0, 0, 0, 0.02)',
+            transition: 'all 0.3s ease',
+            '&:hover': {
+              backgroundColor: (theme) =>
+                theme.palette.mode === 'dark'
+                  ? alpha(theme.palette.primary.main, 0.1)
+                  : alpha(theme.palette.primary.main, 0.04),
+              borderColor: (theme) =>
+                theme.palette.mode === 'dark'
+                  ? alpha(theme.palette.primary.main, 0.3)
+                  : alpha(theme.palette.primary.main, 0.2),
+              transform: 'translateY(-1px)',
             },
-            "&.Mui-selected": {
-              backgroundColor: (theme) => theme.palette.mode === "dark" 
-                ? alpha(theme.palette.primary.main, 0.2) 
-                : alpha(theme.palette.primary.main, 0.08),
-              borderColor: (theme) => theme.palette.mode === "dark" 
-                ? theme.palette.primary.main 
-                : theme.palette.primary.main,
-              "&:hover": {
-                backgroundColor: (theme) => theme.palette.mode === "dark" 
-                  ? alpha(theme.palette.primary.main, 0.25) 
-                  : alpha(theme.palette.primary.main, 0.12),
+            '&.Mui-selected': {
+              backgroundColor: (theme) =>
+                theme.palette.mode === 'dark'
+                  ? alpha(theme.palette.primary.main, 0.2)
+                  : alpha(theme.palette.primary.main, 0.08),
+              borderColor: (theme) =>
+                theme.palette.mode === 'dark'
+                  ? theme.palette.primary.main
+                  : theme.palette.primary.main,
+              '&:hover': {
+                backgroundColor: (theme) =>
+                  theme.palette.mode === 'dark'
+                    ? alpha(theme.palette.primary.main, 0.25)
+                    : alpha(theme.palette.primary.main, 0.12),
               },
             },
           },
@@ -71,16 +78,17 @@ export default function DoctorSelectionStep({
             selected={selectedDoctor?.id === doctor.id}
             onClick={() => setSelectedDoctor(doctor)}
           >
-            <Avatar 
-              src={doctor.profilePhoto} 
-              alt={doctor.name} 
+            <Avatar
+              src={doctor.profilePhoto}
+              alt={doctor.name}
               sx={{
                 mr: 2,
                 width: 48,
                 height: 48,
-                border: (theme) => theme.palette.mode === "dark" 
-                  ? "2px solid rgba(255, 255, 255, 0.1)" 
-                  : "2px solid rgba(0, 0, 0, 0.1)",
+                border: (theme) =>
+                  theme.palette.mode === 'dark'
+                    ? '2px solid rgba(255, 255, 255, 0.1)'
+                    : '2px solid rgba(0, 0, 0, 0.1)',
               }}
             />
             <ListItemText
@@ -88,10 +96,10 @@ export default function DoctorSelectionStep({
               secondary={doctor.designation}
               primaryTypographyProps={{
                 fontWeight: 600,
-                color: (theme) => theme.palette.mode === "dark" ? "text.primary" : "inherit",
+                color: 'text.primary',
               }}
               secondaryTypographyProps={{
-                color: (theme) => theme.palette.mode === "dark" ? "text.secondary" : "inherit",
+                color: 'text.secondary',
               }}
             />
           </ListItemButton>

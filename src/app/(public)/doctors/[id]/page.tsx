@@ -1,8 +1,8 @@
-"use client";
-import SectionTitle from "@/components/Shared/SectionTitle";
-import Spinner from "@/components/Shared/Spinner/Spinner";
-import DashedLine from "@/components/UI/Doctor/DashedLine";
-import { useGetDoctorQuery } from "@/redux/features/doctor/doctorApi";
+'use client';
+import SectionTitle from '@/components/Shared/SectionTitle';
+import Spinner from '@/components/Shared/Spinner/Spinner';
+import DashedLine from '@/components/UI/Doctor/DashedLine';
+import { useGetDoctorQuery } from '@/redux/features/doctor/doctorApi';
 import {
   alpha,
   Box,
@@ -11,11 +11,14 @@ import {
   Stack,
   Typography,
   useTheme,
-} from "@mui/material";
-import Image from "next/image";
-import { use } from "react";
-import { PageProps } from "../../../../../.next/types/app/(public)/doctors/[id]/page";
-import DoctorScheduleSlots from "../components/DoctorScheduleSlots";
+} from '@mui/material';
+import Image from 'next/image';
+import { use } from 'react';
+import DoctorScheduleSlots from '../components/DoctorScheduleSlots';
+// Define page props type locally
+type PageProps = {
+  params: Promise<{ id: string }>;
+};
 
 // type PropTypes = {
 //   params: {
@@ -25,30 +28,30 @@ import DoctorScheduleSlots from "../components/DoctorScheduleSlots";
 
 const DoctorsProfilePage = ({ params }: PageProps) => {
   const theme = useTheme();
-  const { id } = use(params);
+  const { id } = use(params!);
   const { data, isLoading } = useGetDoctorQuery(id);
 
   const InfoBoxStyles = {
     background:
-      theme.palette.mode === "dark"
+      theme.palette.mode === 'dark'
         ? `linear-gradient(to bottom, ${alpha(
             theme.palette.primary.main,
-            0.2,
+            0.2
           )}, ${alpha(theme.palette.background.paper, 0.8)} 100%)`
-        : "linear-gradient(to bottom, rgba(21,134,253,0.3), rgba(255,255,255,1) 100%)",
-    width: "100%",
+        : 'linear-gradient(to bottom, rgba(21,134,253,0.3), rgba(255,255,255,1) 100%)',
+    width: '100%',
     p: 3,
     borderRadius: 2,
     border:
-      theme.palette.mode === "dark"
+      theme.palette.mode === 'dark'
         ? `1px solid ${alpha(theme.palette.primary.main, 0.2)}`
-        : "none",
-    "& h6": {
-      color: "primary.main",
+        : 'none',
+    '& h6': {
+      color: 'primary.main',
     },
-    "& p": {
+    '& p': {
       color:
-        theme.palette.mode === "dark" ? "text.secondary" : "secondary.main",
+        theme.palette.mode === 'dark' ? 'text.secondary' : 'secondary.main',
     },
   };
 
@@ -87,24 +90,24 @@ const DoctorsProfilePage = ({ params }: PageProps) => {
             my: 10,
             p: 3,
             bgcolor:
-              theme.palette.mode === "dark"
+              theme.palette.mode === 'dark'
                 ? alpha(theme.palette.background.paper, 0.3)
-                : "#f8f8f8",
+                : '#f8f8f8',
             borderRadius: 2,
           }}
         >
           <Stack
             sx={{
               bgcolor:
-                theme.palette.mode === "dark"
+                theme.palette.mode === 'dark'
                   ? theme.palette.background.paper
-                  : "white",
+                  : 'white',
               p: 3,
               borderRadius: 2,
               border:
-                theme.palette.mode === "dark"
+                theme.palette.mode === 'dark'
                   ? `1px solid ${alpha(theme.palette.primary.main, 0.1)}`
-                  : "none",
+                  : 'none',
             }}
           >
             <Stack direction="row" gap={3}>
@@ -113,11 +116,11 @@ const DoctorsProfilePage = ({ params }: PageProps) => {
                   width: 281,
                   height: 281,
                   bgcolor:
-                    theme.palette.mode === "dark"
+                    theme.palette.mode === 'dark'
                       ? alpha(theme.palette.primary.main, 0.1)
-                      : "#808080",
+                      : '#808080',
                   borderRadius: 2,
-                  overflow: "hidden",
+                  overflow: 'hidden',
                 }}
               >
                 <Image
@@ -126,8 +129,8 @@ const DoctorsProfilePage = ({ params }: PageProps) => {
                   width={281}
                   height={281}
                   style={{
-                    height: "281px",
-                    objectFit: "cover",
+                    height: '281px',
+                    objectFit: 'cover',
                   }}
                 />
               </Box>
@@ -136,14 +139,14 @@ const DoctorsProfilePage = ({ params }: PageProps) => {
                   <Typography variant="h6" fontWeight={600}>
                     {doctor?.name}
                   </Typography>
-                  <Typography sx={{ my: "2px", color: "secondary.main" }}>
+                  <Typography sx={{ my: '2px', color: 'secondary.main' }}>
                     {doctor?.designation}
                   </Typography>
                   <Stack direction="row" alignItems="center" gap={2} mt={1}>
                     <Typography
                       noWrap
                       sx={{
-                        maxWidth: "45ch",
+                        maxWidth: '45ch',
                       }}
                     >
                       Specialties in
@@ -163,19 +166,19 @@ const DoctorsProfilePage = ({ params }: PageProps) => {
 
                 <DashedLine />
                 <Box>
-                  <Typography sx={{ my: "2px" }}>Working at</Typography>
+                  <Typography sx={{ my: '2px' }}>Working at</Typography>
                   <Typography>{doctor?.currentWorkingPlace}</Typography>
                 </Box>
                 <DashedLine />
                 <Box>
                   <Stack direction="row">
                     <Typography
-                      fontWeight={"bold"}
+                      fontWeight={'bold'}
                       sx={{
                         color:
-                          theme.palette.mode === "dark"
-                            ? "text.primary"
-                            : "#141414",
+                          theme.palette.mode === 'dark'
+                            ? 'text.primary'
+                            : '#141414',
                       }}
                     >
                       Consultation Fee
@@ -195,9 +198,9 @@ const DoctorsProfilePage = ({ params }: PageProps) => {
               </Stack>
             </Stack>
             <Stack
-              direction={"row"}
+              direction={'row'}
               gap={3}
-              justifyContent={"space-between"}
+              justifyContent={'space-between'}
               sx={{
                 my: 4,
               }}

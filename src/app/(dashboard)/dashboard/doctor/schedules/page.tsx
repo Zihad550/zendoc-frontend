@@ -70,7 +70,7 @@ const DoctorSchedulesPage = () => {
       renderCell: (cell) => {
         return (
           <IconButton
-            onClick={() => deleteDocSchedule(cell?.id)}
+            onClick={() => deleteDocSchedule(String(cell?.id))}
             aria-label="delete"
           >
             <DeleteIcon sx={{ color: "red" }} />

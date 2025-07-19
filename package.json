@@ -8,7 +8,14 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky",
-    "type:check": "tsc --noEmit"
+    "type:check": "tsc --noEmit",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest --watch",
+    "test:silent": "vitest run --reporter=basic",
+    "test:verbose": "vitest run --reporter=verbose"
   },
   "dependencies": {
     "@emotion/cache": "^11.14.0",
@@ -37,13 +44,24 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@typescript/native-preview": "7.0.0-dev.20250718.1",
+    "@vitejs/plugin-react": "^4.6.0",
     "eslint": "^9",
     "eslint-config-next": "15.3.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
     "husky": "^9.1.7",
+    "jsdom": "^26.1.0",
     "lint-staged": "^16.1.2",
-    "typescript": "^5"
+    "msw": "^2.10.4",
+    "typescript": "^5",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.2.4"
   }
 }

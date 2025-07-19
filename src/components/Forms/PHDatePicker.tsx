@@ -1,26 +1,38 @@
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import dayjs from "dayjs";
-import { SxProps } from "@mui/material";
-import { Controller, useFormContext } from "react-hook-form";
+import { SxProps } from '@mui/material';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import dayjs from 'dayjs';
+import { Controller, useFormContext } from 'react-hook-form';
 
 interface IDatePicker {
   name: string;
-  size?: "small" | "medium";
+  size?: 'small' | 'medium';
   label?: string;
   required?: boolean;
   fullWidth?: boolean;
   sx?: SxProps;
+  disabled?: boolean;
+  helperText?: string;
+  format?: string;
+  minDate?: Date;
+  maxDate?: Date;
+  readOnly?: boolean;
 }
 
 const PHDatePicker = ({
   name,
-  size = "small",
+  size = 'small',
   label,
   required,
   fullWidth = true,
   sx,
+  disabled,
+  helperText,
+  format,
+  minDate,
+  maxDate,
+  readOnly,
 }: IDatePicker) => {
   const { control } = useFormContext();
   return (
@@ -35,6 +47,11 @@ const PHDatePicker = ({
               label={label}
               timezone="system"
               disablePast
+              disabled={disabled}
+              readOnly={readOnly}
+              format={format}
+              minDate={minDate ? dayjs(minDate) : undefined}
+              maxDate={maxDate ? dayjs(maxDate) : undefined}
               {...field}
               onChange={(date) => onChange(date)}
               value={value || Date.now()}
@@ -45,8 +62,9 @@ const PHDatePicker = ({
                   sx: {
                     ...sx,
                   },
-                  variant: "outlined",
+                  variant: 'outlined',
                   fullWidth: fullWidth,
+                  helperText: helperText,
                 },
               }}
             />

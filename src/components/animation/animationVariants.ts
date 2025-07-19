@@ -98,7 +98,7 @@ const fadeInDown: Variants = {
     scale: 1,
     transition: {
       duration: 0.8,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      ease: 'easeOut',
     },
   },
 };
@@ -132,7 +132,7 @@ const rotateIn: Variants = {
     rotate: 0,
     transition: {
       duration: 0.9,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      ease: 'easeOut',
     },
   },
 };
@@ -149,7 +149,6 @@ const bounceIn: Variants = {
     y: 0,
     transition: {
       duration: 0.8,
-      ease: 'easeOut',
       type: 'spring',
       damping: 20,
       stiffness: 100,
@@ -214,7 +213,7 @@ const cardVariants: Variants = {
     rotate: 0,
     transition: {
       duration: 0.6,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      ease: 'easeOut',
     },
   },
 };
@@ -244,7 +243,6 @@ const elasticIn: Variants = {
     rotate: 0,
     transition: {
       duration: 0.8,
-      ease: 'easeOut',
       type: 'spring',
       damping: 15,
       stiffness: 100,
@@ -264,7 +262,7 @@ const flipIn: Variants = {
     scale: 1,
     transition: {
       duration: 0.8,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      ease: 'easeOut',
     },
   },
 };
@@ -283,7 +281,7 @@ const morphIn: Variants = {
     rotate: 0,
     transition: {
       duration: 1,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      ease: 'easeOut',
     },
   },
 };
@@ -300,7 +298,7 @@ const slideInFromTop: Variants = {
     scale: 1,
     transition: {
       duration: 0.9,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      ease: 'easeOut',
     },
   },
 };
@@ -319,7 +317,6 @@ const zigzagIn: Variants = {
     scale: 1,
     transition: {
       duration: 1.2,
-      ease: 'easeOut',
       type: 'spring',
       damping: 20,
       stiffness: 80,
@@ -360,7 +357,6 @@ const floatIn: Variants = {
     scale: 1,
     transition: {
       duration: 0.8,
-      ease: [0.25, 0.46, 0.45, 0.94],
       type: 'spring',
       stiffness: 100,
       damping: 20,
@@ -380,7 +376,6 @@ const glideIn: Variants = {
     rotate: 0,
     transition: {
       duration: 1,
-      ease: 'easeOut',
       type: 'spring',
       stiffness: 120,
       damping: 25,
@@ -402,7 +397,7 @@ const slideInDiagonal: Variants = {
     scale: 1,
     transition: {
       duration: 0.9,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      ease: 'easeOut',
     },
   },
 };
@@ -419,7 +414,6 @@ const rippleIn: Variants = {
     rotate: 0,
     transition: {
       duration: 0.7,
-      ease: 'easeOut',
       type: 'spring',
       stiffness: 150,
       damping: 15,
@@ -456,7 +450,7 @@ const cardHover: Variants = {
     rotateY: 0,
     transition: {
       duration: 0.6,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      ease: 'easeOut',
     },
   },
 };

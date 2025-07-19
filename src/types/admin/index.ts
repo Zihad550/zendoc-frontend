@@ -1,4 +1,4 @@
-import { IUser } from "../user";
+import { IUser } from '../user';
 
 export interface IAdmin {
   id: string;
@@ -6,6 +6,7 @@ export interface IAdmin {
   email: string;
   profilePhoto?: string;
   contactNumber: string;
+  address?: string;
   isDeleted: boolean;
   createdAt: Date;
   updatedAt: Date;
