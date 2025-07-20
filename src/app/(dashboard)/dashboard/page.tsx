@@ -1,5 +1,5 @@
-"use client";
-import assets from "@/assets";
+'use client';
+import assets from '@/assets';
 import {
   AccessTime,
   ArrowForward,
@@ -9,7 +9,7 @@ import {
   MoreVert,
   People,
   VideoCall,
-} from "@mui/icons-material";
+} from '@mui/icons-material';
 import {
   Avatar,
   Box,
@@ -27,7 +27,7 @@ import {
   Typography,
   alpha,
   useTheme,
-} from "@mui/material";
+} from '@mui/material';
 
 const DashboardHomePage = () => {
   const currentTime = new Date();
@@ -37,111 +37,111 @@ const DashboardHomePage = () => {
   const statsData = [
     {
       id: 1,
-      title: "Total Appointments",
-      value: "247",
-      change: "+12%",
+      title: 'Total Appointments',
+      value: '247',
+      change: '+12%',
       icon: CalendarToday,
-      color: "#2196f3",
-      bgColor: "rgba(33, 150, 243, 0.1)",
-      trend: "up",
+      color: '#2196f3',
+      bgColor: 'rgba(33, 150, 243, 0.1)',
+      trend: 'up',
     },
     {
       id: 2,
-      title: "Total Patients",
-      value: "1,429",
-      change: "+8%",
+      title: 'Total Patients',
+      value: '1,429',
+      change: '+8%',
       icon: People,
-      color: "#4caf50",
-      bgColor: "rgba(76, 175, 80, 0.1)",
-      trend: "up",
+      color: '#4caf50',
+      bgColor: 'rgba(76, 175, 80, 0.1)',
+      trend: 'up',
     },
     {
       id: 3,
-      title: "Active Sessions",
-      value: "32",
-      change: "+24%",
+      title: 'Active Sessions',
+      value: '32',
+      change: '+24%',
       icon: VideoCall,
-      color: "#ff9800",
-      bgColor: "rgba(255, 152, 0, 0.1)",
-      trend: "up",
+      color: '#ff9800',
+      bgColor: 'rgba(255, 152, 0, 0.1)',
+      trend: 'up',
     },
     {
       id: 4,
-      title: "Pending Reviews",
-      value: "18",
-      change: "-5%",
+      title: 'Pending Reviews',
+      value: '18',
+      change: '-5%',
       icon: Assignment,
-      color: "#f44336",
-      bgColor: "rgba(244, 67, 54, 0.1)",
-      trend: "down",
+      color: '#f44336',
+      bgColor: 'rgba(244, 67, 54, 0.1)',
+      trend: 'down',
     },
   ];
 
   const recentActivities = [
     {
       id: 1,
-      type: "appointment",
-      title: "New appointment scheduled",
-      description: "Dr. Sarah Johnson with John Doe",
-      time: "2 minutes ago",
+      type: 'appointment',
+      title: 'New appointment scheduled',
+      description: 'Dr. Sarah Johnson with John Doe',
+      time: '2 minutes ago',
       icon: CalendarToday,
-      color: "#2196f3",
+      color: '#2196f3',
     },
     {
       id: 2,
-      type: "consultation",
-      title: "Video consultation completed",
-      description: "Dr. Michael Chen with Jane Smith",
-      time: "15 minutes ago",
+      type: 'consultation',
+      title: 'Video consultation completed',
+      description: 'Dr. Michael Chen with Jane Smith',
+      time: '15 minutes ago',
       icon: VideoCall,
-      color: "#4caf50",
+      color: '#4caf50',
     },
     {
       id: 3,
-      type: "prescription",
-      title: "Prescription updated",
-      description: "New medication added for patient #1247",
-      time: "1 hour ago",
+      type: 'prescription',
+      title: 'Prescription updated',
+      description: 'New medication added for patient #1247',
+      time: '1 hour ago',
       icon: MedicalServices,
-      color: "#ff9800",
+      color: '#ff9800',
     },
     {
       id: 4,
-      type: "report",
-      title: "Lab results available",
-      description: "Blood work completed for Emma Wilson",
-      time: "2 hours ago",
+      type: 'report',
+      title: 'Lab results available',
+      description: 'Blood work completed for Emma Wilson',
+      time: '2 hours ago',
       icon: Assignment,
-      color: "#9c27b0",
+      color: '#9c27b0',
     },
   ];
 
   const upcomingAppointments = [
     {
       id: 1,
-      patient: "John Doe",
-      doctor: "Dr. Sarah Johnson",
-      time: "10:00 AM",
-      type: "Cardiology",
-      status: "confirmed",
+      patient: 'John Doe',
+      doctor: 'Dr. Sarah Johnson',
+      time: '10:00 AM',
+      type: 'Cardiology',
+      status: 'confirmed',
       avatar: assets.avatars.avatar1,
     },
     {
       id: 2,
-      patient: "Jane Smith",
-      doctor: "Dr. Michael Chen",
-      time: "11:30 AM",
-      type: "General",
-      status: "pending",
+      patient: 'Jane Smith',
+      doctor: 'Dr. Michael Chen',
+      time: '11:30 AM',
+      type: 'General',
+      status: 'pending',
       avatar: assets.avatars.avatar2,
     },
     {
       id: 3,
-      patient: "Emma Wilson",
-      doctor: "Dr. Emily Rodriguez",
-      time: "2:00 PM",
-      type: "Pediatrics",
-      status: "confirmed",
+      patient: 'Emma Wilson',
+      doctor: 'Dr. Emily Rodriguez',
+      time: '2:00 PM',
+      type: 'Pediatrics',
+      status: 'confirmed',
       avatar: assets.avatars.avatar3,
     },
   ];
@@ -149,82 +149,82 @@ const DashboardHomePage = () => {
   const quickActions = [
     {
       id: 1,
-      title: "Schedule Appointment",
+      title: 'Schedule Appointment',
       icon: CalendarToday,
-      color: "#2196f3",
-      path: "/dashboard/appointments/new",
+      color: '#2196f3',
+      path: '/dashboard/appointments/new',
     },
     {
       id: 2,
-      title: "Video Consultation",
+      title: 'Video Consultation',
       icon: VideoCall,
-      color: "#4caf50",
-      path: "/dashboard/consultations",
+      color: '#4caf50',
+      path: '/dashboard/consultations',
     },
     {
       id: 3,
-      title: "Patient Records",
+      title: 'Patient Records',
       icon: Assignment,
-      color: "#ff9800",
-      path: "/dashboard/patients",
+      color: '#ff9800',
+      path: '/dashboard/patients',
     },
     {
       id: 4,
-      title: "Prescriptions",
+      title: 'Prescriptions',
       icon: MedicalServices,
-      color: "#9c27b0",
-      path: "/dashboard/prescriptions",
+      color: '#9c27b0',
+      path: '/dashboard/prescriptions',
     },
   ];
 
   const healthMetrics = [
     {
       id: 1,
-      title: "Patient Satisfaction",
+      title: 'Patient Satisfaction',
       value: 94,
-      unit: "%",
-      color: "#4caf50",
+      unit: '%',
+      color: '#4caf50',
     },
     {
       id: 2,
-      title: "Appointment Completion",
+      title: 'Appointment Completion',
       value: 87,
-      unit: "%",
-      color: "#2196f3",
+      unit: '%',
+      color: '#2196f3',
     },
     {
       id: 3,
-      title: "Response Time",
+      title: 'Response Time',
       value: 73,
-      unit: "%",
-      color: "#ff9800",
+      unit: '%',
+      color: '#ff9800',
     },
   ];
 
   return (
     <Box
       sx={{
-        minHeight: "100vh",
-        bgcolor: theme.palette.mode === "dark" ? "#0A0E27" : "#f8f9fa",
-        position: "relative",
-        overflow: "hidden",
-        "&::before": {
+        minHeight: '100vh',
+        bgcolor: theme.palette.mode === 'dark' ? '#0A0E27' : '#f8f9fa',
+        position: 'relative',
+        overflow: 'hidden',
+        '&::before': {
           content: "'",
-          position: "absolute",
+          position: 'absolute',
           top: 0,
           left: 0,
           right: 0,
           bottom: 0,
           background:
-            theme.palette.mode === "dark"
-              ? "radial-gradient(circle at 20% 20%, rgba(33, 150, 243, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(144, 202, 249, 0.08) 0%, transparent 50%)"
-              : "radial-gradient(circle at 20% 20%, rgba(33, 150, 243, 0.05) 0%, transparent 50%)",
-          pointerEvents: "none",
+            theme.palette.mode === 'dark'
+              ? 'radial-gradient(circle at 20% 20%, rgba(33, 150, 243, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(144, 202, 249, 0.08) 0%, transparent 50%)'
+              : 'radial-gradient(circle at 20% 20%, rgba(33, 150, 243, 0.05) 0%, transparent 50%)',
+          pointerEvents: 'none',
           zIndex: 0,
         },
       }}
     >
-      <Container maxWidth="xl" sx={{ position: "relative", zIndex: 1, py: 3 }}>
+      <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 1, py: 3 }}>
         {/* Welcome Header */}
         <Box sx={{ mb: 4 }}>
           <Grid container spacing={3} alignItems="center">
@@ -236,28 +236,28 @@ const DashboardHomePage = () => {
                     fontWeight: 700,
                     mb: 1,
                     color:
-                      theme.palette.mode === "dark" ? "#e3f2fd" : "inherit",
+                      theme.palette.mode === 'dark' ? '#e3f2fd' : 'inherit',
                     background:
-                      theme.palette.mode === "dark"
-                        ? "linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%)"
-                        : "inherit",
+                      theme.palette.mode === 'dark'
+                        ? 'linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%)'
+                        : 'inherit',
                     backgroundClip:
-                      theme.palette.mode === "dark" ? "text" : "inherit",
+                      theme.palette.mode === 'dark' ? 'text' : 'inherit',
                     WebkitBackgroundClip:
-                      theme.palette.mode === "dark" ? "text" : "inherit",
+                      theme.palette.mode === 'dark' ? 'text' : 'inherit',
                     WebkitTextFillColor:
-                      theme.palette.mode === "dark" ? "transparent" : "inherit",
+                      theme.palette.mode === 'dark' ? 'transparent' : 'inherit',
                   }}
                 >
-                  Welcome back, {"User"}!
+                  Welcome back, {'User'}!
                 </Typography>
                 <Typography
                   variant="h6"
                   sx={{
                     color:
-                      theme.palette.mode === "dark"
-                        ? "rgba(255, 255, 255, 0.7)"
-                        : "text.secondary",
+                      theme.palette.mode === 'dark'
+                        ? 'rgba(255, 255, 255, 0.7)'
+                        : 'text.secondary',
                     fontWeight: 400,
                   }}
                 >
@@ -272,15 +272,15 @@ const DashboardHomePage = () => {
                   p: 3,
                   borderRadius: 3,
                   bgcolor:
-                    theme.palette.mode === "dark"
-                      ? "rgba(255, 255, 255, 0.05)"
-                      : "rgba(255, 255, 255, 0.9)",
+                    theme.palette.mode === 'dark'
+                      ? 'rgba(255, 255, 255, 0.05)'
+                      : 'rgba(255, 255, 255, 0.9)',
                   border:
-                    theme.palette.mode === "dark"
-                      ? "1px solid rgba(255, 255, 255, 0.1)"
-                      : "1px solid rgba(0, 0, 0, 0.05)",
-                  backdropFilter: "blur(10px)",
-                  textAlign: "center",
+                    theme.palette.mode === 'dark'
+                      ? '1px solid rgba(255, 255, 255, 0.1)'
+                      : '1px solid rgba(0, 0, 0, 0.05)',
+                  backdropFilter: 'blur(10px)',
+                  textAlign: 'center',
                 }}
               >
                 <Typography
@@ -292,24 +292,24 @@ const DashboardHomePage = () => {
                   }}
                 >
                   {currentTime.toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
+                    hour: '2-digit',
+                    minute: '2-digit',
                   })}
                 </Typography>
                 <Typography
                   variant="body1"
                   sx={{
                     color:
-                      theme.palette.mode === "dark"
-                        ? "rgba(255, 255, 255, 0.7)"
-                        : "text.secondary",
+                      theme.palette.mode === 'dark'
+                        ? 'rgba(255, 255, 255, 0.7)'
+                        : 'text.secondary',
                   }}
                 >
                   {currentTime.toLocaleDateString([], {
-                    weekday: "long",
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
                   })}
                 </Typography>
               </Paper>
@@ -326,30 +326,30 @@ const DashboardHomePage = () => {
                 sx={{
                   borderRadius: 3,
                   bgcolor:
-                    theme.palette.mode === "dark"
-                      ? "rgba(255, 255, 255, 0.05)"
-                      : "rgba(255, 255, 255, 0.9)",
+                    theme.palette.mode === 'dark'
+                      ? 'rgba(255, 255, 255, 0.05)'
+                      : 'rgba(255, 255, 255, 0.9)',
                   border:
-                    theme.palette.mode === "dark"
-                      ? "1px solid rgba(255, 255, 255, 0.1)"
-                      : "1px solid rgba(0, 0, 0, 0.05)",
-                  backdropFilter: "blur(10px)",
-                  transition: "all 0.3s ease",
-                  "&:hover": {
-                    transform: "translateY(-4px)",
+                    theme.palette.mode === 'dark'
+                      ? '1px solid rgba(255, 255, 255, 0.1)'
+                      : '1px solid rgba(0, 0, 0, 0.05)',
+                  backdropFilter: 'blur(10px)',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-4px)',
                     boxShadow:
-                      theme.palette.mode === "dark"
-                        ? "0 8px 25px rgba(0, 0, 0, 0.3)"
-                        : "0 8px 25px rgba(0, 0, 0, 0.1)",
+                      theme.palette.mode === 'dark'
+                        ? '0 8px 25px rgba(0, 0, 0, 0.3)'
+                        : '0 8px 25px rgba(0, 0, 0, 0.1)',
                   },
                 }}
               >
                 <CardContent sx={{ p: 3 }}>
                   <Box
                     sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
                       mb: 2,
                     }}
                   >
@@ -359,9 +359,9 @@ const DashboardHomePage = () => {
                         borderRadius: 2,
                         bgcolor: stat.bgColor,
                         color: stat.color,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
                       }}
                     >
                       <stat.icon sx={{ fontSize: 24 }} />
@@ -371,10 +371,10 @@ const DashboardHomePage = () => {
                       size="small"
                       sx={{
                         bgcolor:
-                          stat.trend === "up"
-                            ? "rgba(76, 175, 80, 0.1)"
-                            : "rgba(244, 67, 54, 0.1)",
-                        color: stat.trend === "up" ? "#4caf50" : "#f44336",
+                          stat.trend === 'up'
+                            ? 'rgba(76, 175, 80, 0.1)'
+                            : 'rgba(244, 67, 54, 0.1)',
+                        color: stat.trend === 'up' ? '#4caf50' : '#f44336',
                         fontWeight: 600,
                       }}
                     />
@@ -385,9 +385,9 @@ const DashboardHomePage = () => {
                       fontWeight: 700,
                       mb: 0.5,
                       color:
-                        theme.palette.mode === "dark"
-                          ? "rgba(255, 255, 255, 0.95)"
-                          : "inherit",
+                        theme.palette.mode === 'dark'
+                          ? 'rgba(255, 255, 255, 0.95)'
+                          : 'inherit',
                     }}
                   >
                     {stat.value}
@@ -396,9 +396,9 @@ const DashboardHomePage = () => {
                     variant="body2"
                     sx={{
                       color:
-                        theme.palette.mode === "dark"
-                          ? "rgba(255, 255, 255, 0.6)"
-                          : "text.secondary",
+                        theme.palette.mode === 'dark'
+                          ? 'rgba(255, 255, 255, 0.6)'
+                          : 'text.secondary',
                     }}
                   >
                     {stat.title}
@@ -417,15 +417,15 @@ const DashboardHomePage = () => {
               sx={{
                 borderRadius: 3,
                 bgcolor:
-                  theme.palette.mode === "dark"
-                    ? "rgba(255, 255, 255, 0.05)"
-                    : "rgba(255, 255, 255, 0.9)",
+                  theme.palette.mode === 'dark'
+                    ? 'rgba(255, 255, 255, 0.05)'
+                    : 'rgba(255, 255, 255, 0.9)',
                 border:
-                  theme.palette.mode === "dark"
-                    ? "1px solid rgba(255, 255, 255, 0.1)"
-                    : "1px solid rgba(0, 0, 0, 0.05)",
-                backdropFilter: "blur(10px)",
-                height: "100%",
+                  theme.palette.mode === 'dark'
+                    ? '1px solid rgba(255, 255, 255, 0.1)'
+                    : '1px solid rgba(0, 0, 0, 0.05)',
+                backdropFilter: 'blur(10px)',
+                height: '100%',
               }}
             >
               <CardContent sx={{ p: 3 }}>
@@ -435,9 +435,9 @@ const DashboardHomePage = () => {
                     fontWeight: 600,
                     mb: 3,
                     color:
-                      theme.palette.mode === "dark"
-                        ? "rgba(255, 255, 255, 0.95)"
-                        : "inherit",
+                      theme.palette.mode === 'dark'
+                        ? 'rgba(255, 255, 255, 0.95)'
+                        : 'inherit',
                   }}
                 >
                   Quick Actions
@@ -452,16 +452,16 @@ const DashboardHomePage = () => {
                           p: 2,
                           borderRadius: 2,
                           borderColor:
-                            theme.palette.mode === "dark"
-                              ? "rgba(255, 255, 255, 0.1)"
-                              : "rgba(0, 0, 0, 0.1)",
+                            theme.palette.mode === 'dark'
+                              ? 'rgba(255, 255, 255, 0.1)'
+                              : 'rgba(0, 0, 0, 0.1)',
                           color:
-                            theme.palette.mode === "dark"
-                              ? "rgba(255, 255, 255, 0.8)"
-                              : "text.primary",
-                          flexDirection: "column",
-                          height: "80px",
-                          "&:hover": {
+                            theme.palette.mode === 'dark'
+                              ? 'rgba(255, 255, 255, 0.8)'
+                              : 'text.primary',
+                          flexDirection: 'column',
+                          height: '80px',
+                          '&:hover': {
                             borderColor: action.color,
                             bgcolor: alpha(action.color, 0.1),
                           },
@@ -474,7 +474,7 @@ const DashboardHomePage = () => {
                           variant="caption"
                           sx={{
                             fontWeight: 500,
-                            textAlign: "center",
+                            textAlign: 'center',
                             lineHeight: 1.2,
                           }}
                         >
@@ -495,15 +495,15 @@ const DashboardHomePage = () => {
               sx={{
                 borderRadius: 3,
                 bgcolor:
-                  theme.palette.mode === "dark"
-                    ? "rgba(255, 255, 255, 0.05)"
-                    : "rgba(255, 255, 255, 0.9)",
+                  theme.palette.mode === 'dark'
+                    ? 'rgba(255, 255, 255, 0.05)'
+                    : 'rgba(255, 255, 255, 0.9)',
                 border:
-                  theme.palette.mode === "dark"
-                    ? "1px solid rgba(255, 255, 255, 0.1)"
-                    : "1px solid rgba(0, 0, 0, 0.05)",
-                backdropFilter: "blur(10px)",
-                height: "100%",
+                  theme.palette.mode === 'dark'
+                    ? '1px solid rgba(255, 255, 255, 0.1)'
+                    : '1px solid rgba(0, 0, 0, 0.05)',
+                backdropFilter: 'blur(10px)',
+                height: '100%',
               }}
             >
               <CardContent sx={{ p: 3 }}>
@@ -513,9 +513,9 @@ const DashboardHomePage = () => {
                     fontWeight: 600,
                     mb: 3,
                     color:
-                      theme.palette.mode === "dark"
-                        ? "rgba(255, 255, 255, 0.95)"
-                        : "inherit",
+                      theme.palette.mode === 'dark'
+                        ? 'rgba(255, 255, 255, 0.95)'
+                        : 'inherit',
                   }}
                 >
                   Health Metrics
@@ -525,9 +525,9 @@ const DashboardHomePage = () => {
                     <Box key={metric.id}>
                       <Box
                         sx={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
                           mb: 1,
                         }}
                       >
@@ -536,9 +536,9 @@ const DashboardHomePage = () => {
                           sx={{
                             fontWeight: 500,
                             color:
-                              theme.palette.mode === "dark"
-                                ? "rgba(255, 255, 255, 0.8)"
-                                : "text.primary",
+                              theme.palette.mode === 'dark'
+                                ? 'rgba(255, 255, 255, 0.8)'
+                                : 'text.primary',
                           }}
                         >
                           {metric.title}
@@ -561,10 +561,10 @@ const DashboardHomePage = () => {
                           height: 8,
                           borderRadius: 4,
                           bgcolor:
-                            theme.palette.mode === "dark"
-                              ? "rgba(255, 255, 255, 0.1)"
-                              : "rgba(0, 0, 0, 0.1)",
-                          "& .MuiLinearProgress-bar": {
+                            theme.palette.mode === 'dark'
+                              ? 'rgba(255, 255, 255, 0.1)'
+                              : 'rgba(0, 0, 0, 0.1)',
+                          '& .MuiLinearProgress-bar': {
                             borderRadius: 4,
                             bgcolor: metric.color,
                           },
@@ -584,23 +584,23 @@ const DashboardHomePage = () => {
               sx={{
                 borderRadius: 3,
                 bgcolor:
-                  theme.palette.mode === "dark"
-                    ? "rgba(255, 255, 255, 0.05)"
-                    : "rgba(255, 255, 255, 0.9)",
+                  theme.palette.mode === 'dark'
+                    ? 'rgba(255, 255, 255, 0.05)'
+                    : 'rgba(255, 255, 255, 0.9)',
                 border:
-                  theme.palette.mode === "dark"
-                    ? "1px solid rgba(255, 255, 255, 0.1)"
-                    : "1px solid rgba(0, 0, 0, 0.05)",
-                backdropFilter: "blur(10px)",
-                height: "100%",
+                  theme.palette.mode === 'dark'
+                    ? '1px solid rgba(255, 255, 255, 0.1)'
+                    : '1px solid rgba(0, 0, 0, 0.05)',
+                backdropFilter: 'blur(10px)',
+                height: '100%',
               }}
             >
               <CardContent sx={{ p: 3 }}>
                 <Box
                   sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
                     mb: 3,
                   }}
                 >
@@ -609,9 +609,9 @@ const DashboardHomePage = () => {
                     sx={{
                       fontWeight: 600,
                       color:
-                        theme.palette.mode === "dark"
-                          ? "rgba(255, 255, 255, 0.95)"
-                          : "inherit",
+                        theme.palette.mode === 'dark'
+                          ? 'rgba(255, 255, 255, 0.95)'
+                          : 'inherit',
                     }}
                   >
                     Recent Activity
@@ -625,21 +625,21 @@ const DashboardHomePage = () => {
                     <Box
                       key={activity.id}
                       sx={{
-                        display: "flex",
-                        alignItems: "flex-start",
+                        display: 'flex',
+                        alignItems: 'flex-start',
                         gap: 2,
                         p: 2,
                         borderRadius: 2,
                         bgcolor:
-                          theme.palette.mode === "dark"
-                            ? "rgba(255, 255, 255, 0.03)"
-                            : "rgba(0, 0, 0, 0.02)",
-                        transition: "all 0.3s ease",
-                        "&:hover": {
+                          theme.palette.mode === 'dark'
+                            ? 'rgba(255, 255, 255, 0.03)'
+                            : 'rgba(0, 0, 0, 0.02)',
+                        transition: 'all 0.3s ease',
+                        '&:hover': {
                           bgcolor:
-                            theme.palette.mode === "dark"
-                              ? "rgba(255, 255, 255, 0.05)"
-                              : "rgba(0, 0, 0, 0.05)",
+                            theme.palette.mode === 'dark'
+                              ? 'rgba(255, 255, 255, 0.05)'
+                              : 'rgba(0, 0, 0, 0.05)',
                         },
                       }}
                     >
@@ -649,9 +649,9 @@ const DashboardHomePage = () => {
                           borderRadius: 1.5,
                           bgcolor: alpha(activity.color, 0.1),
                           color: activity.color,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
                         }}
                       >
                         <activity.icon sx={{ fontSize: 18 }} />
@@ -663,9 +663,9 @@ const DashboardHomePage = () => {
                             fontWeight: 500,
                             mb: 0.5,
                             color:
-                              theme.palette.mode === "dark"
-                                ? "rgba(255, 255, 255, 0.9)"
-                                : "text.primary",
+                              theme.palette.mode === 'dark'
+                                ? 'rgba(255, 255, 255, 0.9)'
+                                : 'text.primary',
                           }}
                         >
                           {activity.title}
@@ -674,10 +674,10 @@ const DashboardHomePage = () => {
                           variant="caption"
                           sx={{
                             color:
-                              theme.palette.mode === "dark"
-                                ? "rgba(255, 255, 255, 0.6)"
-                                : "text.secondary",
-                            display: "block",
+                              theme.palette.mode === 'dark'
+                                ? 'rgba(255, 255, 255, 0.6)'
+                                : 'text.secondary',
+                            display: 'block',
                             mb: 0.5,
                           }}
                         >
@@ -687,9 +687,9 @@ const DashboardHomePage = () => {
                           variant="caption"
                           sx={{
                             color:
-                              theme.palette.mode === "dark"
-                                ? "rgba(255, 255, 255, 0.5)"
-                                : "text.disabled",
+                              theme.palette.mode === 'dark'
+                                ? 'rgba(255, 255, 255, 0.5)'
+                                : 'text.disabled',
                           }}
                         >
                           {activity.time}
@@ -710,22 +710,22 @@ const DashboardHomePage = () => {
             mt: 3,
             borderRadius: 3,
             bgcolor:
-              theme.palette.mode === "dark"
-                ? "rgba(255, 255, 255, 0.05)"
-                : "rgba(255, 255, 255, 0.9)",
+              theme.palette.mode === 'dark'
+                ? 'rgba(255, 255, 255, 0.05)'
+                : 'rgba(255, 255, 255, 0.9)',
             border:
-              theme.palette.mode === "dark"
-                ? "1px solid rgba(255, 255, 255, 0.1)"
-                : "1px solid rgba(0, 0, 0, 0.05)",
-            backdropFilter: "blur(10px)",
+              theme.palette.mode === 'dark'
+                ? '1px solid rgba(255, 255, 255, 0.1)'
+                : '1px solid rgba(0, 0, 0, 0.05)',
+            backdropFilter: 'blur(10px)',
           }}
         >
           <CardContent sx={{ p: 3 }}>
             <Box
               sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
                 mb: 3,
               }}
             >
@@ -734,9 +734,9 @@ const DashboardHomePage = () => {
                 sx={{
                   fontWeight: 600,
                   color:
-                    theme.palette.mode === "dark"
-                      ? "rgba(255, 255, 255, 0.95)"
-                      : "inherit",
+                    theme.palette.mode === 'dark'
+                      ? 'rgba(255, 255, 255, 0.95)'
+                      : 'inherit',
                 }}
               >
                 Today{"'"}s Appointments
@@ -747,13 +747,13 @@ const DashboardHomePage = () => {
                 endIcon={<ArrowForward />}
                 sx={{
                   borderColor:
-                    theme.palette.mode === "dark"
-                      ? "rgba(255, 255, 255, 0.2)"
-                      : "rgba(0, 0, 0, 0.2)",
+                    theme.palette.mode === 'dark'
+                      ? 'rgba(255, 255, 255, 0.2)'
+                      : 'rgba(0, 0, 0, 0.2)',
                   color:
-                    theme.palette.mode === "dark"
-                      ? "rgba(255, 255, 255, 0.8)"
-                      : "text.primary",
+                    theme.palette.mode === 'dark'
+                      ? 'rgba(255, 255, 255, 0.8)'
+                      : 'text.primary',
                 }}
               >
                 View All
@@ -768,33 +768,37 @@ const DashboardHomePage = () => {
                       p: 3,
                       borderRadius: 2,
                       bgcolor:
-                        theme.palette.mode === "dark"
-                          ? "rgba(255, 255, 255, 0.03)"
-                          : "rgba(255, 255, 255, 0.5)",
+                        theme.palette.mode === 'dark'
+                          ? 'rgba(255, 255, 255, 0.03)'
+                          : 'rgba(255, 255, 255, 0.5)',
                       border:
-                        theme.palette.mode === "dark"
-                          ? "1px solid rgba(255, 255, 255, 0.05)"
-                          : "1px solid rgba(0, 0, 0, 0.05)",
-                      transition: "all 0.3s ease",
-                      "&:hover": {
-                        transform: "translateY(-2px)",
+                        theme.palette.mode === 'dark'
+                          ? '1px solid rgba(255, 255, 255, 0.05)'
+                          : '1px solid rgba(0, 0, 0, 0.05)',
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        transform: 'translateY(-2px)',
                         boxShadow:
-                          theme.palette.mode === "dark"
-                            ? "0 4px 15px rgba(0, 0, 0, 0.2)"
-                            : "0 4px 15px rgba(0, 0, 0, 0.1)",
+                          theme.palette.mode === 'dark'
+                            ? '0 4px 15px rgba(0, 0, 0, 0.2)'
+                            : '0 4px 15px rgba(0, 0, 0, 0.1)',
                       },
                     }}
                   >
                     <Box
                       sx={{
-                        display: "flex",
-                        alignItems: "center",
+                        display: 'flex',
+                        alignItems: 'center',
                         gap: 2,
                         mb: 2,
                       }}
                     >
                       <Avatar
-                        src={appointment.avatar}
+                        src={
+                          typeof appointment.avatar === 'string'
+                            ? appointment.avatar
+                            : appointment.avatar?.src
+                        }
                         alt={appointment.patient}
                         sx={{ width: 40, height: 40 }}
                       />
@@ -804,9 +808,9 @@ const DashboardHomePage = () => {
                           sx={{
                             fontWeight: 600,
                             color:
-                              theme.palette.mode === "dark"
-                                ? "rgba(255, 255, 255, 0.9)"
-                                : "text.primary",
+                              theme.palette.mode === 'dark'
+                                ? 'rgba(255, 255, 255, 0.9)'
+                                : 'text.primary',
                           }}
                         >
                           {appointment.patient}
@@ -815,9 +819,9 @@ const DashboardHomePage = () => {
                           variant="body2"
                           sx={{
                             color:
-                              theme.palette.mode === "dark"
-                                ? "rgba(255, 255, 255, 0.6)"
-                                : "text.secondary",
+                              theme.palette.mode === 'dark'
+                                ? 'rgba(255, 255, 255, 0.6)'
+                                : 'text.secondary',
                           }}
                         >
                           {appointment.doctor}
@@ -828,13 +832,13 @@ const DashboardHomePage = () => {
                         size="small"
                         sx={{
                           bgcolor:
-                            appointment.status === "confirmed"
-                              ? "rgba(76, 175, 80, 0.1)"
-                              : "rgba(255, 152, 0, 0.1)",
+                            appointment.status === 'confirmed'
+                              ? 'rgba(76, 175, 80, 0.1)'
+                              : 'rgba(255, 152, 0, 0.1)',
                           color:
-                            appointment.status === "confirmed"
-                              ? "#4caf50"
-                              : "#ff9800",
+                            appointment.status === 'confirmed'
+                              ? '#4caf50'
+                              : '#ff9800',
                           fontWeight: 500,
                         }}
                       />
@@ -842,38 +846,38 @@ const DashboardHomePage = () => {
                     <Divider
                       sx={{
                         bgcolor:
-                          theme.palette.mode === "dark"
-                            ? "rgba(255, 255, 255, 0.1)"
-                            : "rgba(0, 0, 0, 0.1)",
+                          theme.palette.mode === 'dark'
+                            ? 'rgba(255, 255, 255, 0.1)'
+                            : 'rgba(0, 0, 0, 0.1)',
                         my: 2,
                       }}
                     />
                     <Box
                       sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
                       }}
                     >
                       <Box
-                        sx={{ display: "flex", alignItems: "center", gap: 1 }}
+                        sx={{ display: 'flex', alignItems: 'center', gap: 1 }}
                       >
                         <AccessTime
                           sx={{
                             fontSize: 16,
                             color:
-                              theme.palette.mode === "dark"
-                                ? "rgba(255, 255, 255, 0.6)"
-                                : "text.secondary",
+                              theme.palette.mode === 'dark'
+                                ? 'rgba(255, 255, 255, 0.6)'
+                                : 'text.secondary',
                           }}
                         />
                         <Typography
                           variant="body2"
                           sx={{
                             color:
-                              theme.palette.mode === "dark"
-                                ? "rgba(255, 255, 255, 0.8)"
-                                : "text.primary",
+                              theme.palette.mode === 'dark'
+                                ? 'rgba(255, 255, 255, 0.8)'
+                                : 'text.primary',
                             fontWeight: 500,
                           }}
                         >
@@ -886,13 +890,13 @@ const DashboardHomePage = () => {
                         variant="outlined"
                         sx={{
                           borderColor:
-                            theme.palette.mode === "dark"
-                              ? "rgba(255, 255, 255, 0.2)"
-                              : "rgba(0, 0, 0, 0.2)",
+                            theme.palette.mode === 'dark'
+                              ? 'rgba(255, 255, 255, 0.2)'
+                              : 'rgba(0, 0, 0, 0.2)',
                           color:
-                            theme.palette.mode === "dark"
-                              ? "rgba(255, 255, 255, 0.8)"
-                              : "text.primary",
+                            theme.palette.mode === 'dark'
+                              ? 'rgba(255, 255, 255, 0.8)'
+                              : 'text.primary',
                         }}
                       />
                     </Box>

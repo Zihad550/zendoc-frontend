@@ -249,7 +249,6 @@ const MedicalRecordsTab = () => {
           </Card>
         </AnimatedSection>
       </Grid>
-
       {/* Allergies & Medications */}
       <Grid size={{ xs: 12, md: 6 }}>
         <AnimatedSection variants={animationVariants.slideFromLeft} delay={0.2}>
@@ -358,7 +357,6 @@ const MedicalRecordsTab = () => {
           </Card>
         </AnimatedSection>
       </Grid>
-
       <Grid size={{ xs: 12, md: 6 }}>
         <AnimatedSection
           variants={animationVariants.slideFromRight}
@@ -467,7 +465,6 @@ const MedicalRecordsTab = () => {
           </Card>
         </AnimatedSection>
       </Grid>
-
       {/* Lab Results */}
       <Grid size={12}>
         <AnimatedSection variants={animationVariants.fadeInUp} delay={0.3}>

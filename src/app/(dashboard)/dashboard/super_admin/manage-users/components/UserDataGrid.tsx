@@ -240,8 +240,7 @@ const UserDataGrid = ({
       headerName: 'User ID',
       flex: 0.8,
       minWidth: 120,
-      // Hide on mobile to save space
-      hide: false,
+      // Visible on all screen sizes
       renderCell: ({ value }) => (
         <Box
           sx={{
@@ -415,7 +414,7 @@ const UserDataGrid = ({
       field: 'actions',
       type: 'actions',
       headerName: 'Actions',
-      width: { xs: 80, sm: 120 },
+      width: 120,
       cellClassName: 'actions',
       getActions: ({ id, row }) => {
         const userId = id as string;
@@ -438,10 +437,6 @@ const UserDataGrid = ({
             label="View"
             onClick={() => handleUserAction('view', userId)}
             disabled={!!isLoading}
-            sx={{
-              minWidth: { xs: 32, sm: 40 },
-              minHeight: { xs: 32, sm: 40 },
-            }}
           />,
         ];
 
@@ -461,11 +456,6 @@ const UserDataGrid = ({
               label="Edit"
               onClick={() => handleUserAction('edit', userId)}
               disabled={!!isLoading}
-              sx={{
-                minWidth: { xs: 32, sm: 40 },
-                minHeight: { xs: 32, sm: 40 },
-                display: { xs: 'none', sm: 'inline-flex' }, // Hide edit on mobile
-              }}
             />
           );
         }
@@ -484,10 +474,6 @@ const UserDataGrid = ({
               handleContextMenu(event as MouseEvent<HTMLButtonElement>, userId)
             }
             disabled={!!isLoading}
-            sx={{
-              minWidth: { xs: 40, sm: 40 },
-              minHeight: { xs: 40, sm: 40 },
-            }}
           />
         );
 
@@ -573,7 +559,7 @@ const UserDataGrid = ({
           loading={isLoading}
           checkboxSelection
           disableRowSelectionOnClick
-          rowSelectionModel={selectedUsers as GridRowSelectionModel}
+          rowSelectionModel={selectedUsers as unknown as GridRowSelectionModel}
           onRowSelectionModelChange={handleSelectionChange}
           onRowClick={handleRowClick}
           paginationMode="server"
@@ -587,8 +573,7 @@ const UserDataGrid = ({
           // Accessibility props
           aria-label="Users management table"
           getRowId={(row) => row.id}
-          // Enhanced keyboard navigation
-          experimentalFeatures={{ newEditingApi: true }}
+          // Enhanced keyboard navigation - removed deprecated feature
           sx={{
             '& .MuiDataGrid-root': {
               border: '2px solid transparent',
@@ -674,15 +659,6 @@ const UserDataGrid = ({
           localeText={{
             noRowsLabel: 'No users found',
             noResultsOverlayLabel: 'No users match the current filters',
-            errorOverlayDefaultLabel: 'An error occurred while loading users',
-            // Pagination
-            MuiTablePagination: {
-              labelRowsPerPage: 'Users per page:',
-              labelDisplayedRows: ({ from, to, count }) =>
-                `${from}–${to} of ${
-                  count !== -1 ? count : `more than ${to}`
-                } users`,
-            },
           }}
         />
       </Box>

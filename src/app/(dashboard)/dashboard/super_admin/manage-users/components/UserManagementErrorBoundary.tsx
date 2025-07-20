@@ -1,12 +1,61 @@
 'use client';
 
 import { Box, Button, Typography } from '@mui/material';
-import { ReactNode } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
+import { Component, ErrorInfo, ReactNode } from 'react';
 
 interface ErrorFallbackProps {
   error: Error;
   resetErrorBoundary: () => void;
+}
+
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error?: Error;
+}
+
+interface ErrorBoundaryProps {
+  children: ReactNode;
+  onError?: (error: Error, errorInfo: ErrorInfo) => void;
+  FallbackComponent?: React.ComponentType<ErrorFallbackProps>;
+  onReset?: () => void;
+}
+
+class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    if (this.props.onError) {
+      this.props.onError(error, errorInfo);
+    }
+  }
+
+  resetErrorBoundary = () => {
+    this.setState({ hasError: false, error: undefined });
+    if (this.props.onReset) {
+      this.props.onReset();
+    }
+  };
+
+  render() {
+    if (this.state.hasError && this.state.error) {
+      const FallbackComponent = this.props.FallbackComponent || ErrorFallback;
+      return (
+        <FallbackComponent
+          error={this.state.error}
+          resetErrorBoundary={this.resetErrorBoundary}
+        />
+      );
+    }
+
+    return this.props.children;
+  }
 }
 
 const ErrorFallback = ({ error, resetErrorBoundary }: ErrorFallbackProps) => {

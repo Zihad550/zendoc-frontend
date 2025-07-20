@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Check as CheckIcon,
@@ -9,7 +9,7 @@ import {
   Security as SecurityIcon,
   Settings as SettingsIcon,
   Sms as SmsIcon,
-} from "@mui/icons-material";
+} from '@mui/icons-material';
 import {
   Alert,
   alpha,
@@ -28,17 +28,17 @@ import {
   Switch,
   Typography,
   useTheme,
-} from "@mui/material";
-import { styled } from "@mui/material/styles";
-import { motion } from "motion/react";
-import { useState } from "react";
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
+import { motion } from 'motion/react';
+import { useState } from 'react';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   borderRadius: 16,
   border: `1px solid ${alpha(theme.palette.primary.main, 0.1)}`,
-  transition: "all 0.3s ease",
-  "&:hover": {
-    transform: "translateY(-2px)",
+  transition: 'all 0.3s ease',
+  '&:hover': {
+    transform: 'translateY(-2px)',
     boxShadow: theme.shadows[8],
     borderColor: alpha(theme.palette.primary.main, 0.2),
   },
@@ -48,8 +48,8 @@ const SectionTitle = styled(Typography)(({ theme }) => ({
   fontWeight: 600,
   color: theme.palette.primary.main,
   marginBottom: theme.spacing(2),
-  display: "flex",
-  alignItems: "center",
+  display: 'flex',
+  alignItems: 'center',
   gap: theme.spacing(1),
 }));
 
@@ -84,7 +84,7 @@ interface NotificationSettings {
   suspiciousActivity: boolean;
 
   // Frequency Settings
-  digestFrequency: "daily" | "weekly" | "monthly";
+  digestFrequency: 'daily' | 'weekly' | 'monthly';
   quietHours: boolean;
   weekendNotifications: boolean;
 }
@@ -122,7 +122,7 @@ const NotificationSettingsTab = () => {
     suspiciousActivity: true,
 
     // Frequency Settings
-    digestFrequency: "daily",
+    digestFrequency: 'daily',
     quietHours: true,
     weekendNotifications: false,
   });
@@ -134,12 +134,12 @@ const NotificationSettingsTab = () => {
 
   const handleSettingChange = (
     key: keyof NotificationSettings,
-    value: boolean | string,
+    value: boolean | string
   ) => {
     const newSettings = { ...settings, [key]: value };
     setSettings(newSettings);
     setHasChanges(
-      JSON.stringify(newSettings) !== JSON.stringify(originalSettings),
+      JSON.stringify(newSettings) !== JSON.stringify(originalSettings)
     );
   };
 
@@ -159,120 +159,120 @@ const NotificationSettingsTab = () => {
 
   const notificationCategories = [
     {
-      title: "Email Notifications",
+      title: 'Email Notifications',
       icon: <EmailIcon />,
-      masterKey: "emailEnabled" as keyof NotificationSettings,
+      masterKey: 'emailEnabled' as keyof NotificationSettings,
       items: [
         {
-          key: "appointmentReminders",
-          label: "Appointment Reminders",
-          description: "Get reminded about upcoming appointments",
+          key: 'appointmentReminders',
+          label: 'Appointment Reminders',
+          description: 'Get reminded about upcoming appointments',
         },
         {
-          key: "appointmentUpdates",
-          label: "Appointment Updates",
-          description: "Changes to your scheduled appointments",
+          key: 'appointmentUpdates',
+          label: 'Appointment Updates',
+          description: 'Changes to your scheduled appointments',
         },
         {
-          key: "medicalRecords",
-          label: "Medical Records",
-          description: "Updates to your medical records",
+          key: 'medicalRecords',
+          label: 'Medical Records',
+          description: 'Updates to your medical records',
         },
         {
-          key: "testResults",
-          label: "Test Results",
-          description: "When test results are available",
+          key: 'testResults',
+          label: 'Test Results',
+          description: 'When test results are available',
         },
         {
-          key: "prescriptionReminders",
-          label: "Prescription Reminders",
-          description: "Medication refill reminders",
+          key: 'prescriptionReminders',
+          label: 'Prescription Reminders',
+          description: 'Medication refill reminders',
         },
         {
-          key: "newsletterUpdates",
-          label: "Newsletter Updates",
-          description: "Monthly health newsletter",
+          key: 'newsletterUpdates',
+          label: 'Newsletter Updates',
+          description: 'Monthly health newsletter',
         },
         {
-          key: "promotionalEmails",
-          label: "Promotional Emails",
-          description: "Special offers and promotions",
+          key: 'promotionalEmails',
+          label: 'Promotional Emails',
+          description: 'Special offers and promotions',
         },
       ],
     },
     {
-      title: "SMS Notifications",
+      title: 'SMS Notifications',
       icon: <SmsIcon />,
-      masterKey: "smsEnabled" as keyof NotificationSettings,
+      masterKey: 'smsEnabled' as keyof NotificationSettings,
       items: [
         {
-          key: "urgentAlerts",
-          label: "Urgent Alerts",
-          description: "Critical health alerts and emergencies",
+          key: 'urgentAlerts',
+          label: 'Urgent Alerts',
+          description: 'Critical health alerts and emergencies',
         },
         {
-          key: "appointmentConfirmations",
-          label: "Appointment Confirmations",
-          description: "Confirm appointments via SMS",
+          key: 'appointmentConfirmations',
+          label: 'Appointment Confirmations',
+          description: 'Confirm appointments via SMS',
         },
         {
-          key: "medicationAlerts",
-          label: "Medication Alerts",
-          description: "Time to take your medication",
+          key: 'medicationAlerts',
+          label: 'Medication Alerts',
+          description: 'Time to take your medication',
         },
         {
-          key: "emergencyContacts",
-          label: "Emergency Contacts",
-          description: "Notify emergency contacts when needed",
+          key: 'emergencyContacts',
+          label: 'Emergency Contacts',
+          description: 'Notify emergency contacts when needed',
         },
       ],
     },
     {
-      title: "Push Notifications",
+      title: 'Push Notifications',
       icon: <PhoneIcon />,
-      masterKey: "pushEnabled" as keyof NotificationSettings,
+      masterKey: 'pushEnabled' as keyof NotificationSettings,
       items: [
         {
-          key: "realTimeUpdates",
-          label: "Real-time Updates",
-          description: "Instant notifications for important events",
+          key: 'realTimeUpdates',
+          label: 'Real-time Updates',
+          description: 'Instant notifications for important events',
         },
         {
-          key: "chatMessages",
-          label: "Chat Messages",
-          description: "Messages from healthcare providers",
+          key: 'chatMessages',
+          label: 'Chat Messages',
+          description: 'Messages from healthcare providers',
         },
         {
-          key: "systemNotifications",
-          label: "System Notifications",
-          description: "App updates and maintenance alerts",
+          key: 'systemNotifications',
+          label: 'System Notifications',
+          description: 'App updates and maintenance alerts',
         },
       ],
     },
     {
-      title: "Security Notifications",
+      title: 'Security Notifications',
       icon: <SecurityIcon />,
       masterKey: null,
       items: [
         {
-          key: "loginAlerts",
-          label: "Login Alerts",
-          description: "Notify when someone logs into your account",
+          key: 'loginAlerts',
+          label: 'Login Alerts',
+          description: 'Notify when someone logs into your account',
         },
         {
-          key: "passwordChanges",
-          label: "Password Changes",
-          description: "Confirm password changes",
+          key: 'passwordChanges',
+          label: 'Password Changes',
+          description: 'Confirm password changes',
         },
         {
-          key: "accountChanges",
-          label: "Account Changes",
-          description: "Changes to your account information",
+          key: 'accountChanges',
+          label: 'Account Changes',
+          description: 'Changes to your account information',
         },
         {
-          key: "suspiciousActivity",
-          label: "Suspicious Activity",
-          description: "Unusual account activity alerts",
+          key: 'suspiciousActivity',
+          label: 'Suspicious Activity',
+          description: 'Unusual account activity alerts',
         },
       ],
     },
@@ -291,8 +291,8 @@ const NotificationSettingsTab = () => {
             sx={{
               fontWeight: 600,
               mb: 1,
-              display: "flex",
-              alignItems: "center",
+              display: 'flex',
+              alignItems: 'center',
               gap: 1,
             }}
           >
@@ -307,7 +307,7 @@ const NotificationSettingsTab = () => {
 
         <Grid container spacing={3}>
           {notificationCategories.map((category, index) => (
-            <Grid item xs={12} md={6} key={category.title}>
+            <Grid size={{ xs: 12, md: 6 }} key={category.title}>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -317,9 +317,9 @@ const NotificationSettingsTab = () => {
                   <CardContent>
                     <Box
                       sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
                         mb: 2,
                       }}
                     >
@@ -333,7 +333,7 @@ const NotificationSettingsTab = () => {
                           onChange={(e) =>
                             handleSettingChange(
                               category.masterKey!,
-                              e.target.checked,
+                              e.target.checked
                             )
                           }
                           color="primary"
@@ -348,7 +348,7 @@ const NotificationSettingsTab = () => {
                             primary={item.label}
                             secondary={item.description}
                             primaryTypographyProps={{ fontWeight: 500 }}
-                            secondaryTypographyProps={{ fontSize: "0.875rem" }}
+                            secondaryTypographyProps={{ fontSize: '0.875rem' }}
                           />
                           <ListItemSecondaryAction>
                             <Switch
@@ -360,7 +360,7 @@ const NotificationSettingsTab = () => {
                               onChange={(e) =>
                                 handleSettingChange(
                                   item.key as keyof NotificationSettings,
-                                  e.target.checked,
+                                  e.target.checked
                                 )
                               }
                               disabled={
@@ -381,7 +381,7 @@ const NotificationSettingsTab = () => {
           ))}
 
           {/* Notification Preferences */}
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -395,7 +395,7 @@ const NotificationSettingsTab = () => {
                   </SectionTitle>
 
                   <Grid container spacing={4}>
-                    <Grid item xs={12} md={4}>
+                    <Grid size={{ xs: 12, md: 4 }}>
                       <Typography
                         variant="subtitle2"
                         sx={{ mb: 2, fontWeight: 600 }}
@@ -404,43 +404,43 @@ const NotificationSettingsTab = () => {
                       </Typography>
                       <Box
                         sx={{
-                          display: "flex",
-                          flexDirection: "column",
+                          display: 'flex',
+                          flexDirection: 'column',
                           gap: 1,
                         }}
                       >
                         {[
-                          { value: "daily", label: "Daily Summary" },
-                          { value: "weekly", label: "Weekly Summary" },
-                          { value: "monthly", label: "Monthly Summary" },
+                          { value: 'daily', label: 'Daily Summary' },
+                          { value: 'weekly', label: 'Weekly Summary' },
+                          { value: 'monthly', label: 'Monthly Summary' },
                         ].map((option) => (
                           <Chip
                             key={option.value}
                             label={option.label}
                             variant={
                               settings.digestFrequency === option.value
-                                ? "filled"
-                                : "outlined"
+                                ? 'filled'
+                                : 'outlined'
                             }
                             color={
                               settings.digestFrequency === option.value
-                                ? "primary"
-                                : "default"
+                                ? 'primary'
+                                : 'default'
                             }
                             clickable
                             onClick={() =>
                               handleSettingChange(
-                                "digestFrequency",
-                                option.value,
+                                'digestFrequency',
+                                option.value
                               )
                             }
-                            sx={{ justifyContent: "flex-start" }}
+                            sx={{ justifyContent: 'flex-start' }}
                           />
                         ))}
                       </Box>
                     </Grid>
 
-                    <Grid item xs={12} md={4}>
+                    <Grid size={{ xs: 12, md: 4 }}>
                       <Typography
                         variant="subtitle2"
                         sx={{ mb: 2, fontWeight: 600 }}
@@ -449,8 +449,8 @@ const NotificationSettingsTab = () => {
                       </Typography>
                       <Box
                         sx={{
-                          display: "flex",
-                          flexDirection: "column",
+                          display: 'flex',
+                          flexDirection: 'column',
                           gap: 2,
                         }}
                       >
@@ -460,8 +460,8 @@ const NotificationSettingsTab = () => {
                               checked={settings.quietHours}
                               onChange={(e) =>
                                 handleSettingChange(
-                                  "quietHours",
-                                  e.target.checked,
+                                  'quietHours',
+                                  e.target.checked
                                 )
                               }
                             />
@@ -474,8 +474,8 @@ const NotificationSettingsTab = () => {
                               checked={settings.weekendNotifications}
                               onChange={(e) =>
                                 handleSettingChange(
-                                  "weekendNotifications",
-                                  e.target.checked,
+                                  'weekendNotifications',
+                                  e.target.checked
                                 )
                               }
                             />
@@ -485,7 +485,7 @@ const NotificationSettingsTab = () => {
                       </Box>
                     </Grid>
 
-                    <Grid item xs={12} md={4}>
+                    <Grid size={{ xs: 12, md: 4 }}>
                       <Typography
                         variant="subtitle2"
                         sx={{ mb: 2, fontWeight: 600 }}
@@ -494,8 +494,8 @@ const NotificationSettingsTab = () => {
                       </Typography>
                       <Box
                         sx={{
-                          display: "flex",
-                          flexDirection: "column",
+                          display: 'flex',
+                          flexDirection: 'column',
                           gap: 1,
                         }}
                       >
@@ -506,17 +506,22 @@ const NotificationSettingsTab = () => {
                             const newSettings = { ...settings };
                             Object.keys(newSettings).forEach((key) => {
                               if (
-                                key.includes("Email") ||
-                                key.includes("email")
+                                key.includes('Email') ||
+                                key.includes('email')
                               ) {
-                                newSettings[key as keyof NotificationSettings] =
-                                  false as any;
+                                const typedKey =
+                                  key as keyof NotificationSettings;
+                                if (
+                                  typeof newSettings[typedKey] === 'boolean'
+                                ) {
+                                  (newSettings[typedKey] as boolean) = false;
+                                }
                               }
                             });
                             setSettings(newSettings);
                             setHasChanges(true);
                           }}
-                          sx={{ justifyContent: "flex-start" }}
+                          sx={{ justifyContent: 'flex-start' }}
                         >
                           Disable All Email
                         </Button>
@@ -526,15 +531,20 @@ const NotificationSettingsTab = () => {
                           onClick={() => {
                             const newSettings = { ...settings };
                             Object.keys(newSettings).forEach((key) => {
-                              if (key.includes("sms") || key.includes("Sms")) {
-                                newSettings[key as keyof NotificationSettings] =
-                                  false as any;
+                              if (key.includes('sms') || key.includes('Sms')) {
+                                const typedKey =
+                                  key as keyof NotificationSettings;
+                                if (
+                                  typeof newSettings[typedKey] === 'boolean'
+                                ) {
+                                  (newSettings[typedKey] as boolean) = false;
+                                }
                               }
                             });
                             setSettings(newSettings);
                             setHasChanges(true);
                           }}
-                          sx={{ justifyContent: "flex-start" }}
+                          sx={{ justifyContent: 'flex-start' }}
                         >
                           Disable All SMS
                         </Button>
@@ -544,19 +554,16 @@ const NotificationSettingsTab = () => {
                           onClick={() => {
                             const newSettings = { ...settings };
                             Object.keys(newSettings).forEach((key) => {
-                              if (
-                                typeof newSettings[
-                                  key as keyof NotificationSettings
-                                ] === "boolean"
-                              ) {
-                                newSettings[key as keyof NotificationSettings] =
-                                  true as any;
+                              const typedKey =
+                                key as keyof NotificationSettings;
+                              if (typeof newSettings[typedKey] === 'boolean') {
+                                (newSettings[typedKey] as boolean) = true;
                               }
                             });
                             setSettings(newSettings);
                             setHasChanges(true);
                           }}
-                          sx={{ justifyContent: "flex-start" }}
+                          sx={{ justifyContent: 'flex-start' }}
                         >
                           Enable All
                         </Button>
@@ -578,11 +585,11 @@ const NotificationSettingsTab = () => {
           >
             <Box
               sx={{
-                position: "fixed",
+                position: 'fixed',
                 bottom: 24,
                 right: 24,
                 zIndex: 1000,
-                display: "flex",
+                display: 'flex',
                 gap: 1,
               }}
             >
@@ -613,7 +620,7 @@ const NotificationSettingsTab = () => {
           open={showSuccess}
           autoHideDuration={4000}
           onClose={() => setShowSuccess(false)}
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         >
           <Alert
             onClose={() => setShowSuccess(false)}

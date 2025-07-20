@@ -1,0 +1,224 @@
+name: Test Analytics
+
+on:
+  schedule:
+    # Run daily at 6 AM UTC
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    # Allow manual trigger
+
+jobs:
+  test-analytics:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 30 # Get last 30 commits for trend analysis
+        
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'pnpm'
+        
+    - name: Install pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: 10
+        
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+      
+    - name: Generate comprehensive test report
+      run: |
+        echo "# Test Analytics Report - $(date)" > test-analytics-report.md
+        echo "" >> test-analytics-report.md
+        
+        # Run tests with detailed reporting
+        echo "## Test Execution Summary" >> test-analytics-report.md
+        pnpm test:run --reporter=verbose > test-results.log 2>&1 || true
+        
+        # Extract test statistics
+        TOTAL_TESTS=$(grep -o "Tests.*passed\|Tests.*failed" test-results.log | tail -1 | grep -o '[0-9]*' | head -1 || echo "0")
+        PASSED_TESTS=$(grep -o "[0-9]* passed" test-results.log | tail -1 | grep -o '[0-9]*' || echo "0")
+        FAILED_TESTS=$(grep -o "[0-9]* failed" test-results.log | tail -1 | grep -o '[0-9]*' || echo "0")
+        EXECUTION_TIME=$(grep "Duration" test-results.log | tail -1 | grep -o '[0-9.]*s' | head -1 || echo "0s")
+        
+        echo "- **Total Tests**: $TOTAL_TESTS" >> test-analytics-report.md
+        echo "- **Passed**: $PASSED_TESTS" >> test-analytics-report.md
+        echo "- **Failed**: $FAILED_TESTS" >> test-analytics-report.md
+        echo "- **Execution Time**: $EXECUTION_TIME" >> test-analytics-report.md
+        echo "" >> test-analytics-report.md
+        
+        # Generate coverage report
+        echo "## Coverage Analysis" >> test-analytics-report.md
+        pnpm test:coverage --reporter=text > coverage-results.log 2>&1 || true
+        
+        # Extract coverage data
+        echo '```' >> test-analytics-report.md
+        grep -A 20 "Coverage report" coverage-results.log >> test-analytics-report.md || echo "Coverage data not available" >> test-analytics-report.md
+        echo '```' >> test-analytics-report.md
+        echo "" >> test-analytics-report.md
+        
+        # Test categories breakdown
+        echo "## Test Categories Breakdown" >> test-analytics-report.md
+        echo "### Unit Tests" >> test-analytics-report.md
+        pnpm test:unit --reporter=basic > unit-test-results.log 2>&1 || true
+        UNIT_TESTS=$(grep -o "[0-9]* passed\|[0-9]* failed" unit-test-results.log | head -1 | grep -o '[0-9]*' || echo "0")
+        echo "- Unit Tests: $UNIT_TESTS" >> test-analytics-report.md
+        
+        echo "### Integration Tests" >> test-analytics-report.md
+        pnpm test:integration --reporter=basic > integration-test-results.log 2>&1 || true
+        INTEGRATION_TESTS=$(grep -o "[0-9]* passed\|[0-9]* failed" integration-test-results.log | head -1 | grep -o '[0-9]*' || echo "0")
+        echo "- Integration Tests: $INTEGRATION_TESTS" >> test-analytics-report.md
+        
+        echo "### Component Tests" >> test-analytics-report.md
+        pnpm test:components --reporter=basic > component-test-results.log 2>&1 || true
+        COMPONENT_TESTS=$(grep -o "[0-9]* passed\|[0-9]* failed" component-test-results.log | head -1 | grep -o '[0-9]*' || echo "0")
+        echo "- Component Tests: $COMPONENT_TESTS" >> test-analytics-report.md
+        echo "" >> test-analytics-report.md
+        
+        # Failed tests analysis
+        if [ "$FAILED_TESTS" != "0" ]; then
+          echo "## Failed Tests Analysis" >> test-analytics-report.md
+          echo '```' >> test-analytics-report.md
+          grep -A 5 -B 5 "FAIL\|AssertionError\|TypeError" test-results.log | head -50 >> test-analytics-report.md
+          echo '```' >> test-analytics-report.md
+          echo "" >> test-analytics-report.md
+        fi
+        
+        # Performance trends
+        echo "## Performance Trends" >> test-analytics-report.md
+        echo "- Current execution time: $EXECUTION_TIME" >> test-analytics-report.md
+        echo "- Target execution time: <180s" >> test-analytics-report.md
+        
+        # Extract numeric value for comparison
+        NUMERIC_TIME=$(echo $EXECUTION_TIME | sed 's/s//' | cut -d. -f1)
+        if [ "$NUMERIC_TIME" -gt 180 ]; then
+          echo "- ⚠️ **Performance Warning**: Tests are taking longer than target" >> test-analytics-report.md
+        else
+          echo "- ✅ **Performance OK**: Tests are within acceptable time" >> test-analytics-report.md
+        fi
+        echo "" >> test-analytics-report.md
+        
+        # Recommendations
+        echo "## Recommendations" >> test-analytics-report.md
+        if [ "$FAILED_TESTS" != "0" ]; then
+          echo "- 🔧 **Fix failing tests**: $FAILED_TESTS tests are currently failing" >> test-analytics-report.md
+        fi
+        
+        if [ "$NUMERIC_TIME" -gt 120 ]; then
+          echo "- ⚡ **Optimize test performance**: Consider parallelization or test optimization" >> test-analytics-report.md
+        fi
+        
+        echo "- 📊 **Monitor coverage trends**: Ensure coverage doesn't regress" >> test-analytics-report.md
+        echo "- 🧪 **Add missing tests**: Focus on critical paths and edge cases" >> test-analytics-report.md
+        
+    - name: Upload test analytics report
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-analytics-report
+        path: |
+          test-analytics-report.md
+          test-results.log
+          coverage-results.log
+          
+    - name: Create issue for failing tests
+      if: contains(github.event_name, 'schedule') && failure()
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          
+          // Read the analytics report
+          let reportContent = '';
+          try {
+            reportContent = fs.readFileSync('test-analytics-report.md', 'utf8');
+          } catch (error) {
+            reportContent = 'Failed to generate test analytics report';
+          }
+          
+          // Create issue for failing tests
+          await github.rest.issues.create({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            title: `Daily Test Analytics - ${new Date().toISOString().split('T')[0]}`,
+            body: `## Automated Test Analytics Report\n\n${reportContent}\n\n---\n*This issue was automatically created by the test analytics workflow*`,
+            labels: ['testing', 'automated', 'analytics']
+          });
+          
+  test-health-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'pnpm'
+        
+    - name: Install pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: 10
+        
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+      
+    - name: Test health check
+      run: |
+        echo "# Test Health Check Report" > test-health-report.md
+        echo "Generated: $(date)" >> test-health-report.md
+        echo "" >> test-health-report.md
+        
+        # Check for flaky tests (tests that sometimes pass/fail)
+        echo "## Flaky Test Detection" >> test-health-report.md
+        echo "Running tests multiple times to detect flaky tests..." >> test-health-report.md
+        
+        # Run tests 3 times and compare results
+        for i in {1..3}; do
+          echo "Run $i:" >> test-health-report.md
+          pnpm test:run --reporter=basic > "test-run-$i.log" 2>&1 || true
+          RESULT=$(grep -o "[0-9]* passed\|[0-9]* failed" "test-run-$i.log" | head -1 || echo "No results")
+          echo "- $RESULT" >> test-health-report.md
+        done
+        
+        # Check for test dependencies
+        echo "" >> test-health-report.md
+        echo "## Test Dependencies Check" >> test-health-report.md
+        
+        # Look for potential test dependencies (tests that might affect each other)
+        if grep -r "beforeAll\|afterAll\|beforeEach\|afterEach" src/**/*.test.* > test-hooks.log 2>/dev/null; then
+          echo "Found test hooks (potential dependencies):" >> test-health-report.md
+          echo '```' >> test-health-report.md
+          head -20 test-hooks.log >> test-health-report.md
+          echo '```' >> test-health-report.md
+        else
+          echo "No test hooks found" >> test-health-report.md
+        fi
+        
+        # Check test file sizes (large test files might need splitting)
+        echo "" >> test-health-report.md
+        echo "## Large Test Files" >> test-health-report.md
+        find src -name "*.test.*" -size +10k -exec ls -lh {} \; > large-test-files.log 2>/dev/null || true
+        if [ -s large-test-files.log ]; then
+          echo "Large test files (>10KB) that might benefit from splitting:" >> test-health-report.md
+          echo '```' >> test-health-report.md
+          cat large-test-files.log >> test-health-report.md
+          echo '```' >> test-health-report.md
+        else
+          echo "No unusually large test files found" >> test-health-report.md
+        fi
+        
+    - name: Upload test health report
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-health-report
+        path: |
+          test-health-report.md
+          test-run-*.log

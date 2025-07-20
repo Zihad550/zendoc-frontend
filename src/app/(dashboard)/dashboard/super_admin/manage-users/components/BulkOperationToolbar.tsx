@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import PHAlert from "@/components/Shared/PHModal/PHAlert";
-import { UserRole } from "@/types/common";
+import PHAlert from '@/components/Shared/PHModal/PHAlert';
+import { UserRole } from '@/types/common';
 import {
   BulkOperationResult,
   ExtendedUser,
   GetAllUsersParams,
-} from "@/types/user";
+} from '@/types/user';
 import {
   CheckCircle as ActivateIcon,
   SwapHoriz as ChangeRoleIcon,
@@ -14,7 +14,7 @@ import {
   Delete as DeleteIcon,
   FileDownload as ExportIcon,
   Block as SuspendIcon,
-} from "@mui/icons-material";
+} from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -30,17 +30,17 @@ import {
   Select,
   Stack,
   Typography,
-} from "@mui/material";
-import { useState } from "react";
-import BulkOperationResultsModal from "./BulkOperationResultsModal";
-import UserExportModal, { ExportConfig } from "./UserExportModal";
+} from '@mui/material';
+import { useState } from 'react';
+import BulkOperationResultsModal from './BulkOperationResultsModal';
+import UserExportModal, { ExportConfig } from './UserExportModal';
 
 export type BulkOperation =
-  | "suspend"
-  | "activate"
-  | "delete"
-  | "changeRole"
-  | "export";
+  | 'suspend'
+  | 'activate'
+  | 'delete'
+  | 'changeRole'
+  | 'export';
 
 interface BulkOperationToolbarProps {
   selectedUsers: string[];
@@ -49,7 +49,7 @@ interface BulkOperationToolbarProps {
   onClearSelection: () => void;
   onBulkOperation: (
     operation: BulkOperation,
-    options?: { newRole?: UserRole },
+    options?: { newRole?: UserRole }
   ) => Promise<BulkOperationResult | void>;
   onExport: (config: ExportConfig) => Promise<void>;
   isLoading?: boolean;
@@ -90,8 +90,8 @@ const BulkOperationToolbar = ({
     useState<ConfirmationDialog>({
       open: false,
       operation: null,
-      title: "",
-      message: "",
+      title: '',
+      message: '',
     });
 
   const [resultsModal, setResultsModal] = useState<ResultsModal>({
@@ -100,12 +100,12 @@ const BulkOperationToolbar = ({
     results: null,
   });
 
-  const [changeRoleValue, setChangeRoleValue] = useState<UserRole>("PATIENT");
+  const [changeRoleValue, setChangeRoleValue] = useState<UserRole>('PATIENT');
   const [exportModalOpen, setExportModalOpen] = useState(false);
 
   // Get selected user objects
   const selectedUserObjects = users.filter((user) =>
-    selectedUsers.includes(user.id),
+    selectedUsers.includes(user.id)
   );
 
   // Helper function to get display name
@@ -113,23 +113,23 @@ const BulkOperationToolbar = ({
     if (user.admin?.name) return user.admin.name;
     if (user.doctor?.name) return user.doctor.name;
     if (user.patient?.name) return user.patient.name;
-    return user.email.split("@")[0];
+    return user.email.split('@')[0];
   };
 
   // Helper function to get operation counts
   const getOperationCounts = (operation: BulkOperation) => {
     switch (operation) {
-      case "suspend":
-        return selectedUserObjects.filter((user) => user.status === "ACTIVE")
+      case 'suspend':
+        return selectedUserObjects.filter((user) => user.status === 'ACTIVE')
           .length;
-      case "activate":
-        return selectedUserObjects.filter((user) => user.status === "BLOCKED")
+      case 'activate':
+        return selectedUserObjects.filter((user) => user.status === 'BLOCKED')
           .length;
-      case "delete":
-        return selectedUserObjects.filter((user) => user.status !== "DELETED")
+      case 'delete':
+        return selectedUserObjects.filter((user) => user.status !== 'DELETED')
           .length;
-      case "changeRole":
-      case "export":
+      case 'changeRole':
+      case 'export':
         return selectedUsers.length;
       default:
         return 0;
@@ -141,19 +141,19 @@ const BulkOperationToolbar = ({
     const operationCount = getOperationCounts(operation);
 
     if (operationCount === 0) {
-      let message = "";
+      let message = '';
       switch (operation) {
-        case "suspend":
-          message = "No active users selected to suspend.";
+        case 'suspend':
+          message = 'No active users selected to suspend.';
           break;
-        case "activate":
-          message = "No blocked users selected to activate.";
+        case 'activate':
+          message = 'No blocked users selected to activate.';
           break;
-        case "delete":
-          message = "No users available for deletion.";
+        case 'delete':
+          message = 'No users available for deletion.';
           break;
         default:
-          message = "No users available for this operation.";
+          message = 'No users available for this operation.';
       }
       // Show a simple alert or notification
       alert(message);
@@ -161,7 +161,7 @@ const BulkOperationToolbar = ({
     }
 
     // For export, open export modal
-    if (operation === "export") {
+    if (operation === 'export') {
       setExportModalOpen(true);
       return;
     }
@@ -178,30 +178,30 @@ const BulkOperationToolbar = ({
   // Get confirmation dialog data
   const getConfirmationData = (operation: BulkOperation, count: number) => {
     switch (operation) {
-      case "suspend":
+      case 'suspend':
         return {
-          title: "Suspend Users",
+          title: 'Suspend Users',
           message: `Are you sure you want to suspend ${count} user(s)? This will prevent them from accessing the system.`,
         };
-      case "activate":
+      case 'activate':
         return {
-          title: "Activate Users",
+          title: 'Activate Users',
           message: `Are you sure you want to activate ${count} user(s)? This will restore their access to the system.`,
         };
-      case "delete":
+      case 'delete':
         return {
-          title: "Delete Users",
+          title: 'Delete Users',
           message: `Are you sure you want to delete ${count} user(s)? This action will soft delete the user accounts and cannot be easily undone.`,
         };
-      case "changeRole":
+      case 'changeRole':
         return {
-          title: "Change User Roles",
+          title: 'Change User Roles',
           message: `Are you sure you want to change the role of ${count} user(s) to ${changeRoleValue}?`,
           newRole: changeRoleValue,
         };
       default:
         return {
-          title: "Confirm Operation",
+          title: 'Confirm Operation',
           message: `Are you sure you want to perform this operation on ${count} user(s)?`,
         };
     }
@@ -215,8 +215,8 @@ const BulkOperationToolbar = ({
     setConfirmationDialog({
       open: false,
       operation: null,
-      title: "",
-      message: "",
+      title: '',
+      message: '',
     });
 
     if (!operation) return;
@@ -225,7 +225,7 @@ const BulkOperationToolbar = ({
       const result = await onBulkOperation(operation, { newRole });
 
       // Show results modal for operations that return results
-      if (result && typeof result === "object" && "successful" in result) {
+      if (result && typeof result === 'object' && 'successful' in result) {
         setResultsModal({
           open: true,
           operation,
@@ -233,7 +233,7 @@ const BulkOperationToolbar = ({
         });
       }
     } catch (error) {
-      console.error("Bulk operation failed:", error);
+      console.error('Bulk operation failed:', error);
       // Error handling is done in the parent component
     }
   };
@@ -243,8 +243,8 @@ const BulkOperationToolbar = ({
     setConfirmationDialog({
       open: false,
       operation: null,
-      title: "",
-      message: "",
+      title: '',
+      message: '',
     });
   };
 
@@ -258,9 +258,13 @@ const BulkOperationToolbar = ({
   };
 
   // Handle retry failed operations
-  const handleRetryFailed = async () => {
+  const handleRetryFailed = async (
+    failedUserIds: string[]
+  ): Promise<BulkOperationResult> => {
     const { operation, results } = resultsModal;
-    if (!operation || !results) return;
+    if (!operation || !results) {
+      return { successful: [], failed: [] };
+    }
 
     try {
       const retryResult = await onBulkOperation(operation, {
@@ -269,17 +273,33 @@ const BulkOperationToolbar = ({
 
       if (
         retryResult &&
-        typeof retryResult === "object" &&
-        "successful" in retryResult
+        typeof retryResult === 'object' &&
+        'successful' in retryResult
       ) {
         setResultsModal({
           open: true,
           operation,
           results: retryResult,
         });
+        return retryResult;
       }
+
+      return {
+        successful: [],
+        failed: failedUserIds.map((userId) => ({
+          userId,
+          error: 'Operation failed',
+        })),
+      };
     } catch (error) {
-      console.error("Retry operation failed:", error);
+      console.error('Retry operation failed:', error);
+      return {
+        successful: [],
+        failed: failedUserIds.map((userId) => ({
+          userId,
+          error: 'Retry failed',
+        })),
+      };
     }
   };
 
@@ -294,7 +314,7 @@ const BulkOperationToolbar = ({
       await onExport(config);
       setExportModalOpen(false);
     } catch (error) {
-      console.error("Export failed:", error);
+      console.error('Export failed:', error);
       // Error is handled by the parent component
     }
   };
@@ -305,46 +325,46 @@ const BulkOperationToolbar = ({
     const disabled = isLoading || isExporting || count === 0;
 
     switch (operation) {
-      case "suspend":
+      case 'suspend':
         return {
           icon: <SuspendIcon />,
           label: `Suspend (${count})`,
-          color: "warning" as const,
+          color: 'warning' as const,
           disabled,
         };
-      case "activate":
+      case 'activate':
         return {
           icon: <ActivateIcon />,
           label: `Activate (${count})`,
-          color: "success" as const,
+          color: 'success' as const,
           disabled,
         };
-      case "delete":
+      case 'delete':
         return {
           icon: <DeleteIcon />,
           label: `Delete (${count})`,
-          color: "error" as const,
+          color: 'error' as const,
           disabled,
         };
-      case "changeRole":
+      case 'changeRole':
         return {
           icon: <ChangeRoleIcon />,
           label: `Change Role (${selectedUsers.length})`,
-          color: "primary" as const,
+          color: 'primary' as const,
           disabled: isLoading || selectedUsers.length === 0,
         };
-      case "export":
+      case 'export':
         return {
           icon: <ExportIcon />,
           label: `Export (${selectedUsers.length})`,
-          color: "info" as const,
+          color: 'info' as const,
           disabled: isLoading || isExporting || selectedUsers.length === 0,
         };
       default:
         return {
           icon: null,
-          label: "Unknown",
-          color: "primary" as const,
+          label: 'Unknown',
+          color: 'primary' as const,
           disabled: true,
         };
     }
@@ -361,9 +381,9 @@ const BulkOperationToolbar = ({
         sx={{
           p: { xs: 2, sm: 2 },
           mb: 2,
-          backgroundColor: "primary.50",
-          border: "1px solid",
-          borderColor: "primary.200",
+          backgroundColor: 'primary.50',
+          border: '1px solid',
+          borderColor: 'primary.200',
         }}
         role="toolbar"
         aria-label="Bulk operations for selected users"
@@ -374,21 +394,21 @@ const BulkOperationToolbar = ({
           id="bulk-operations-description"
           variant="body2"
           sx={{
-            position: "absolute",
-            left: "-10000px",
-            top: "auto",
-            width: "1px",
-            height: "1px",
-            overflow: "hidden",
+            position: 'absolute',
+            left: '-10000px',
+            top: 'auto',
+            width: '1px',
+            height: '1px',
+            overflow: 'hidden',
           }}
         >
           Toolbar for performing bulk operations on selected users. Use tab to
           navigate between buttons and enter to activate.
         </Typography>
         <Stack
-          direction={{ xs: "column", sm: "column", md: "row" }}
+          direction={{ xs: 'column', sm: 'column', md: 'row' }}
           spacing={{ xs: 2, sm: 2, md: 2 }}
-          alignItems={{ xs: "stretch", md: "center" }}
+          alignItems={{ xs: 'stretch', md: 'center' }}
           justifyContent="space-between"
         >
           {/* Selection Info */}
@@ -398,7 +418,7 @@ const BulkOperationToolbar = ({
             gap={1}
             flexWrap="wrap"
             sx={{
-              justifyContent: { xs: "space-between", sm: "flex-start" },
+              justifyContent: { xs: 'space-between', sm: 'flex-start' },
             }}
           >
             <Chip
@@ -406,7 +426,7 @@ const BulkOperationToolbar = ({
               color="primary"
               variant="outlined"
               sx={{
-                fontSize: { xs: "0.75rem", sm: "0.8125rem" },
+                fontSize: { xs: '0.75rem', sm: '0.8125rem' },
                 height: { xs: 28, sm: 32 },
               }}
             />
@@ -417,12 +437,12 @@ const BulkOperationToolbar = ({
               disabled={isLoading || isExporting}
               aria-label={`Clear selection of ${selectedUsers.length} users`}
               sx={{
-                minHeight: { xs: 36, sm: "auto" },
-                fontSize: { xs: "0.75rem", sm: "0.875rem" },
-                "&:focus": {
-                  outline: "2px solid",
-                  outlineColor: "primary.main",
-                  outlineOffset: "2px",
+                minHeight: { xs: 36, sm: 'auto' },
+                fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                '&:focus': {
+                  outline: '2px solid',
+                  outlineColor: 'primary.main',
+                  outlineOffset: '2px',
                 },
               }}
             >
@@ -432,38 +452,38 @@ const BulkOperationToolbar = ({
 
           {/* Bulk Action Buttons - Responsive Layout */}
           <Stack
-            direction={{ xs: "column", sm: "column", md: "row" }}
+            direction={{ xs: 'column', sm: 'column', md: 'row' }}
             spacing={{ xs: 1, sm: 1, md: 1 }}
             alignItems="stretch"
-            sx={{ width: { xs: "100%", md: "auto" } }}
+            sx={{ width: { xs: '100%', md: 'auto' } }}
           >
             {/* Primary Actions Row */}
             <Stack
-              direction={{ xs: "column", sm: "row" }}
+              direction={{ xs: 'column', sm: 'row' }}
               spacing={1}
               alignItems="stretch"
             >
               {/* Suspend Button */}
               {(() => {
-                const props = getOperationButtonProps("suspend");
-                const count = getOperationCounts("suspend");
+                const props = getOperationButtonProps('suspend');
+                const count = getOperationCounts('suspend');
                 return (
                   <Button
                     variant="outlined"
                     color={props.color}
                     startIcon={props.icon}
-                    onClick={() => handleBulkOperation("suspend")}
+                    onClick={() => handleBulkOperation('suspend')}
                     disabled={props.disabled}
                     size="small"
                     aria-label={`Suspend ${count} selected users. This will prevent them from accessing the system.`}
                     sx={{
-                      minHeight: { xs: 40, sm: "auto" },
-                      fontSize: { xs: "0.75rem", sm: "0.875rem" },
-                      flex: { sm: 1, md: "none" },
-                      "&:focus": {
-                        outline: "2px solid",
-                        outlineColor: "warning.main",
-                        outlineOffset: "2px",
+                      minHeight: { xs: 40, sm: 'auto' },
+                      fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                      flex: { sm: 1, md: 'none' },
+                      '&:focus': {
+                        outline: '2px solid',
+                        outlineColor: 'warning.main',
+                        outlineOffset: '2px',
                       },
                     }}
                   >
@@ -474,25 +494,25 @@ const BulkOperationToolbar = ({
 
               {/* Activate Button */}
               {(() => {
-                const props = getOperationButtonProps("activate");
-                const count = getOperationCounts("activate");
+                const props = getOperationButtonProps('activate');
+                const count = getOperationCounts('activate');
                 return (
                   <Button
                     variant="outlined"
                     color={props.color}
                     startIcon={props.icon}
-                    onClick={() => handleBulkOperation("activate")}
+                    onClick={() => handleBulkOperation('activate')}
                     disabled={props.disabled}
                     size="small"
                     aria-label={`Activate ${count} selected users. This will restore their access to the system.`}
                     sx={{
-                      minHeight: { xs: 40, sm: "auto" },
-                      fontSize: { xs: "0.75rem", sm: "0.875rem" },
-                      flex: { sm: 1, md: "none" },
-                      "&:focus": {
-                        outline: "2px solid",
-                        outlineColor: "success.main",
-                        outlineOffset: "2px",
+                      minHeight: { xs: 40, sm: 'auto' },
+                      fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                      flex: { sm: 1, md: 'none' },
+                      '&:focus': {
+                        outline: '2px solid',
+                        outlineColor: 'success.main',
+                        outlineOffset: '2px',
                       },
                     }}
                   >
@@ -503,25 +523,25 @@ const BulkOperationToolbar = ({
 
               {/* Delete Button */}
               {(() => {
-                const props = getOperationButtonProps("delete");
-                const count = getOperationCounts("delete");
+                const props = getOperationButtonProps('delete');
+                const count = getOperationCounts('delete');
                 return (
                   <Button
                     variant="outlined"
                     color={props.color}
                     startIcon={props.icon}
-                    onClick={() => handleBulkOperation("delete")}
+                    onClick={() => handleBulkOperation('delete')}
                     disabled={props.disabled}
                     size="small"
                     aria-label={`Delete ${count} selected users. This action will soft delete the user accounts and cannot be easily undone.`}
                     sx={{
-                      minHeight: { xs: 40, sm: "auto" },
-                      fontSize: { xs: "0.75rem", sm: "0.875rem" },
-                      flex: { sm: 1, md: "none" },
-                      "&:focus": {
-                        outline: "2px solid",
-                        outlineColor: "error.main",
-                        outlineOffset: "2px",
+                      minHeight: { xs: 40, sm: 'auto' },
+                      fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                      flex: { sm: 1, md: 'none' },
+                      '&:focus': {
+                        outline: '2px solid',
+                        outlineColor: 'error.main',
+                        outlineOffset: '2px',
                       },
                     }}
                   >
@@ -533,13 +553,13 @@ const BulkOperationToolbar = ({
 
             {/* Secondary Actions Row */}
             <Stack
-              direction={{ xs: "column", sm: "row" }}
+              direction={{ xs: 'column', sm: 'row' }}
               spacing={1}
               alignItems="stretch"
             >
               {/* Change Role Section */}
               <Stack
-                direction={{ xs: "column", sm: "row" }}
+                direction={{ xs: 'column', sm: 'row' }}
                 spacing={1}
                 alignItems="stretch"
                 sx={{ flex: 1 }}
@@ -547,12 +567,12 @@ const BulkOperationToolbar = ({
                 <FormControl
                   size="small"
                   sx={{
-                    minWidth: { xs: "100%", sm: 120 },
-                    flex: { sm: 1, md: "none" },
+                    minWidth: { xs: '100%', sm: 120 },
+                    flex: { sm: 1, md: 'none' },
                   }}
                 >
                   <InputLabel
-                    sx={{ fontSize: { xs: "0.875rem", sm: "1rem" } }}
+                    sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}
                     id="change-role-select-label"
                   >
                     New Role
@@ -568,13 +588,13 @@ const BulkOperationToolbar = ({
                     aria-label="Select new role for bulk role change operation"
                     aria-describedby="change-role-help"
                     sx={{
-                      "& .MuiSelect-select": {
-                        fontSize: { xs: "0.875rem", sm: "1rem" },
+                      '& .MuiSelect-select': {
+                        fontSize: { xs: '0.875rem', sm: '1rem' },
                       },
-                      "&:focus-within": {
-                        outline: "2px solid",
-                        outlineColor: "primary.main",
-                        outlineOffset: "2px",
+                      '&:focus-within': {
+                        outline: '2px solid',
+                        outlineColor: 'primary.main',
+                        outlineOffset: '2px',
                       },
                     }}
                     MenuProps={{
@@ -587,25 +607,25 @@ const BulkOperationToolbar = ({
                   >
                     <MenuItem
                       value="PATIENT"
-                      sx={{ fontSize: { xs: "0.875rem", sm: "1rem" } }}
+                      sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}
                     >
                       Patient
                     </MenuItem>
                     <MenuItem
                       value="DOCTOR"
-                      sx={{ fontSize: { xs: "0.875rem", sm: "1rem" } }}
+                      sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}
                     >
                       Doctor
                     </MenuItem>
                     <MenuItem
                       value="ADMIN"
-                      sx={{ fontSize: { xs: "0.875rem", sm: "1rem" } }}
+                      sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}
                     >
                       Admin
                     </MenuItem>
                     <MenuItem
                       value="SUPER_ADMIN"
-                      sx={{ fontSize: { xs: "0.875rem", sm: "1rem" } }}
+                      sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}
                     >
                       Super Admin
                     </MenuItem>
@@ -615,12 +635,12 @@ const BulkOperationToolbar = ({
                     id="change-role-help"
                     variant="body2"
                     sx={{
-                      position: "absolute",
-                      left: "-10000px",
-                      top: "auto",
-                      width: "1px",
-                      height: "1px",
-                      overflow: "hidden",
+                      position: 'absolute',
+                      left: '-10000px',
+                      top: 'auto',
+                      width: '1px',
+                      height: '1px',
+                      overflow: 'hidden',
                     }}
                   >
                     Select the new role to assign to all selected users. Use
@@ -628,25 +648,25 @@ const BulkOperationToolbar = ({
                   </Typography>
                 </FormControl>
                 {(() => {
-                  const props = getOperationButtonProps("changeRole");
+                  const props = getOperationButtonProps('changeRole');
                   return (
                     <Button
                       variant="outlined"
                       color={props.color}
                       startIcon={props.icon}
-                      onClick={() => handleBulkOperation("changeRole")}
+                      onClick={() => handleBulkOperation('changeRole')}
                       disabled={props.disabled}
                       size="small"
                       aria-label={`Change role of ${selectedUsers.length} selected users to ${changeRoleValue}`}
                       sx={{
-                        minHeight: { xs: 40, sm: "auto" },
-                        fontSize: { xs: "0.75rem", sm: "0.875rem" },
-                        flex: { sm: 1, md: "none" },
-                        whiteSpace: "nowrap",
-                        "&:focus": {
-                          outline: "2px solid",
-                          outlineColor: "primary.main",
-                          outlineOffset: "2px",
+                        minHeight: { xs: 40, sm: 'auto' },
+                        fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                        flex: { sm: 1, md: 'none' },
+                        whiteSpace: 'nowrap',
+                        '&:focus': {
+                          outline: '2px solid',
+                          outlineColor: 'primary.main',
+                          outlineOffset: '2px',
                         },
                       }}
                     >
@@ -658,24 +678,24 @@ const BulkOperationToolbar = ({
 
               {/* Export Button */}
               {(() => {
-                const props = getOperationButtonProps("export");
+                const props = getOperationButtonProps('export');
                 return (
                   <Button
                     variant="outlined"
                     color={props.color}
                     startIcon={props.icon}
-                    onClick={() => handleBulkOperation("export")}
+                    onClick={() => handleBulkOperation('export')}
                     disabled={props.disabled}
                     size="small"
                     aria-label={`Export ${selectedUsers.length} selected users to file`}
                     sx={{
-                      minHeight: { xs: 40, sm: "auto" },
-                      fontSize: { xs: "0.75rem", sm: "0.875rem" },
-                      flex: { sm: 1, md: "none" },
-                      "&:focus": {
-                        outline: "2px solid",
-                        outlineColor: "info.main",
-                        outlineOffset: "2px",
+                      minHeight: { xs: 40, sm: 'auto' },
+                      fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                      flex: { sm: 1, md: 'none' },
+                      '&:focus': {
+                        outline: '2px solid',
+                        outlineColor: 'info.main',
+                        outlineOffset: '2px',
                       },
                     }}
                   >
@@ -694,17 +714,17 @@ const BulkOperationToolbar = ({
               variant="body2"
               color="text.secondary"
               gutterBottom
-              sx={{ fontSize: { xs: "0.875rem", sm: "1rem" } }}
+              sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}
             >
               {isExporting
-                ? "Preparing export..."
-                : "Processing bulk operation..."}
+                ? 'Preparing export...'
+                : 'Processing bulk operation...'}
             </Typography>
             <LinearProgress
               variant={
                 operationProgress > 0 || exportProgress > 0
-                  ? "determinate"
-                  : "indeterminate"
+                  ? 'determinate'
+                  : 'indeterminate'
               }
               value={isExporting ? exportProgress : operationProgress}
               sx={{
@@ -717,9 +737,9 @@ const BulkOperationToolbar = ({
                 variant="caption"
                 color="text.secondary"
                 sx={{
-                  fontSize: { xs: "0.75rem", sm: "0.75rem" },
+                  fontSize: { xs: '0.75rem', sm: '0.75rem' },
                   mt: 0.5,
-                  display: "block",
+                  display: 'block',
                 }}
               >
                 {Math.round(isExporting ? exportProgress : operationProgress)}%

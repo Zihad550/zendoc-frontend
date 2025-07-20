@@ -359,10 +359,13 @@ const UserExportModal = ({
                 : address || '';
             break;
           case 'gender':
-            value = user.doctor?.gender || user.patient?.gender || '';
+            value =
+              user.doctor?.gender ||
+              user.patient?.patientHealthData?.gender ||
+              '';
             break;
           case 'dateOfBirth':
-            const dob = user.patient?.dateOfBirth;
+            const dob = user.patient?.patientHealthData?.dateOfBirth;
             value =
               exportConfig.maskSensitiveData && dob ? '****-**-**' : dob || '';
             break;
@@ -379,7 +382,7 @@ const UserExportModal = ({
             value = user.doctor?.experience || '';
             break;
           case 'appointmentFee':
-            value = user.doctor?.appointmentFee || '';
+            value = user.doctor?.apointmentFee || '';
             break;
           case 'registrationNumber':
             value =
