@@ -1,0 +1,21 @@
+<svg width="180" height="180" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+  <!-- Medical Cross Symbol with Zen Circle for Apple Touch Icon -->
+  <g id="medical-symbol">
+    <!-- Background for better visibility on iOS -->
+    <rect width="40" height="40" fill="#1586FD" opacity="0.05" rx="8"/>
+    
+    <!-- Zen circle background -->
+    <circle cx="20" cy="20" r="18" fill="#1586FD" opacity="0.1"/>
+    <circle cx="20" cy="20" r="16" fill="none" stroke="#1586FD" stroke-width="1.5" opacity="0.3"/>
+    
+    <!-- Medical cross -->
+    <g fill="#1586FD">
+      <!-- Vertical bar -->
+      <rect x="16" y="8" width="8" height="24" rx="2"/>
+      <!-- Horizontal bar -->
+      <rect x="8" y="16" width="24" height="8" rx="2"/>
+      <!-- Center circle for zen element -->
+      <circle cx="20" cy="20" r="4" fill="#1586FD"/>
+    </g>
+  </g>
+</svg>

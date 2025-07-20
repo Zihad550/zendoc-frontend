@@ -8,7 +8,6 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { decodedToken } from "@/utils/jwt";
 import CloseIcon from "@mui/icons-material/Close";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
   AppBar,
@@ -36,6 +35,7 @@ import {
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { ZenDocLogo } from "../Logo";
 import ModeToggle from "./ModeToggle";
 
 const Navbar = () => {
@@ -150,33 +150,7 @@ const Navbar = () => {
           >
             {/* Logo */}
             <Stack direction="row" alignItems="center" spacing={1.5}>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: 40,
-                  height: 40,
-                  borderRadius: "8px",
-                  bgcolor: "primary.main",
-                  color: "white",
-                }}
-              >
-                <LocalHospitalIcon sx={{ fontSize: 24 }} />
-              </Box>
-              <Typography
-                component={Link}
-                href="/"
-                variant="h5"
-                fontWeight={700}
-                sx={{
-                  textDecoration: "none",
-                  color: "text.primary",
-                  letterSpacing: "-0.5px",
-                }}
-              >
-                ZenDoc
-              </Typography>
+              <ZenDocLogo />
             </Stack>
             {/* Desktop Navigation */}
             {!isMobile && (

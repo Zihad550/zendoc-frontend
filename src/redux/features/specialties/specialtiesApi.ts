@@ -36,3 +36,5 @@ export const {
   useGetAllSpecialtiesQuery,
   useDeleteSpecialtyMutation,
 } = specialtiesApi;
+
+export default specialtiesApi;

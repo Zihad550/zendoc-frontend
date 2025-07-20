@@ -1,0 +1,20 @@
+<svg width="48" height="48" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <!-- Simplified medical cross optimized for small sizes -->
+  <g id="favicon-symbol">
+    <!-- Background circle for better contrast -->
+    <circle cx="16" cy="16" r="15" fill="#1586FD" opacity="0.15"/>
+    
+    <!-- Medical cross with thicker strokes for visibility -->
+    <g fill="#1586FD">
+      <!-- Vertical bar - thicker for small sizes -->
+      <rect x="13" y="6" width="6" height="20" rx="1"/>
+      <!-- Horizontal bar - thicker for small sizes -->
+      <rect x="6" y="13" width="20" height="6" rx="1"/>
+      <!-- Center dot for zen element -->
+      <circle cx="16" cy="16" r="3" fill="#1586FD"/>
+    </g>
+    
+    <!-- Subtle outer ring for definition -->
+    <circle cx="16" cy="16" r="14" fill="none" stroke="#1586FD" stroke-width="1" opacity="0.4"/>
+  </g>
+</svg>
