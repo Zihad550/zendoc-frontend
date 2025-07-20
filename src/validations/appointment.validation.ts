@@ -13,7 +13,7 @@ export const appointmentBookingValidationSchema = z.object({
         "three-six-months",
         "more-than-six-months"
     ], {
-        errorMap: () => ({ message: "Please select how long you've had these symptoms" }),
+        message: "Please select how long you've had these symptoms",
     }),
     previousTreatments: z
         .string()
@@ -43,7 +43,7 @@ export const appointmentUpdateValidationSchema = z.object({
         "three-six-months",
         "more-than-six-months"
     ], {
-        errorMap: () => ({ message: "Please select how long you've had these symptoms" }),
+        message: "Please select how long you've had these symptoms",
     }).optional(),
     previousTreatments: z
         .string()
@@ -54,7 +54,7 @@ export const appointmentUpdateValidationSchema = z.object({
         .max(500, "Additional notes cannot exceed 500 characters")
         .optional(),
     status: z.enum(["SCHEDULED", "INPROGRESS", "COMPLETED", "CANCELLED"], {
-        errorMap: () => ({ message: "Please select a valid appointment status" }),
+        message: "Please select a valid appointment status",
     }).optional(),
 });
 

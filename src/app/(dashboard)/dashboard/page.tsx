@@ -794,7 +794,6 @@ const DashboardHomePage = () => {
                       }}
                     >
                       <Avatar
-                        src={appointment.avatar}
                         alt={appointment.patient}
                         sx={{ width: 40, height: 40 }}
                       />

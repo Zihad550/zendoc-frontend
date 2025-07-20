@@ -1,8 +1,7 @@
 'use client';
 
 import { Box, Button, Typography } from '@mui/material';
-import { ReactNode } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
+import { Component, ErrorInfo, ReactNode } from 'react';
 
 interface ErrorFallbackProps {
   error: Error;
@@ -91,14 +90,28 @@ const ErrorFallback = ({ error, resetErrorBoundary }: ErrorFallbackProps) => {
 
 interface UserManagementErrorBoundaryProps {
   children: ReactNode;
-  onError?: (error: Error, errorInfo: any) => void;
+  onError?: (error: Error, errorInfo: ErrorInfo) => void;
 }
 
-const UserManagementErrorBoundary = ({
-  children,
-  onError,
-}: UserManagementErrorBoundaryProps) => {
-  const handleError = (error: Error, errorInfo: any) => {
+interface UserManagementErrorBoundaryState {
+  hasError: boolean;
+  error: Error | null;
+}
+
+class UserManagementErrorBoundary extends Component<
+  UserManagementErrorBoundaryProps,
+  UserManagementErrorBoundaryState
+> {
+  constructor(props: UserManagementErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: Error): UserManagementErrorBoundaryState {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // Log error for monitoring
     console.error(
       'User Management Error Boundary caught an error:',
@@ -107,8 +120,8 @@ const UserManagementErrorBoundary = ({
     );
 
     // Call custom error handler if provided
-    if (onError) {
-      onError(error, errorInfo);
+    if (this.props.onError) {
+      this.props.onError(error, errorInfo);
     }
 
     // In production, you might want to send this to an error reporting service
@@ -116,20 +129,26 @@ const UserManagementErrorBoundary = ({
       // Example: Send to error reporting service
       // errorReportingService.captureException(error, { extra: errorInfo });
     }
+  }
+
+  resetErrorBoundary = () => {
+    this.setState({ hasError: false, error: null });
+    // Clear any cached data that might be causing the error
+    window.location.reload();
   };
 
-  return (
-    <ErrorBoundary
-      FallbackComponent={ErrorFallback}
-      onError={handleError}
-      onReset={() => {
-        // Clear any cached data that might be causing the error
-        window.location.reload();
-      }}
-    >
-      {children}
-    </ErrorBoundary>
-  );
-};
+  render() {
+    if (this.state.hasError && this.state.error) {
+      return (
+        <ErrorFallback
+          error={this.state.error}
+          resetErrorBoundary={this.resetErrorBoundary}
+        />
+      );
+    }
+
+    return this.props.children;
+  }
+}
 
 export default UserManagementErrorBoundary;

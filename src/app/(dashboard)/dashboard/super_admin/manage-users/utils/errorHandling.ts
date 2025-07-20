@@ -132,7 +132,7 @@ export class UserManagementErrorHandler {
   /**
    * Parse RTK Query errors
    */
-  private static parseRTKQueryError(error: any): UserManagementError {
+  private static parseRTKQueryError(error: any, _context?: Partial<ErrorContext>): UserManagementError {
     const status = error.status;
     const data = error.data;
 
@@ -273,7 +273,7 @@ export class UserManagementErrorHandler {
   /**
    * Parse network errors
    */
-  private static parseNetworkError(error: Error): UserManagementError {
+  private static parseNetworkError(error: Error, _context?: Partial<ErrorContext>): UserManagementError {
     return {
       type: "network",
       message: this.ERROR_MESSAGES.NETWORK_ERROR,
@@ -286,7 +286,7 @@ export class UserManagementErrorHandler {
   /**
    * Parse validation errors
    */
-  private static parseValidationError(error: any): UserManagementError {
+  private static parseValidationError(error: any, _context?: Partial<ErrorContext>): UserManagementError {
     let message = this.ERROR_MESSAGES.VALIDATION_FAILED;
     let details = error;
 
@@ -314,7 +314,7 @@ export class UserManagementErrorHandler {
   /**
    * Create unknown error
    */
-  private static createUnknownError(error: any): UserManagementError {
+  private static createUnknownError(error: any, _context?: Partial<ErrorContext>): UserManagementError {
     return {
       type: "unknown",
       message: error?.message || this.ERROR_MESSAGES.UNKNOWN_ERROR,

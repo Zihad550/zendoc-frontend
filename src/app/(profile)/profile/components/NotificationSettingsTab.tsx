@@ -307,7 +307,7 @@ const NotificationSettingsTab = () => {
 
         <Grid container spacing={3}>
           {notificationCategories.map((category, index) => (
-            <Grid item xs={12} md={6} key={category.title}>
+            <Grid size={{ xs: 12, md: 6 }} key={category.title}>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -354,7 +354,7 @@ const NotificationSettingsTab = () => {
                             <Switch
                               checked={
                                 settings[
-                                  item.key as keyof NotificationSettings
+                                item.key as keyof NotificationSettings
                                 ] as boolean
                               }
                               onChange={(e) =>
@@ -381,7 +381,7 @@ const NotificationSettingsTab = () => {
           ))}
 
           {/* Notification Preferences */}
-          <Grid item xs={12}>
+          <Grid size={12}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -395,7 +395,7 @@ const NotificationSettingsTab = () => {
                   </SectionTitle>
 
                   <Grid container spacing={4}>
-                    <Grid item xs={12} md={4}>
+                    <Grid size={{ xs: 12, md: 4 }}>
                       <Typography
                         variant="subtitle2"
                         sx={{ mb: 2, fontWeight: 600 }}
@@ -440,7 +440,7 @@ const NotificationSettingsTab = () => {
                       </Box>
                     </Grid>
 
-                    <Grid item xs={12} md={4}>
+                    <Grid size={{ xs: 12, md: 4 }}>
                       <Typography
                         variant="subtitle2"
                         sx={{ mb: 2, fontWeight: 600 }}
@@ -485,7 +485,7 @@ const NotificationSettingsTab = () => {
                       </Box>
                     </Grid>
 
-                    <Grid item xs={12} md={4}>
+                    <Grid size={{ xs: 12, md: 4 }}>
                       <Typography
                         variant="subtitle2"
                         sx={{ mb: 2, fontWeight: 600 }}
@@ -509,8 +509,7 @@ const NotificationSettingsTab = () => {
                                 key.includes("Email") ||
                                 key.includes("email")
                               ) {
-                                newSettings[key as keyof NotificationSettings] =
-                                  false as any;
+                                (newSettings as any)[key] = false;
                               }
                             });
                             setSettings(newSettings);
@@ -527,8 +526,7 @@ const NotificationSettingsTab = () => {
                             const newSettings = { ...settings };
                             Object.keys(newSettings).forEach((key) => {
                               if (key.includes("sms") || key.includes("Sms")) {
-                                newSettings[key as keyof NotificationSettings] =
-                                  false as any;
+                                (newSettings as any)[key] = false;
                               }
                             });
                             setSettings(newSettings);
@@ -546,11 +544,10 @@ const NotificationSettingsTab = () => {
                             Object.keys(newSettings).forEach((key) => {
                               if (
                                 typeof newSettings[
-                                  key as keyof NotificationSettings
+                                key as keyof NotificationSettings
                                 ] === "boolean"
                               ) {
-                                newSettings[key as keyof NotificationSettings] =
-                                  true as any;
+                                (newSettings as any)[key] = true;
                               }
                             });
                             setSettings(newSettings);

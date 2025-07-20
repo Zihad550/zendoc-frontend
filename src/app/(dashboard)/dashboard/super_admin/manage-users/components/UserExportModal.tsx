@@ -3,36 +3,36 @@
 import PHModal from '@/components/Shared/PHModal/PHModal';
 import { ExtendedUser, GetAllUsersParams } from '@/types/user';
 import {
-  CheckCircle as CheckIcon,
-  CloudDownload as DownloadIcon,
-  Error as ErrorIcon,
-  FileDownload as ExportIcon,
-  History as HistoryIcon,
-  Visibility as PreviewIcon,
-  Security as SecurityIcon,
+    CheckCircle as CheckIcon,
+    CloudDownload as DownloadIcon,
+    Error as ErrorIcon,
+    FileDownload as ExportIcon,
+    History as HistoryIcon,
+    Visibility as PreviewIcon,
+    Security as SecurityIcon,
 } from '@mui/icons-material';
 import {
-  Alert,
-  Box,
-  Button,
-  Checkbox,
-  Chip,
-  Divider,
-  FormControlLabel,
-  FormGroup,
-  FormLabel,
-  LinearProgress,
-  Paper,
-  Radio,
-  RadioGroup,
-  Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
+    Alert,
+    Box,
+    Button,
+    Checkbox,
+    Chip,
+    Divider,
+    FormControlLabel,
+    FormGroup,
+    FormLabel,
+    LinearProgress,
+    Paper,
+    Radio,
+    RadioGroup,
+    Stack,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Typography,
 } from '@mui/material';
 import { useState } from 'react';
 import ExportHistoryModal from './ExportHistoryModal';
@@ -359,10 +359,10 @@ const UserExportModal = ({
                 : address || '';
             break;
           case 'gender':
-            value = user.doctor?.gender || user.patient?.gender || '';
+            value = user.doctor?.gender || user.patient?.patientHealthData?.gender || '';
             break;
           case 'dateOfBirth':
-            const dob = user.patient?.dateOfBirth;
+            const dob = user.patient?.patientHealthData?.dateOfBirth;
             value =
               exportConfig.maskSensitiveData && dob ? '****-**-**' : dob || '';
             break;
@@ -379,7 +379,7 @@ const UserExportModal = ({
             value = user.doctor?.experience || '';
             break;
           case 'appointmentFee':
-            value = user.doctor?.appointmentFee || '';
+            value = user.doctor?.apointmentFee || '';
             break;
           case 'registrationNumber':
             value =

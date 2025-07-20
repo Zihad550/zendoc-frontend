@@ -1,36 +1,36 @@
 "use client";
 
 import {
-  DarkMode as DarkModeIcon,
-  DisplaySettings as DisplayIcon,
-  Email as EmailIcon,
-  Language as LanguageIcon,
-  LightMode as LightModeIcon,
-  Notifications as NotificationsIcon,
-  Palette as PaletteIcon,
-  Save as SaveIcon,
-  Sms as SmsIcon,
-  TextFields as TextFieldsIcon,
+    DarkMode as DarkModeIcon,
+    DisplaySettings as DisplayIcon,
+    Email as EmailIcon,
+    Language as LanguageIcon,
+    LightMode as LightModeIcon,
+    Notifications as NotificationsIcon,
+    Palette as PaletteIcon,
+    Save as SaveIcon,
+    Sms as SmsIcon,
+    TextFields as TextFieldsIcon,
 } from "@mui/icons-material";
 import {
-  Alert,
-  alpha,
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Chip,
-  Divider,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Grid,
-  Radio,
-  RadioGroup,
-  Snackbar,
-  Switch,
-  Typography,
-  useTheme,
+    Alert,
+    alpha,
+    Box,
+    Button,
+    Card,
+    CardContent,
+    Chip,
+    Divider,
+    FormControl,
+    FormControlLabel,
+    FormLabel,
+    Grid,
+    Radio,
+    RadioGroup,
+    Snackbar,
+    Switch,
+    Typography,
+    useTheme,
 } from "@mui/material";
 import { motion } from "motion/react";
 import React, { useState } from "react";
@@ -101,10 +101,6 @@ const PreferencesTab = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.4,
-        ease: "easeOut",
-      },
     },
   };
 
@@ -185,7 +181,7 @@ const PreferencesTab = () => {
 
         <Grid container spacing={3}>
           {/* Language Preferences */}
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <PreferenceCard title="Language & Region" icon={<LanguageIcon />}>
               <FormControl component="fieldset" sx={{ width: "100%" }}>
                 <FormLabel component="legend" sx={{ mb: 2, fontWeight: 600 }}>
@@ -272,7 +268,7 @@ const PreferencesTab = () => {
           </Grid>
 
           {/* Communication Preferences */}
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <PreferenceCard title="Communication" icon={<NotificationsIcon />}>
               <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                 <Box>
@@ -389,10 +385,10 @@ const PreferencesTab = () => {
           </Grid>
 
           {/* Display Settings */}
-          <Grid item xs={12}>
+          <Grid size={12}>
             <PreferenceCard title="Display Settings" icon={<DisplayIcon />}>
               <Grid container spacing={4}>
-                <Grid item xs={12} md={4}>
+                <Grid size={{ xs: 12, md: 4 }}>
                   <Box>
                     <Typography
                       variant="subtitle2"
@@ -437,7 +433,7 @@ const PreferencesTab = () => {
                   </Box>
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid size={{ xs: 12, md: 4 }}>
                   <FormControl component="fieldset" sx={{ width: "100%" }}>
                     <FormLabel
                       component="legend"
@@ -477,7 +473,7 @@ const PreferencesTab = () => {
                   </FormControl>
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid size={{ xs: 12, md: 4 }}>
                   <Box>
                     <Typography
                       variant="subtitle2"

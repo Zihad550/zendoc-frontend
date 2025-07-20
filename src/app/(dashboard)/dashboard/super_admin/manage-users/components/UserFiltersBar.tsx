@@ -7,20 +7,20 @@ import ClearIcon from "@mui/icons-material/Clear";
 import SearchIcon from "@mui/icons-material/Search";
 import SortIcon from "@mui/icons-material/Sort";
 import {
-  Box,
-  Button,
-  Chip,
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  MenuItem,
-  OutlinedInput,
-  Select,
-  SelectChangeEvent,
-  Stack,
-  TextField,
-  Typography,
+    Box,
+    Button,
+    Chip,
+    FormControl,
+    IconButton,
+    InputAdornment,
+    InputLabel,
+    MenuItem,
+    OutlinedInput,
+    Select,
+    SelectChangeEvent,
+    Stack,
+    TextField,
+    Typography,
 } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -754,7 +754,7 @@ const UserFiltersBar = ({
                       },
                     },
                   }}
-                  minDate={filters.dateRange.from}
+                  minDate={filters.dateRange.from || undefined}
                   maxDate={dayjs()}
                 />
                 {/* Screen reader help text for date pickers */}

@@ -178,7 +178,7 @@ const UserStatsCards = ({ stats, isLoading }: UserStatsCardsProps) => {
 
       <Grid container spacing={3}>
         {/* Total Users */}
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard
             title="Total Users"
             value={stats?.totalUsers || 0}
@@ -189,7 +189,7 @@ const UserStatsCards = ({ stats, isLoading }: UserStatsCardsProps) => {
         </Grid>
 
         {/* Active Users */}
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard
             title="Active Users"
             value={stats?.activeUsers || 0}
@@ -200,7 +200,7 @@ const UserStatsCards = ({ stats, isLoading }: UserStatsCardsProps) => {
         </Grid>
 
         {/* New Users This Month */}
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard
             title="New This Month"
             value={stats?.newUsersThisMonth || 0}
@@ -212,7 +212,7 @@ const UserStatsCards = ({ stats, isLoading }: UserStatsCardsProps) => {
         </Grid>
 
         {/* Growth Rate */}
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard
             title="Growth Rate"
             value={Math.abs(stats?.growthRate || 0)}
@@ -235,7 +235,7 @@ const UserStatsCards = ({ stats, isLoading }: UserStatsCardsProps) => {
         {/* Users by Role */}
         {stats?.usersByRole &&
           Object.entries(stats.usersByRole).map(([role, count]) => (
-            <Grid item xs={12} sm={6} md={3} key={role}>
+            <Grid size={{ xs: 12, sm: 6, md: 3 }} key={role}>
               <StatCard
                 title={getRoleDisplayName(role)}
                 value={count}

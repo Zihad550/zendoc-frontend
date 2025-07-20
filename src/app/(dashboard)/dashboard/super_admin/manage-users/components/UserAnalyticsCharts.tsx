@@ -3,14 +3,14 @@
 import { USER_ROLE } from "@/contants/role";
 import { UserStats } from "@/types/user";
 import {
-  Box,
-  Card,
-  CardContent,
-  Grid,
-  Skeleton,
-  Typography,
-  useMediaQuery,
-  useTheme,
+    Box,
+    Card,
+    CardContent,
+    Grid,
+    Skeleton,
+    Typography,
+    useMediaQuery,
+    useTheme,
 } from "@mui/material";
 
 interface UserAnalyticsChartsProps {
@@ -73,7 +73,7 @@ const UserAnalyticsCharts = ({
         </Typography>
 
         <Grid container spacing={3}>
-          <Grid item xs={12} md={8}>
+          <Grid size={{ xs: 12, md: 8 }}>
             <Card>
               <CardContent>
                 <Typography variant="h6" gutterBottom>
@@ -84,7 +84,7 @@ const UserAnalyticsCharts = ({
             </Card>
           </Grid>
 
-          <Grid item xs={12} md={4}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <Card>
               <CardContent>
                 <Typography variant="h6" gutterBottom>
@@ -112,7 +112,7 @@ const UserAnalyticsCharts = ({
 
       <Grid container spacing={3}>
         {/* Line Chart - User Registration Trends */}
-        <Grid item xs={12} md={8}>
+        <Grid size={{ xs: 12, md: 8 }}>
           <Card sx={{ height: "100%" }}>
             <CardContent>
               <Typography variant="h6" gutterBottom>
@@ -182,7 +182,7 @@ const UserAnalyticsCharts = ({
         </Grid>
 
         {/* Pie Chart - User Role Distribution */}
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Card sx={{ height: "100%" }}>
             <CardContent>
               <Typography variant="h6" gutterBottom>
@@ -290,7 +290,7 @@ const UserAnalyticsCharts = ({
         {/* Additional Analytics Cards for Mobile */}
         {isMobile && (
           <>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <Card>
                 <CardContent>
                   <Typography variant="h6" gutterBottom>
@@ -298,7 +298,7 @@ const UserAnalyticsCharts = ({
                   </Typography>
 
                   <Grid container spacing={2}>
-                    <Grid item xs={6}>
+                    <Grid size={6}>
                       <Box textAlign="center">
                         <Typography
                           variant="h4"
@@ -314,7 +314,7 @@ const UserAnalyticsCharts = ({
                         </Typography>
                       </Box>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid size={6}>
                       <Box textAlign="center">
                         <Typography
                           variant="h4"

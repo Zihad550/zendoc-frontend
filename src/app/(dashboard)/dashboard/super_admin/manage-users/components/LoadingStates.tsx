@@ -1,19 +1,19 @@
 'use client';
 
 import {
-  Box,
-  Card,
-  CardContent,
-  Grid,
-  Skeleton,
-  Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
+    Box,
+    Card,
+    CardContent,
+    Grid,
+    Skeleton,
+    Stack,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Typography,
 } from '@mui/material';
 
 /**
@@ -23,7 +23,7 @@ export const UserStatsCardsSkeleton = () => {
   return (
     <Grid container spacing={3} sx={{ mb: 3 }}>
       {[1, 2, 3, 4].map((index) => (
-        <Grid item xs={12} sm={6} md={3} key={index}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }} key={index}>
           <Card elevation={1}>
             <CardContent>
               <Stack spacing={1}>
@@ -120,35 +120,35 @@ export const UserFiltersBarSkeleton = () => {
     <Card elevation={1} sx={{ mb: 3 }}>
       <CardContent>
         <Grid container spacing={2} alignItems="center">
-          <Grid item xs={12} md={4}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <Skeleton
               variant="rectangular"
               height={40}
               sx={{ borderRadius: 1 }}
             />
           </Grid>
-          <Grid item xs={12} md={2}>
+          <Grid size={{ xs: 12, md: 2 }}>
             <Skeleton
               variant="rectangular"
               height={40}
               sx={{ borderRadius: 1 }}
             />
           </Grid>
-          <Grid item xs={12} md={2}>
+          <Grid size={{ xs: 12, md: 2 }}>
             <Skeleton
               variant="rectangular"
               height={40}
               sx={{ borderRadius: 1 }}
             />
           </Grid>
-          <Grid item xs={12} md={2}>
+          <Grid size={{ xs: 12, md: 2 }}>
             <Skeleton
               variant="rectangular"
               height={40}
               sx={{ borderRadius: 1 }}
             />
           </Grid>
-          <Grid item xs={12} md={2}>
+          <Grid size={{ xs: 12, md: 2 }}>
             <Stack direction="row" spacing={1}>
               <Skeleton
                 variant="rectangular"
@@ -205,7 +205,7 @@ export const UserDetailsModalSkeleton = () => {
 
         {/* Content */}
         <Grid container spacing={2}>
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Stack spacing={2}>
               <Skeleton variant="text" width="100px" height={20} />
               <Skeleton
@@ -221,7 +221,7 @@ export const UserDetailsModalSkeleton = () => {
               />
             </Stack>
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Stack spacing={2}>
               <Skeleton variant="text" width="100px" height={20} />
               <Skeleton
@@ -269,7 +269,7 @@ export const UserDetailsModalSkeleton = () => {
 export const UserAnalyticsChartsSkeleton = () => {
   return (
     <Grid container spacing={3}>
-      <Grid item xs={12} md={8}>
+      <Grid size={{ xs: 12, md: 8 }}>
         <Card elevation={1}>
           <CardContent>
             <Skeleton variant="text" width="200px" height={24} sx={{ mb: 2 }} />
@@ -281,7 +281,7 @@ export const UserAnalyticsChartsSkeleton = () => {
           </CardContent>
         </Card>
       </Grid>
-      <Grid item xs={12} md={4}>
+      <Grid size={{ xs: 12, md: 4 }}>
         <Card elevation={1}>
           <CardContent>
             <Skeleton variant="text" width="150px" height={24} sx={{ mb: 2 }} />

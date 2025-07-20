@@ -9,43 +9,43 @@ import { USER_ROLE } from "@/contants/role";
 import { useUpdateUserMutation } from "@/redux/features/user/userApi";
 import { IAppointment } from "@/types/appointment";
 import {
-  BloodGroup,
-  GenderEnum,
-  MaritalStatus,
-  UserRole,
+    BloodGroup,
+    GenderEnum,
+    MaritalStatus,
+    UserRole,
 } from "@/types/common";
 import { ExtendedUser, UpdateUserData, UserStatus } from "@/types/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  AccountCircle as AccountIcon,
-  LocalActivity as ActivityIcon,
-  CalendarToday as CalendarIcon,
-  Cancel as CancelIcon,
-  Edit as EditIcon,
-  Email as EmailIcon,
-  LocationOn as LocationIcon,
-  Phone as PhoneIcon,
-  Save as SaveIcon,
-  Timeline as TimelineIcon,
+    AccountCircle as AccountIcon,
+    LocalActivity as ActivityIcon,
+    CalendarToday as CalendarIcon,
+    Cancel as CancelIcon,
+    Edit as EditIcon,
+    Email as EmailIcon,
+    LocationOn as LocationIcon,
+    Phone as PhoneIcon,
+    Save as SaveIcon,
+    Timeline as TimelineIcon,
 } from "@mui/icons-material";
 import {
-  Alert,
-  Avatar,
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Chip,
-  CircularProgress,
-  Grid,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Stack,
-  Tab,
-  Tabs,
-  Typography,
+    Alert,
+    Avatar,
+    Box,
+    Button,
+    Card,
+    CardContent,
+    Chip,
+    CircularProgress,
+    Grid,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    Stack,
+    Tab,
+    Tabs,
+    Typography,
 } from "@mui/material";
 
 import Timeline from "@mui/lab/Timeline";
@@ -341,7 +341,7 @@ const UserDetailsModal = ({
       setMode("view");
 
       if (onSave) {
-        onSave(updateData);
+        onSave(updateData as Partial<ExtendedUser>);
       }
 
       // Refresh user details
@@ -463,14 +463,14 @@ const UserDetailsModal = ({
       >
         <Grid container spacing={3}>
           {/* Basic Information */}
-          <Grid item xs={12}>
+          <Grid size={12}>
             <Card>
               <CardContent>
                 <Typography variant="h6" gutterBottom>
                   Basic Information
                 </Typography>
                 <Grid container spacing={2}>
-                  <Grid item xs={12} md={6}>
+                  <Grid size={{ xs: 12, md: 6 }}>
                     <PHInput
                       name="email"
                       label="Email"
@@ -479,7 +479,7 @@ const UserDetailsModal = ({
                       required
                     />
                   </Grid>
-                  <Grid item xs={12} md={3}>
+                  <Grid size={{ xs: 12, md: 3 }}>
                     <PHSelectField
                       name="status"
                       label="Status"
@@ -487,7 +487,7 @@ const UserDetailsModal = ({
                       required
                     />
                   </Grid>
-                  <Grid item xs={12} md={3}>
+                  <Grid size={{ xs: 12, md: 3 }}>
                     <PHSelectField
                       name="role"
                       label="Role"
@@ -502,14 +502,14 @@ const UserDetailsModal = ({
 
           {/* Role-specific Information */}
           {basicInfo.role === "PATIENT" && (
-            <Grid item xs={12}>
+            <Grid size={12}>
               <Card>
                 <CardContent>
                   <Typography variant="h6" gutterBottom>
                     Patient Information
                   </Typography>
                   <Grid container spacing={2}>
-                    <Grid item xs={12} md={6}>
+                    <Grid size={{ xs: 12, md: 6 }}>
                       <PHInput
                         name="patient.name"
                         label="Full Name"
@@ -517,21 +517,21 @@ const UserDetailsModal = ({
                         required
                       />
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid size={{ xs: 12, md: 6 }}>
                       <PHInput
                         name="patient.contactNumber"
                         label="Contact Number"
                         fullWidth
                       />
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid size={12}>
                       <PHInput
                         name="patient.address"
                         label="Address"
                         fullWidth
                       />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid size={{ xs: 12, md: 4 }}>
                       <PHInput
                         name="patient.dateOfBirth"
                         label="Date of Birth"
@@ -539,34 +539,34 @@ const UserDetailsModal = ({
                         fullWidth
                       />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid size={{ xs: 12, md: 4 }}>
                       <PHSelectField
                         name="patient.gender"
                         label="Gender"
                         items={Object.values(GenderEnum)}
                       />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid size={{ xs: 12, md: 4 }}>
                       <PHSelectField
                         name="patient.bloodGroup"
                         label="Blood Group"
                         items={Object.values(BloodGroup)}
                       />
                     </Grid>
-                    <Grid item xs={12} md={3}>
+                    <Grid size={{ xs: 12, md: 3 }}>
                       <PHInput name="patient.height" label="Height" fullWidth />
                     </Grid>
-                    <Grid item xs={12} md={3}>
+                    <Grid size={{ xs: 12, md: 3 }}>
                       <PHInput name="patient.weight" label="Weight" fullWidth />
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid size={{ xs: 12, md: 6 }}>
                       <PHSelectField
                         name="patient.maritalStatus"
                         label="Marital Status"
                         items={Object.values(MaritalStatus)}
                       />
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid size={12}>
                       <PHInput
                         name="patient.dietaryPreferences"
                         label="Dietary Preferences"
@@ -580,14 +580,14 @@ const UserDetailsModal = ({
           )}
 
           {basicInfo.role === "DOCTOR" && (
-            <Grid item xs={12}>
+            <Grid size={12}>
               <Card>
                 <CardContent>
                   <Typography variant="h6" gutterBottom>
                     Doctor Information
                   </Typography>
                   <Grid container spacing={2}>
-                    <Grid item xs={12} md={6}>
+                    <Grid size={{ xs: 12, md: 6 }}>
                       <PHInput
                         name="doctor.name"
                         label="Full Name"
@@ -595,7 +595,7 @@ const UserDetailsModal = ({
                         required
                       />
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid size={{ xs: 12, md: 6 }}>
                       <PHInput
                         name="doctor.contactNumber"
                         label="Contact Number"
@@ -603,14 +603,14 @@ const UserDetailsModal = ({
                         required
                       />
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid size={12}>
                       <PHInput
                         name="doctor.address"
                         label="Address"
                         fullWidth
                       />
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid size={{ xs: 12, md: 6 }}>
                       <PHInput
                         name="doctor.registrationNumber"
                         label="Registration Number"
@@ -618,7 +618,7 @@ const UserDetailsModal = ({
                         required
                       />
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid size={{ xs: 12, md: 6 }}>
                       <PHInput
                         name="doctor.experience"
                         label="Experience (Years)"
@@ -627,7 +627,7 @@ const UserDetailsModal = ({
                         required
                       />
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid size={{ xs: 12, md: 6 }}>
                       <PHInput
                         name="doctor.qualification"
                         label="Qualification"
@@ -635,7 +635,7 @@ const UserDetailsModal = ({
                         required
                       />
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid size={{ xs: 12, md: 6 }}>
                       <PHInput
                         name="doctor.designation"
                         label="Designation"
@@ -643,7 +643,7 @@ const UserDetailsModal = ({
                         required
                       />
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid size={{ xs: 12, md: 6 }}>
                       <PHInput
                         name="doctor.currentWorkingPlace"
                         label="Current Workplace"
@@ -651,7 +651,7 @@ const UserDetailsModal = ({
                         required
                       />
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid size={{ xs: 12, md: 6 }}>
                       <PHInput
                         name="doctor.apointmentFee"
                         label="Appointment Fee"
@@ -667,14 +667,14 @@ const UserDetailsModal = ({
           )}
 
           {(basicInfo.role === "ADMIN" || basicInfo.role === "SUPER_ADMIN") && (
-            <Grid item xs={12}>
+            <Grid size={12}>
               <Card>
                 <CardContent>
                   <Typography variant="h6" gutterBottom>
                     Administrator Information
                   </Typography>
                   <Grid container spacing={2}>
-                    <Grid item xs={12} md={6}>
+                    <Grid size={{ xs: 12, md: 6 }}>
                       <PHInput
                         name="admin.name"
                         label="Full Name"
@@ -682,7 +682,7 @@ const UserDetailsModal = ({
                         required
                       />
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid size={{ xs: 12, md: 6 }}>
                       <PHInput
                         name="admin.contactNumber"
                         label="Contact Number"
@@ -697,7 +697,7 @@ const UserDetailsModal = ({
           )}
 
           {/* Action Buttons */}
-          <Grid item xs={12}>
+          <Grid size={12}>
             <Stack direction="row" spacing={2} justifyContent="flex-end">
               <Button
                 variant="outlined"
@@ -730,7 +730,7 @@ const UserDetailsModal = ({
     return (
       <Grid container spacing={3}>
         {/* User Avatar and Basic Info */}
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Card>
             <CardContent sx={{ textAlign: "center" }}>
               <Avatar
@@ -778,7 +778,7 @@ const UserDetailsModal = ({
         </Grid>
 
         {/* Contact Information */}
-        <Grid item xs={12} md={8}>
+        <Grid size={{ xs: 12, md: 8 }}>
           <Card>
             <CardContent>
               <Typography
@@ -864,7 +864,7 @@ const UserDetailsModal = ({
     return (
       <Grid container spacing={3}>
         {/* Activity Summary */}
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Card>
             <CardContent>
               <Typography
@@ -906,7 +906,7 @@ const UserDetailsModal = ({
         </Grid>
 
         {/* Audit Log */}
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Card>
             <CardContent>
               <Typography

@@ -258,9 +258,11 @@ const BulkOperationToolbar = ({
   };
 
   // Handle retry failed operations
-  const handleRetryFailed = async () => {
-    const { operation, results } = resultsModal;
-    if (!operation || !results) return;
+  const handleRetryFailed = async (failedUserIds: string[]): Promise<BulkOperationResult> => {
+    const { operation } = resultsModal;
+    if (!operation) {
+      throw new Error("No operation specified for retry");
+    }
 
     try {
       const retryResult = await onBulkOperation(operation, {
@@ -277,9 +279,26 @@ const BulkOperationToolbar = ({
           operation,
           results: retryResult,
         });
+        return retryResult;
+      } else {
+        // If onBulkOperation returns void, create a default result
+        const defaultResult: BulkOperationResult = {
+          successful: [],
+          failed: failedUserIds.map(id => ({ userId: id, error: "Operation completed but no result returned" }))
+        };
+        return defaultResult;
       }
     } catch (error) {
       console.error("Retry operation failed:", error);
+      // Return a failed result for all users
+      const failedResult: BulkOperationResult = {
+        successful: [],
+        failed: failedUserIds.map(id => ({ 
+          userId: id, 
+          error: error instanceof Error ? error.message : "Unknown error occurred" 
+        }))
+      };
+      return failedResult;
     }
   };
 

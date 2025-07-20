@@ -2,11 +2,11 @@
 
 import { useScreenReaderAnnouncements } from "@/hooks/useScreenReaderAnnouncements";
 import {
-  useDeleteUserMutation,
-  useGetAllUsersQuery,
-  useGetUserStatsQuery,
-  useResetUserPasswordMutation,
-  useUpdateUserMutation,
+    useDeleteUserMutation,
+    useGetAllUsersQuery,
+    useGetUserStatsQuery,
+    useResetUserPasswordMutation,
+    useUpdateUserMutation,
 } from "@/redux/features/user/userApi";
 import { GetAllUsersParams, UserStatus } from "@/types/user";
 import { Alert, Box, Button, Stack, Typography } from "@mui/material";
@@ -28,7 +28,13 @@ type UserAction =
   | "resetPassword";
 
 const ManageUsersPage = () => {
-  const { announce, AnnouncementRegion } = useScreenReaderAnnouncements();
+  const { 
+    announcePolite, 
+    announceUserAction: _announceUserAction, 
+    announceBulkOperation: _announceBulkOperation, 
+    announceSearchResults,
+    announceSelectionChange 
+  } = useScreenReaderAnnouncements();
   const router = useRouter();
   const searchParams = useSearchParams();
   const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
@@ -239,13 +245,13 @@ const ManageUsersPage = () => {
   // Announce data loading status to screen readers
   useEffect(() => {
     if (isLoading) {
-      announce("Loading users...", "polite");
+      announcePolite("Loading users...");
     } else if (users.length > 0) {
-      announce(`Loaded ${users.length} users`, "polite");
+      announceSearchResults(users.length);
     } else if (!isLoading && users.length === 0) {
-      announce("No users found", "polite");
+      announcePolite("No users found");
     }
-  }, [isLoading, users.length, announce]);
+  }, [isLoading, users.length, announcePolite, announceSearchResults]);
 
   // Announce filter changes
   useEffect(() => {
@@ -257,9 +263,9 @@ const ManageUsersPage = () => {
       activeFilters.push("date range");
 
     if (activeFilters.length > 0) {
-      announce(`Filters applied: ${activeFilters.join(", ")}`, "polite");
+      announcePolite(`Filters applied: ${activeFilters.join(", ")}`);
     }
-  }, [filters, announce]);
+  }, [filters, announcePolite]);
 
   // Handle user actions
 
@@ -355,16 +361,9 @@ const ManageUsersPage = () => {
     (userIds: string[]) => {
       setSelectedUsers(userIds);
       // Announce selection changes to screen readers
-      if (userIds.length > 0) {
-        announce(
-          `${userIds.length} user${userIds.length !== 1 ? "s" : ""} selected`,
-          "polite",
-        );
-      } else {
-        announce("Selection cleared", "polite");
-      }
+      announceSelectionChange(userIds.length, users.length);
     },
-    [announce],
+    [announceSelectionChange, users.length],
   );
 
   // Handle pagination change
@@ -609,8 +608,7 @@ const ManageUsersPage = () => {
         />
       </Box>
 
-      {/* Screen Reader Announcement Region */}
-      <AnnouncementRegion />
+      {/* Screen Reader Announcement Region - handled by the hook internally */}
 
       {/* Placeholder modals - will be implemented in later tasks */}
       {/* CreateUserModal - task 8.1 */}

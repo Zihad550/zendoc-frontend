@@ -7,30 +7,30 @@ import PHModal from "@/components/Shared/PHModal/PHModal";
 import { USER_ROLE } from "@/contants/role";
 import { useGetAllSpecialtiesQuery } from "@/redux/features/specialties/specialtiesApi";
 import {
-  useCheckEmailUniquenessQuery,
-  useCreateUserMutation,
+    useCheckEmailUniquenessQuery,
+    useCreateUserMutation,
 } from "@/redux/features/user/userApi";
 import { CreateUserData, DoctorSpecificInfo } from "@/types/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  Alert,
-  Box,
-  Button,
-  Chip,
-  DialogActions,
-  FormControl,
-  FormControlLabel,
-  Grid,
-  InputLabel,
-  MenuItem,
-  OutlinedInput,
-  Select,
-  SelectChangeEvent,
-  Step,
-  StepLabel,
-  Stepper,
-  Switch,
-  Typography,
+    Alert,
+    Box,
+    Button,
+    Chip,
+    DialogActions,
+    FormControl,
+    FormControlLabel,
+    Grid,
+    InputLabel,
+    MenuItem,
+    OutlinedInput,
+    Select,
+    SelectChangeEvent,
+    Step,
+    StepLabel,
+    Stepper,
+    Switch,
+    Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
@@ -334,7 +334,7 @@ const CreateUserModal: React.FC<CreateUserModalProps> = ({
         return (
           <PHForm onSubmit={() => {}} resolver={zodResolver(basicInfoSchema)}>
             <Grid container spacing={2}>
-              <Grid item xs={12}>
+              <Grid size={12}>
                 <PHInput
                   name="email"
                   label="Email Address"
@@ -353,10 +353,10 @@ const CreateUserModal: React.FC<CreateUserModalProps> = ({
                   </Typography>
                 )}
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={12}>
                 <PHInput name="name" label="Full Name" fullWidth required />
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={12}>
                 <PHSelectField
                   name="role"
                   label="User Role"
@@ -369,14 +369,14 @@ const CreateUserModal: React.FC<CreateUserModalProps> = ({
                   required
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <PHInput
                   name="contactNumber"
                   label="Contact Number"
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={12}>
                 <PHInput name="address" label="Address" fullWidth />
               </Grid>
             </Grid>
@@ -393,7 +393,7 @@ const CreateUserModal: React.FC<CreateUserModalProps> = ({
               resolver={zodResolver(doctorInfoSchema)}
             >
               <Grid container spacing={2}>
-                <Grid item xs={12}>
+                <Grid size={12}>
                   <PHInput
                     name="qualification"
                     label="Qualification"
@@ -401,7 +401,7 @@ const CreateUserModal: React.FC<CreateUserModalProps> = ({
                     required
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid size={{ xs: 12, sm: 6 }}>
                   <PHInput
                     name="experience"
                     label="Experience (years)"
@@ -410,7 +410,7 @@ const CreateUserModal: React.FC<CreateUserModalProps> = ({
                     required
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid size={{ xs: 12, sm: 6 }}>
                   <PHInput
                     name="appointmentFee"
                     label="Appointment Fee"
@@ -419,7 +419,7 @@ const CreateUserModal: React.FC<CreateUserModalProps> = ({
                     required
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid size={12}>
                   <PHInput
                     name="registrationNumber"
                     label="Medical Registration Number"
@@ -427,17 +427,17 @@ const CreateUserModal: React.FC<CreateUserModalProps> = ({
                     required
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid size={{ xs: 12, sm: 6 }}>
                   <PHInput
                     name="currentWorkingPlace"
                     label="Current Working Place"
                     fullWidth
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid size={{ xs: 12, sm: 6 }}>
                   <PHInput name="designation" label="Designation" fullWidth />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid size={{ xs: 12, sm: 6 }}>
                   <PHSelectField
                     name="gender"
                     label="Gender"
@@ -445,7 +445,7 @@ const CreateUserModal: React.FC<CreateUserModalProps> = ({
                     required
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid size={12}>
                   <FormControl fullWidth required>
                     <InputLabel>Specialties</InputLabel>
                     <Select
@@ -508,7 +508,7 @@ const CreateUserModal: React.FC<CreateUserModalProps> = ({
             resolver={zodResolver(accountSettingsSchema)}
           >
             <Grid container spacing={3}>
-              <Grid item xs={12}>
+              <Grid size={12}>
                 <FormControlLabel
                   control={
                     <Switch
@@ -519,7 +519,7 @@ const CreateUserModal: React.FC<CreateUserModalProps> = ({
                   label="Send welcome email to user"
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={12}>
                 <FormControlLabel
                   control={
                     <Switch
@@ -536,7 +536,7 @@ const CreateUserModal: React.FC<CreateUserModalProps> = ({
                 />
               </Grid>
               {!accountSettingsMethods.watch("generatePassword") && (
-                <Grid item xs={12}>
+                <Grid size={12}>
                   <PHInput
                     name="customPassword"
                     label="Custom Password"
@@ -546,7 +546,7 @@ const CreateUserModal: React.FC<CreateUserModalProps> = ({
                   />
                 </Grid>
               )}
-              <Grid item xs={12}>
+              <Grid size={12}>
                 <Alert severity="info">
                   {formData.generatePassword ||
                   accountSettingsMethods.watch("generatePassword")

@@ -12,7 +12,7 @@ export const doctorProfileValidationSchema = z.object({
             .string()
             .min(3, "Registration number must be at least 3 characters"),
         gender: z.enum(["MALE", "FEMALE", "OTHER"], {
-            errorMap: () => ({ message: "Please select a valid gender" }),
+            message: "Please select a valid gender",
         }),
         experience: z
             .number()
@@ -50,7 +50,7 @@ export const doctorUpdateValidationSchema = z.object({
         .optional(),
     gender: z
         .enum(["MALE", "FEMALE", "OTHER"], {
-            errorMap: () => ({ message: "Please select a valid gender" }),
+            message: "Please select a valid gender",
         })
         .optional(),
     experience: z
